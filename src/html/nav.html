@@ -1,0 +1,45 @@
+<!-- Agent Academy — Sidebar Navigation -->
+<!-- © 2026 Andrés Muñoz / Masiv Integrations -->
+
+<nav class="sidebar">
+  <div class="s-logo" style="display:flex;flex-direction:column;gap:0">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start">
+  <div><div class="s-name">Agent<br>Academy</div>
+  <div class="s-badge">✦ v11.0</div>
+  <div class="s-sub">Claude · GPT · Agentes · Producción</div>
+  </div>
+  <button onclick="toggleDark()" id="dark-btn" title="Modo oscuro" style="background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:5px 8px;cursor:pointer;font-size:14px;line-height:1;color:var(--ink2);flex-shrink:0;margin-top:4px;transition:all .15s">🌙</button>
+  </div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-label"><span>Progreso</span><span id="prog-pct">0%</span></div>
+    <div class="prog-track"><div class="prog-fill" id="prog-fill"></div>
+    <div class="prog-modules" title="M1/M2/M3/M4/M5/M6/M7">
+      <div class="prog-m" id="pm1" title="M1"></div>
+      <div class="prog-m" id="pm2" title="M2"></div>
+      <div class="prog-m" id="pm3" title="M3"></div>
+      <div class="prog-m" id="pm3b" title="M4"></div>
+      <div class="prog-m" id="pm5" title="M5"></div>
+      <div class="prog-m" id="pm6" title="M6"></div>
+      <div class="prog-m" id="pm4" title="M7"></div>
+    </div>
+  </div>
+  <div class="nav-sec"><div class="nav-lbl">Inicio</div><button class="nb active" onclick="go('home',this)"><div class="ni">🏠</div>Inicio</button></div>
+  <div class="nav-sec"><div class="nav-lbl">M1 — IA Fundamental</div><button class="nb" onclick="go('intro-ia',this)"><div class="ni">💡</div>¿Qué es la IA?</button><button class="nb" onclick="go('claude101',this)"><div class="ni">🌟</div>Usar claude.ai</button><button class="nb" onclick="go('llms',this)"><div class="ni">🧠</div>Cómo funcionan los LLMs</button><button class="nb" onclick="go('rag',this)"><div class="ni">🔍</div>RAG y contexto</button><button class="nb" onclick="go('herramientas',this)"><div class="ni">🛠️</div>Herramientas Claude y GPT</button><button class="nb" onclick="go('ecosistema',this)"><div class="ni">🌐</div>Ecosistema y precios</button><button class="nb" onclick="go('costos',this)"><div class="ni">💰</div>Tokens y costos</button><button class="nb" onclick="go('quiz1',this)"><div class="ni">✏️</div>Quiz M1</button><button class="nb" onclick="go('cierre-m1',this)"><div class="ni">🏁</div>Cierre M1</button></div>
+  <div class="nav-sec"><div class="nav-lbl">M2 — Prompts y Agentes</div><button class="nb" onclick="go('prompting',this)"><div class="ni">✍️</div>Prompt Engineering</button><button class="nb" onclick="go('agentes',this)"><div class="ni">🤖</div>Arquitectura de Agentes</button><button class="nb" onclick="go('patrones',this)"><div class="ni">🧩</div>Patrones avanzados 1-4</button><button class="nb" onclick="go('patrones',this)"><div class="ni">⚡</div>Patrones avanzados 5-8</button><button class="nb" onclick="go('usos',this)"><div class="ni">📋</div>Cuándo usar agentes</button><button class="nb" onclick="go('plataformas',this)"><div class="ni">⚖️</div>Claude vs GPT</button><button class="nb" onclick="go('quiz2',this)"><div class="ni">✏️</div>Quiz M2</button><button class="nb" onclick="go('cierre-m2',this)"><div class="ni">🏁</div>Cierre M2</button></div>
+  <div class="nav-sec"><div class="nav-lbl">M3 — Plataformas y herramientas</div><button class="nb" onclick="go('mcp',this)"><div class="ni">🔌</div>MCP — ¿Qué es?</button><button class="nb" onclick="go('mcp-usar',this)"><div class="ni">⚙️</div>MCP — Cómo conectar</button><button class="nb" onclick="go('mcp-avanzado',this)"><div class="ni">🔧</div>MCP — Construir servidor</button><button class="nb" onclick="go('subagentes',this)"><div class="ni">🤝</div>Subagentes</button><button class="nb" onclick="go('console-org',this)"><div class="ni">🏢</div>Console — Workspaces</button><button class="nb" onclick="go('console-compilar',this)"><div class="ni">⚒️</div>Console — Compilar</button><button class="nb" onclick="go('console',this)"><div class="ni">🖥️</div>Managed Agents — Setup</button><button class="nb" onclick="go('managed',this)"><div class="ni">🔌</div>Managed Agents — Consumo</button><button class="nb" onclick="go('skills',this)"><div class="ni">🎯</div>Agent Skills</button><button class="nb" onclick="go('claude-code',this)"><div class="ni">💻</div>Claude Code</button><button class="nb" onclick="go('cowork',this)"><div class="ni">🖥️</div>Claude Cowork</button><button class="nb" onclick="go('quiz3a',this)"><div class="ni">✏️</div>Quiz M3</button><button class="nb" onclick="go('cierre-m3a',this)"><div class="ni">🏁</div>Cierre M3</button></div>
+  <div class="nav-sec"><div class="nav-lbl">M4 — Implementación práctica</div><button class="nb" onclick="go('nocode',this)"><div class="ni">⚡</div>Sin código (n8n)</button><button class="nb" onclick="go('python',this)"><div class="ni">🐍</div>Tutorial Python</button><button class="nb" onclick="go('tam',this)"><div class="ni">📄</div>Tu agente TAM</button><button class="nb" onclick="go('ejercicios',this)"><div class="ni">💪</div>Ejercicios prácticos</button><button class="nb" onclick="go('ejemplos',this)"><div class="ni">🏢</div>Casos por sector</button><button class="nb" onclick="go('quiz3',this)"><div class="ni">✏️</div>Quiz M4</button><button class="nb" onclick="go('cierre-m3',this)"><div class="ni">🏁</div>Cierre M4</button></div>
+  <div class="nav-sec"><div class="nav-lbl">M5 — AWS Bedrock</div><button class="nb" onclick="go('bedrock-intro',this)"><div class="ni">🟠</div>Bedrock — ¿Qué es?</button><button class="nb" onclick="go('bedrock-tech',this)"><div class="ni">⚙️</div>Bedrock — Arquitectura</button><button class="nb" onclick="go('bedrock-costos',this)"><div class="ni">💰</div>Bedrock — Costos</button><button class="nb" onclick="go('bedrock-practica',this)"><div class="ni">🧪</div>Bedrock — Lab práctico</button><button class="nb" onclick="go('bedrock-agents',this)"><div class="ni">🤖</div>Bedrock Agents y KB</button><button class="nb" onclick="go('quiz5',this)"><div class="ni">✏️</div>Quiz M5</button><button class="nb" onclick="go('cierre-m5',this)"><div class="ni">🏁</div>Cierre M5</button></div>
+  <div class="nav-sec"><div class="nav-lbl">M6 — Google Vertex AI</div><button class="nb" onclick="go('vertex-intro',this)"><div class="ni">🔵</div>Vertex — ¿Qué es?</button><button class="nb" onclick="go('vertex-tech',this)"><div class="ni">⚙️</div>Vertex — Código</button><button class="nb" onclick="go('vertex-practica',this)"><div class="ni">⚖️</div>Vertex vs Bedrock vs API</button><button class="nb" onclick="go('vertex-avanzado',this)"><div class="ni">🚀</div>Vertex Avanzado</button><button class="nb" onclick="go('quiz6',this)"><div class="ni">✏️</div>Quiz M6</button><button class="nb" onclick="go('cierre-m6',this)"><div class="ni">🏁</div>Cierre M6</button></div>
+  <div class="nav-sec"><div class="nav-lbl">M7 — Referencia y seguridad</div><button class="nb" onclick="go('glosario',this)"><div class="ni">📖</div>Glosario</button><button class="nb" onclick="go('seg-datos',this)"><div class="ni">🔒</div>Seguridad de datos</button><button class="nb" onclick="go('seg-api-vs-agents',this)"><div class="ni">⚡</div>API vs Managed Agents</button><button class="nb" onclick="go('seg-planes',this)"><div class="ni">📋</div>Planes y privacidad</button><button class="nb" onclick="go('seg-practicas',this)"><div class="ni">✅</div>Buenas prácticas</button><button class="nb" onclick="go('seg-advertencias',this)"><div class="ni">⚠️</div>Advertencias críticas</button><button class="nb" onclick="go('recursos',this)"><div class="ni">📚</div>Recursos</button><button class="nb" onclick="go('cierre-m4',this)"><div class="ni">🏁</div>Cierre M7</button></div>
+  <div class="nav-sec"><div class="nav-lbl">Evaluación</div><button class="nb" onclick="go('examen',this)"><div class="ni">🎓</div>Examen final</button></div>
+  <div class="author-block" style="padding:12px 18px 16px;margin-top:auto;border-top:1px solid var(--border)">
+    <div style="font-size:9px;color:var(--ink3);line-height:1.7;font-family:'Instrument Sans',sans-serif">
+      <div style="font-weight:700;color:var(--ink2);margin-bottom:3px;font-size:10px">Agent Academy v10</div>
+      Diseñado y construido por<br>
+      <strong style="color:var(--gold)">Andrés Muñoz — Masiv Integrations</strong><br>
+      <span style="opacity:.6">© 2026 · Todos los derechos reservados</span><br>
+      <span style="opacity:.5;font-size:8px">Reproducción prohibida sin autorización</span>
+    </div>
+  </div>
+</nav>
