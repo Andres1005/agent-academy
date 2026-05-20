@@ -2,27 +2,456 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="author" content="Andrés Muñoz — Masiv Integrations">
-<meta name="description" content="Agent Academy — Bootcamp de IA para equipos de integraciones. 7 módulos, 59 páginas, 6 quizzes y examen final.">
+<meta name="description" content="Agent Academy v5 — Bootcamp de IA con énfasis en Claude. Diseñado por Andrés para el equipo de Masiv.">
 <meta name="copyright" content="© 2026 Andrés Muñoz / Masiv Integrations. Todos los derechos reservados.">
 <meta name="robots" content="noindex,nofollow">
-<meta property="og:title" content="Agent Academy — Bootcamp de IA">
-<meta property="og:description" content="Desde LLMs hasta agentes en producción. Claude, AWS Bedrock, Vertex AI.">
-<meta property="og:type" content="website">
-<title>Agent Academy — Bootcamp de IA</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Agent Academy v11</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="icon" href="public/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="src/css/main.css">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Instrument+Sans:wght@400;500;600&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{margin:0;padding:0;scroll-behavior:auto}
+body{font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;font-size:14px}
+
+:root{
+--bg:#f5f3ee;--s1:#edeae3;--s2:#e4e0d8;--border:#d4cfc6;--border2:#c8c2b8;
+--ink:#1a1814;--ink2:#4a4640;--ink3:#8a8478;
+--gold:#b8860b;--gold-l:#fdf8ed;--gold-b:#e8d5a0;
+--blue:#2563eb;--blue-l:#eff6ff;--blue-b:#bfdbfe;
+--teal:#0d7377;--teal-l:#f0fdfa;--teal-b:#99f6e4;
+--green:#166534;--green-l:#f0fdf4;--green-b:#bbf7d0;
+--red:#dc2626;--red-l:#fef2f2;--red-b:#fecaca;
+--purple:#7c3aed;--purple-l:#f5f3ff;--purple-b:#ddd6fe;
+--orange:#c2410c;--orange-l:#fff7ed;--orange-b:#fed7aa;
+--slate:#334155;--slate-l:#f1f5f9;--slate-b:#cbd5e1;
+--r:8px;--r2:12px;
+}
+:root.dark{
+--bg:#0f0e0c;--s1:#181612;--s2:#221f1a;--border:#2e2b25;--border2:#3d3930;
+--ink:#e8e2d6;--ink2:#b5ad9e;--ink3:#6b6456;
+--gold:#d4a017;--gold-l:#1a1508;--gold-b:#3d2e00;
+--blue:#4d8ef5;--blue-l:#080f1f;--blue-b:#1a2d5a;
+--teal:#1fb8bd;--teal-l:#071213;--teal-b:#0d3f42;
+--green:#22c55e;--green-l:#071510;--green-b:#133d20;
+--red:#f87171;--red-l:#1a0707;--red-b:#4a1515;
+--purple:#a78bfa;--purple-l:#120d1f;--purple-b:#311d6b;
+--orange:#fb923c;--orange-l:#1a0d04;--orange-b:#4a2205;
+--slate:#94a3b8;--slate-l:#0d1117;--slate-b:#1e2d40;
+}
+*{transition:background-color .25s,border-color .25s,color .15s}
+.shell{display:flex;min-height:100vh}
+/* SIDEBAR */
+.sidebar{width:230px;min-width:230px;background:var(--s1);border-right:1px solid var(--border);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;flex-shrink:0}
+.s-logo{padding:16px 18px 14px;border-bottom:1px solid var(--border)}
+.prog-wrap{padding:10px 18px 8px;border-bottom:1px solid var(--border);background:var(--s1)}
+.prog-label{display:flex;justify-content:space-between;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin-bottom:5px}
+.prog-track{background:var(--s2);border-radius:4px;height:6px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:4px;transition:width .5s ease;width:0%}
+.prog-modules{display:flex;gap:2px;margin-top:5px}
+.prog-m{flex:1;height:3px;border-radius:2px;background:var(--s2);transition:background .4s}
+.prog-m.done{background:var(--green)}
+.prog-m.partial{background:var(--gold)}
+/* Attribution protection */
+.author-block{user-select:none;-webkit-user-select:none}
+.author-block *{pointer-events:none}
+.s-badge{display:inline-block;background:var(--gold-l);border:1px solid var(--gold-b);color:var(--gold);font-size:9px;font-weight:700;letter-spacing:.1em;padding:2px 7px;border-radius:20px;margin-bottom:8px;text-transform:uppercase}
+.s-name{font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:var(--ink);line-height:1.1;margin-bottom:3px}
+.s-sub{font-size:10px;color:var(--ink3);letter-spacing:.02em}
+.nav-sec{padding:10px 10px 4px}
+.nav-lbl{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);padding:0 8px;margin-bottom:4px}
+.nb{display:flex;align-items:center;gap:8px;width:100%;padding:7px 9px;border:none;background:transparent;border-radius:6px;font-family:'Instrument Sans',sans-serif;font-size:11.5px;color:var(--ink2);cursor:pointer;text-align:left;transition:all .14s;border-left:2px solid transparent;margin-bottom:1px}
+.nb:hover{background:var(--s2);color:var(--ink)}
+.nb.active{background:var(--s2);color:var(--ink);border-left-color:var(--gold);font-weight:600}
+.nb.active .ni{background:var(--gold-l);color:var(--gold)}
+.nb.done{opacity:.7}
+.nb.done::after{content:'✓';margin-left:auto;font-size:10px;color:var(--green)}
+.ni{width:22px;height:22px;border-radius:5px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+/* MAIN */
+.main{flex:1;overflow-y:auto;overflow-anchor:none}
+.page{display:none;min-height:100vh}
+.page.on{display:block}
+.pi{max-width:720px;margin:0 auto;padding:28px 32px 80px}
+.pi.wide{max-width:920px}
+/* TYPOGRAPHY */
+h1{font-family:'Fraunces',serif;font-size:34px;font-weight:900;line-height:1.12;margin-bottom:16px;color:var(--ink)}
+h2{font-family:'Fraunces',serif;font-size:20px;font-weight:700;margin:26px 0 10px;color:var(--ink)}
+h3{font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:700;margin:18px 0 8px;color:var(--ink)}
+p{margin-bottom:10px;color:var(--ink2);font-size:14px}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.ey{font-family:'Instrument Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.obj-bar{background:var(--teal-l);border:1px solid var(--teal-b);border-radius:var(--r);padding:9px 14px;margin:8px 0 16px;font-size:13px;color:var(--teal);line-height:1.5}
+/* NOTES */
+.note{border-radius:var(--r);padding:12px 14px;margin:12px 0;font-size:13px}
+.note-hd{font-weight:700;margin-bottom:5px;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.note.gold{background:var(--gold-l);border:1px solid var(--gold-b);color:var(--ink2)}.note.gold .note-hd{color:var(--gold)}
+.note.blue{background:var(--blue-l);border:1px solid var(--blue-b);color:var(--ink2)}.note.blue .note-hd{color:var(--blue)}
+.note.teal{background:var(--teal-l);border:1px solid var(--teal-b);color:var(--ink2)}.note.teal .note-hd{color:var(--teal)}
+.note.green{background:var(--green-l);border:1px solid var(--green-b);color:var(--ink2)}.note.green .note-hd{color:var(--green)}
+.note.red{background:var(--red-l);border:1px solid var(--red-b);color:var(--ink2)}.note.red .note-hd{color:var(--red)}
+.note.purple{background:var(--purple-l);border:1px solid var(--purple-b);color:var(--ink2)}.note.purple .note-hd{color:var(--purple)}
+.note.orange{background:var(--orange-l);border:1px solid var(--orange-b);color:var(--ink2)}.note.orange .note-hd{color:var(--orange)}
+.note.slate{background:var(--slate-l);border:1px solid var(--slate-b);color:var(--ink2)}.note.slate .note-hd{color:var(--slate)}
+/* TABLES */
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;overflow-x:auto;display:block}
+.tbl th{background:var(--s2);padding:8px 10px;text-align:left;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em;border-bottom:2px solid var(--border2)}
+.tbl td{padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--ink2)}
+.tbl tr:last-child td{border-bottom:none}
+/* CARDS */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:14px 0}
+.card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);padding:14px}
+.c-icon{font-size:22px;margin-bottom:8px}
+.c-title{font-weight:700;font-size:13px;margin-bottom:5px}
+.c-body{font-size:12.5px;color:var(--ink2);line-height:1.6}
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:0}
+.step{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border)}
+.step:last-child{border-bottom:none}
+.sn{width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.st{font-weight:700;font-size:13.5px;margin-bottom:4px}
+.sd{font-size:13px;color:var(--ink2);line-height:1.65}
+/* CODE */
+.code{background:#181610;border-radius:var(--r);padding:14px 16px;margin:10px 0;font-family:'DM Mono',monospace;font-size:11.5px;color:#cbc6b2;line-height:1.82;overflow-x:auto;position:relative;white-space:pre}
+.copy-btn{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:5px;color:#9a9480;font-size:10px;font-family:'Instrument Sans',sans-serif;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;cursor:pointer;transition:all .15s}
+.copy-btn:hover{background:rgba(255,255,255,.16);color:#fff}
+.kw{color:#cf8ef4}.str{color:#a8d8a8}.cm{color:#6b6b50;font-style:italic}.fn{color:#82aaff}.num{color:#f78c6c}.ic{background:var(--s2);border:1px solid var(--border2);border-radius:4px;padding:1px 5px;font-family:'DM Mono',monospace;font-size:11.5px}.cl{display:block;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:4px}
+/* ACCORDIONS */
+.acc{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);margin:8px 0;overflow:hidden}
+.acc-hd{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;user-select:none}
+.acc-hd:hover{background:var(--s2)}
+.acc-title{flex:1;font-weight:600;font-size:13.5px}
+.acc-arr{font-size:18px;color:var(--ink3);transition:transform .2s}
+.acc-body{display:none;padding:14px;border-top:1px solid var(--border)}
+.acc.open .acc-body{display:block}
+.acc.open .acc-arr{transform:rotate(90deg)}
+/* TABS */
+.wiz{background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin:12px 0}
+.wiz-tabs{display:flex;overflow-x:auto;border-bottom:1px solid var(--border)}
+.wt{padding:10px 14px;border:none;background:transparent;font-family:'Instrument Sans',sans-serif;font-size:12px;font-weight:600;color:var(--ink3);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
+.wt.active{color:var(--ink);border-bottom-color:var(--gold)}
+.wp{display:none;padding:16px}
+.wp.active{display:block}
+/* QUIZ */
+/* ── QUIZ ENGINE — one question at a time ── */
+.quiz-engine{max-width:660px;margin:0 auto}
+.quiz-progress-bar{height:4px;background:var(--s2);border-radius:2px;margin-bottom:20px;overflow:hidden}
+.quiz-progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:2px;transition:width .4s ease}
+.quiz-counter{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+.quiz-lvl-badge{font-size:10px;font-weight:600;background:var(--s2);padding:2px 8px;border-radius:10px;color:var(--ink3);letter-spacing:.05em}
+.quiz-q{font-size:15px;font-weight:700;line-height:1.5;color:var(--ink);margin:10px 0 18px}
+.qopts{display:flex;flex-direction:column;gap:8px}
+.qo{text-align:left;padding:12px 16px;border:1.5px solid var(--border);border-radius:var(--r2);background:var(--bg);font-family:inherit;font-size:13.5px;cursor:pointer;width:100%;color:var(--ink);transition:all .15s;display:flex;align-items:center;gap:10px}
+.qo::before{content:'';width:18px;height:18px;border-radius:50%;border:2px solid var(--border2);flex-shrink:0;transition:all .15s}
+.qo:hover:not(:disabled){background:var(--s2);border-color:var(--border2)}
+.qo:hover:not(:disabled)::before{border-color:var(--teal)}
+.qo.ok{background:var(--green-l);border-color:var(--green-b);color:var(--green);font-weight:600}
+.qo.ok::before{background:var(--green);border-color:var(--green);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='white' d='M2 6l3 3 5-5'/%3E%3C/svg%3E");background-size:12px;background-repeat:no-repeat;background-position:center}
+.qo.fail{background:var(--red-l);border-color:var(--red-b);color:var(--red)}
+.qo.fail::before{background:var(--red);border-color:var(--red);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='white' stroke='white' stroke-width='1' d='M3 3l6 6M9 3l-6 6'/%3E%3C/svg%3E");background-size:10px;background-repeat:no-repeat;background-position:center}
+.qo.show-ok{background:var(--green-l);border-color:var(--green-b);color:var(--green)}
+.qo:disabled{cursor:default}
+/* Feedback area — no correct answer revealed */
+.qfb{margin-top:14px;padding:12px 14px;border-radius:var(--r2);font-size:13px;display:none;line-height:1.6}
+.qfb.on{display:block}
+.qfb.on.ok{background:var(--green-l);border:1.5px solid var(--green-b)}
+.qfb.on.fail{background:var(--red-l);border:1.5px solid var(--red-b)}
+.qfb-icon{font-size:16px;margin-right:6px}
+.qfb-result{font-weight:700;margin-bottom:4px}
+.qfb-result.ok-txt{color:var(--green)}
+.qfb-result.fail-txt{color:var(--red)}
+.qfb-review{margin-top:8px;padding:8px 10px;background:var(--s2);border-radius:var(--r);font-size:12px;color:var(--ink2)}
+.qfb-review a{color:var(--teal);text-decoration:none;font-weight:600;cursor:pointer}
+.qfb-review a:hover{text-decoration:underline}
+/* Next button */
+.quiz-next-btn{margin-top:14px;padding:10px 24px;background:var(--ink);color:var(--bg);border:none;border-radius:var(--r);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;display:none;transition:opacity .2s}
+.quiz-next-btn.show{display:inline-block}
+.quiz-next-btn:hover{opacity:.85}
+/* Results panel */
+.quiz-results{background:var(--s1);border:1.5px solid var(--border);border-radius:var(--r2);padding:20px;margin-top:16px;display:none}
+.quiz-results.show{display:block}
+.quiz-results-score{font-size:28px;font-weight:800;color:var(--ink);margin-bottom:4px}
+.quiz-results-pct{font-size:13px;color:var(--ink3);margin-bottom:14px}
+.quiz-review-list{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.quiz-review-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--r);background:var(--bg);border:1px solid var(--border);font-size:12.5px}
+.quiz-review-item.needs-review{border-color:var(--red-b);background:var(--red-l)}
+.quiz-review-item.correct{border-color:var(--green-b);background:var(--green-l)}
+.qri-icon{font-size:14px;flex-shrink:0}
+.qri-lec{font-weight:600;color:var(--teal);cursor:pointer;text-decoration:none}
+.qri-lec:hover{text-decoration:underline}
+/* GLOSARIO */
+.gi{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);margin:6px 0}
+.gt{padding:11px 14px;font-weight:600;font-size:13px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.gt::after{content:'›';font-size:16px;color:var(--ink3);transition:transform .2s}
+.gi.open .gt::after{transform:rotate(90deg)}
+.gd{display:none;padding:12px 14px;border-top:1px solid var(--border);font-size:13px;color:var(--ink2)}
+.gi.open .gd{display:block}
+.gex{background:var(--s2);border-radius:var(--r);padding:10px 12px;margin:8px 0;font-size:12.5px}
+/* EXAMPLES BROWSER */
+.ex-list{display:flex;flex-direction:column;gap:4px;min-width:200px;max-width:220px;border-right:1px solid var(--border);overflow-y:auto;max-height:500px}
+.eli{padding:10px 12px;cursor:pointer;border-radius:var(--r);margin:2px;font-size:12px;border-left:2px solid transparent}
+.eli:hover{background:var(--s2)}
+.eli.active{background:var(--s2);border-left-color:var(--gold)}
+.els{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3)}
+.eln{font-weight:700;font-size:12px;margin:2px 0}
+.ela{font-size:11px;color:var(--ink3)}
+.exb{display:flex;gap:0;border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;min-height:400px}
+.ex-detail{flex:1;overflow-y:auto}
+.ex-tabs{display:flex;border-bottom:1px solid var(--border)}
+.et{padding:9px 14px;border:none;background:transparent;font-size:12px;font-weight:600;color:var(--ink3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.et.active{color:var(--ink);border-bottom-color:var(--gold)}
+.epane{display:none;padding:14px}
+.epane.active{display:block}
+.exd-t{font-family:'Fraunces',serif;font-size:18px;font-weight:700}
+.exd-sub{font-size:12px;color:var(--ink3);margin-bottom:10px}
+.exd-sl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin:12px 0 6px}
+.exd-val{background:var(--teal-l);border:1px solid var(--teal-b);border-radius:var(--r);padding:10px 12px;font-size:13px;color:var(--teal);margin:8px 0}
+.flow-step{display:flex;gap:10px;align-items:flex-start;padding:6px 0;font-size:12.5px}
+.flow-n{min-width:20px;height:20px;background:var(--ink);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:8px;margin:8px 0}
+.kpi{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:8px;text-align:center}
+.kpi-n{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--gold)}
+.kpi-l{font-size:10px;color:var(--ink3);line-height:1.3}
+.tag{display:inline-block;padding:2px 7px;border-radius:20px;font-size:10px;font-weight:700}
+.tag.tb{background:var(--blue-l);color:var(--blue)}.tag.tgr{background:var(--green-l);color:var(--green)}.tag.tr{background:var(--red-l);color:var(--red)}.tag.tg{background:var(--gold-l);color:var(--gold)}.tag.tp{background:var(--purple-l);color:var(--purple)}.tag.ts{background:var(--slate-l);color:var(--slate)}.tag.tt{background:var(--teal-l);color:var(--teal)}.tag.to{background:var(--orange-l);color:var(--orange)}
+/* ARCH DIAGRAM */
+.arch-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0}
+.an{padding:7px 12px;border-radius:var(--r);font-size:12px;font-weight:600;border:1px solid var(--border)}
+.an-c{background:var(--blue-l);border-color:var(--blue-b);color:var(--blue)}
+.an-a{background:var(--ink);color:#fff;border-color:var(--ink)}
+.an-t{background:var(--teal-l);border-color:var(--teal-b);color:var(--teal)}
+.an-ch{background:var(--green-l);border-color:var(--green-b);color:var(--green)}
+.arr{color:var(--ink3);font-size:14px}
+/* METRICS */
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;margin:16px 0}
+.metric{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:12px;text-align:center}
+.mn{font-family:'Fraunces',serif;font-size:24px;font-weight:900;color:var(--gold)}
+.ml{font-size:11px;color:var(--ink3);margin-top:2px}
+/* MOD CARDS */
+.mod-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:14px 0}
+.mod-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);padding:16px;cursor:pointer;transition:all .15s}
+.mod-card:hover{border-color:var(--gold);transform:translateY(-1px)}
+.mc-n{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:6px}
+.mc-icon{font-size:24px;margin-bottom:8px}
+.mc-title{font-family:'Fraunces',serif;font-size:16px;font-weight:700;margin-bottom:5px}
+.mc-desc{font-size:12px;color:var(--ink2);line-height:1.55;margin-bottom:8px}
+.mc-pill{font-size:10px;font-weight:700;background:var(--gold-l);color:var(--gold);padding:2px 8px;border-radius:20px}
+/* TUTORIAL */
+.tut-step{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);margin:8px 0}
+.tut-hd{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer}
+.tut-hd:hover{background:var(--s2)}
+.tut-n{width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.tut-lbl{font-weight:600;font-size:13.5px;flex:1}
+.tut-arr{font-size:18px;color:var(--ink3);transition:transform .2s}
+.tut-body{display:none;padding:14px;border-top:1px solid var(--border)}
+.tut-step.open .tut-body{display:block}
+.tut-step.open .tut-arr{transform:rotate(90deg)}
+.tut-step.done .tut-n{background:var(--green)}
+.done-btn{margin-top:12px;padding:8px 16px;background:var(--green);color:#fff;border:none;border-radius:var(--r);font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer}
+/* PROMPT BUILDER */
+.pb-editor{border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin:12px 0}
+.pb-row{display:flex;border-bottom:1px solid var(--border)}
+.pb-row:last-child{border-bottom:none}
+.pb-lbl{background:var(--s2);padding:10px 12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);min-width:100px;border-right:1px solid var(--border)}
+.pb-content{padding:10px 14px;font-size:13px;color:var(--ink2);flex:1;line-height:1.65}
+/* RESOURCES */
+.res-sec{margin:20px 0 6px;border-top:2px solid var(--border);padding-top:14px}
+.res-sec-title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
+.res-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.res-item:last-child{border-bottom:none}
+.res-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+.res-title{font-weight:700;font-size:13.5px;display:block;margin-bottom:3px}
+.res-desc{font-size:12.5px;color:var(--ink3)}
+/* EXERCISE */
+.ex-block{background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);padding:16px;margin:12px 0}
+.ex-block h4{font-size:13px;font-weight:700;margin-bottom:8px;color:var(--ink)}
+.ex-prompt{background:#181610;border-radius:var(--r);padding:12px;font-family:'DM Mono',monospace;font-size:12px;color:#cbc6b2;margin:8px 0;white-space:pre-wrap}
+/* NAV */
+.nav-btns{display:flex;gap:10px;margin-top:32px;flex-wrap:wrap}
+.btn{padding:10px 18px;border-radius:var(--r);font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .14s}
+.btn-p{background:var(--ink);color:#fff}.btn-p:hover{background:var(--ink2)}
+.btn-g{background:var(--s2);color:var(--ink);border:1px solid var(--border)}.btn-g:hover{background:var(--border)}
+/* LOADING */
+.loading-msg{text-align:center;padding:40px 20px;color:var(--ink3);font-size:14px}
+.spin{display:inline-block;width:20px;height:20px;border:2px solid var(--border2);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* HAMBURGER */
+.ham-btn{display:none;position:fixed;top:12px;left:12px;z-index:200;width:36px;height:36px;background:var(--ink);border:none;border-radius:var(--r);cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:4px}
+.ham-btn span{width:16px;height:2px;background:#fff;border-radius:1px;display:block}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:150}
+.sidebar-overlay.on{display:block}
+@media(max-width:580px){.pi{padding:24px 16px 70px}.sidebar{display:none}.ham-btn{display:flex!important}}
+@media(max-width:580px){.sidebar.mobile-open{display:flex!important;position:fixed;left:0;top:0;z-index:160;height:100vh;box-shadow:4px 0 20px rgba(0,0,0,.2)}}
+/* INLINE QUIZ SECTION RESUMEN */
+.mod-summary{background:var(--teal-l);border:1px solid var(--teal-b);border-radius:var(--r2);padding:16px;margin-bottom:20px}
+.mod-summary h3{color:var(--teal);margin-top:0;margin-bottom:10px}
+.mod-summary li{font-size:13px;color:var(--ink2);margin-bottom:6px;margin-left:16px}
+
+.qfb-explain{margin-top:6px;font-size:12.5px;color:var(--ink2);line-height:1.6;padding:6px 0}
+.qfb-body{margin-top:4px}
+
+@media(max-width:700px){.sidebar{transform:translateX(-100%);transition:transform .25s}.sidebar.open{transform:translateX(0)}.main{margin-left:0}}
+/* ── v12 IMPROVEMENTS ───────────────────────────────── */
+/* Tables responsive */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+/* Reading time badge */
+.read-time{display:inline-block;font-size:10px;background:var(--s2);color:var(--ink3);padding:2px 8px;border-radius:20px;margin-left:8px;font-weight:500;vertical-align:middle}
+/* Role badges */
+.role-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.4px}
+.role-pm{background:#e8f4fd;color:#1565c0}
+.role-tam{background:#e8f5e9;color:#2e7d32}
+.role-dev{background:#fef3e2;color:#e65100}
+.role-all{background:var(--s2);color:var(--ink3)}
+/* Executive summary */
+.exec-box{background:var(--gold-l,#fffde7);border:1.5px solid var(--gold-b,#f5c518);border-radius:var(--r2);padding:14px 18px;margin:14px 0 20px}
+.exec-box-hd{font-size:11px;font-weight:700;color:var(--gold,#b8860b);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.exec-box ul{margin:0;padding-left:18px}
+.exec-box li{font-size:13px;line-height:1.75;color:var(--ink2)}
+/* Home stat counters */
+.stat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:18px 0}
+.stat-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);padding:14px 8px;text-align:center}
+.stat-n{font-size:28px;font-weight:800;color:var(--teal);line-height:1}
+.stat-l{font-size:11px;color:var(--ink3);margin-top:4px;line-height:1.4}
+/* Role selector home */
+.role-sel{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+.role-btn{background:var(--s1);border:2px solid var(--border);border-radius:var(--r2);padding:14px 8px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;user-select:none}
+.role-btn:hover,.role-btn.active{border-color:var(--teal);background:var(--teal-l,#e0f7f4)}
+.role-btn .rb-ico{font-size:24px;display:block;margin-bottom:5px}
+.role-btn .rb-nm{font-size:12px;font-weight:700;color:var(--ink)}
+.role-btn .rb-ds{font-size:10px;color:var(--ink3);margin-top:3px;line-height:1.3}
+/* Star marker for role routes */
+.nb.role-match{position:relative}
+.nb.role-match::after{content:'★';position:absolute;right:7px;top:50%;transform:translateY(-50%);font-size:9px;color:var(--teal);pointer-events:none}
+/* Module cards on home */
+.mod-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.mod-card{background:var(--s1);border:1px solid var(--border);border-left:3px solid var(--teal);border-radius:var(--r2);padding:12px 14px}
+.mod-card-t{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.mod-card-d{font-size:12px;color:var(--ink2);line-height:1.5}
+.mod-card-m{font-size:10px;color:var(--ink3);margin-top:5px}
+/* Flip cards for closings */
+.flip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+.flip-card{perspective:600px;cursor:pointer;height:120px}
+.flip-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .45s}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--r2);display:flex;align-items:center;justify-content:center;text-align:center;padding:12px}
+.flip-front{background:var(--s1);border:1.5px solid var(--border);flex-direction:column;gap:5px}
+.flip-front .fi{font-size:20px}
+.flip-front .fh{font-size:11px;color:var(--ink3)}
+.flip-back{background:var(--teal);transform:rotateY(180deg);color:#fff;font-size:12px;font-weight:500;line-height:1.5}
+/* Glossary search */
+.glos-search{width:100%;padding:9px 14px;border:1.5px solid var(--border);border-radius:var(--r2);font-family:inherit;font-size:13px;background:var(--bg);color:var(--ink);margin-bottom:14px;display:block}
+.glos-search:focus{outline:none;border-color:var(--teal)}
+.glos-item{padding:9px 0;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:baseline}
+.glos-term{font-weight:700;font-size:13px;min-width:130px;color:var(--ink);flex-shrink:0}
+.glos-def{font-size:12.5px;color:var(--ink2);line-height:1.6}
+.glos-item.hidden{display:none!important}
+/* Reflection boxes */
+.refl{background:var(--s1);border-left:3px solid var(--orange);border-radius:0 var(--r2) var(--r2) 0;padding:13px 16px;margin:14px 0}
+.refl-q{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:7px}
+.refl-a{width:100%;min-height:72px;padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--r);font-family:inherit;font-size:12.5px;background:var(--bg);color:var(--ink);resize:vertical}
+.refl-a:focus{outline:none;border-color:var(--orange)}
+/* Toast */
+#aa-toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 20px;border-radius:40px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
+/* Cert */
+.cert{background:linear-gradient(135deg,var(--teal-l,#e0f7f4),var(--blue-l,#e8f4fd));border:2px solid var(--teal);border-radius:var(--r2);padding:22px;text-align:center;margin:14px 0}
+.cert-title{font-size:16px;font-weight:800;color:var(--teal)}
+.cert-name{font-size:24px;font-weight:800;color:var(--ink);margin:10px 0}
+/* Mobile */
+@media(max-width:700px){
+  .stat-grid{grid-template-columns:repeat(3,1fr)}
+  .role-sel{grid-template-columns:repeat(2,1fr)}
+  .mod-grid{grid-template-columns:1fr}
+  .flip-grid{grid-template-columns:repeat(2,1fr)}
+  .tbl{min-width:400px}
+}
+
+/* ── EJERCICIOS INTERACTIVOS v12 ──────────────────────── */
+
+/* Contenedor base del ejercicio */
+.ex-block{background:var(--s1);border:1.5px solid var(--border);border-left:4px solid var(--teal);border-radius:var(--r2);padding:18px 20px;margin:16px 0}
+.ex-label{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.ex-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:10px;line-height:1.4}
+.ex-desc{font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:14px}
+
+/* Escenarios clicables */
+.ex-scenarios{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.ex-scenario{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r);padding:11px 14px;cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink);line-height:1.5;text-align:left;width:100%;font-family:inherit}
+.ex-scenario:hover{border-color:var(--teal);background:var(--teal-l,#e0f7f4)}
+.ex-scenario.correct{border-color:var(--green,#166534)!important;background:#f0fdf4!important;color:var(--green,#166534)}
+.ex-scenario.wrong{border-color:var(--red,#dc2626)!important;background:#fef2f2!important;color:var(--red,#dc2626)}
+.ex-scenario.revealed{border-color:var(--green,#166534)!important;background:#f0fdf4!important}
+.ex-scenario-letter{font-weight:800;font-size:14px;min-width:22px;margin-top:1px}
+.ex-scenario .tag-ans{display:none;font-size:11px;font-weight:700;margin-left:auto;padding:2px 8px;border-radius:10px;white-space:nowrap}
+.ex-scenario.correct .tag-ans,.ex-scenario.revealed .tag-ans{display:inline-block;background:#dcfce7;color:#166534}
+.ex-scenario.wrong .tag-ans{display:inline-block;background:#fee2e2;color:#dc2626;content:'✗ Incorrecto'}
+
+/* Opciones múltiples (select one) */
+.ex-options{display:flex;flex-direction:column;gap:7px;margin:10px 0}
+.ex-opt{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r);padding:10px 14px;cursor:pointer;transition:all .18s;font-size:13px;color:var(--ink);text-align:left;width:100%;font-family:inherit;display:flex;align-items:center;gap:10px;line-height:1.5}
+.ex-opt:hover:not(:disabled){border-color:var(--teal);transform:translateX(2px)}
+.ex-opt.selected-correct{border-color:var(--green,#166534)!important;background:#f0fdf4!important;color:var(--green,#166534);font-weight:600}
+.ex-opt.selected-wrong{border-color:var(--red,#dc2626)!important;background:#fef2f2!important;color:var(--red,#dc2626)}
+.ex-opt.show-correct{border-color:var(--green,#166534)!important;background:#f0fdf4!important}
+.ex-opt:disabled{cursor:default;opacity:.85}
+.ex-opt-icon{font-size:16px;flex-shrink:0}
+
+/* Feedback tras responder */
+.ex-feedback{display:none;margin-top:12px;padding:12px 14px;border-radius:var(--r);font-size:13px;line-height:1.65}
+.ex-feedback.show{display:block}
+.ex-feedback.ok{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}
+.ex-feedback.fail{background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
+.ex-feedback strong{display:block;margin-bottom:4px;font-size:13.5px}
+
+/* Revelar respuesta */
+.reveal-btn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:8px 16px;background:var(--s2);border:1.5px solid var(--border);border-radius:var(--r);font-size:12.5px;font-weight:600;color:var(--ink2);cursor:pointer;font-family:inherit;transition:all .2s}
+.reveal-btn:hover{border-color:var(--teal);color:var(--teal)}
+.reveal-answer{display:none;margin-top:10px;padding:12px 14px;background:var(--s1);border:1.5px solid var(--border);border-radius:var(--r);font-size:13px;line-height:1.7;color:var(--ink)}
+.reveal-answer.show{display:block}
+.reveal-answer .ans-hd{font-weight:700;color:var(--teal);margin-bottom:6px;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+
+/* Checklist interactivo */
+.ex-checklist{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+.ex-check-item{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r);cursor:pointer;transition:all .18s;font-size:13px;color:var(--ink);user-select:none}
+.ex-check-item:hover{border-color:var(--teal)}
+.ex-check-item.checked{border-color:var(--green,#166534);background:#f0fdf4;color:var(--green,#166534)}
+.ex-check-box{width:18px;height:18px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .18s;background:var(--bg)}
+.ex-check-item.checked .ex-check-box{background:var(--green,#166534);border-color:var(--green,#166534);color:#fff}
+.ex-check-counter{display:inline-block;font-size:12px;color:var(--ink3);margin-top:8px}
+
+/* Match pairs */
+.ex-match{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.ex-match-col{display:flex;flex-direction:column;gap:6px}
+.ex-match-item{padding:9px 12px;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r);font-size:12.5px;cursor:pointer;transition:all .18s;color:var(--ink);line-height:1.4}
+.ex-match-item:hover{border-color:var(--teal)}
+.ex-match-item.selected{border-color:var(--teal);background:var(--teal-l,#e0f7f4);font-weight:600}
+.ex-match-item.matched{border-color:var(--green,#166534);background:#f0fdf4;color:var(--green,#166534);cursor:default}
+.ex-match-item.wrong-match{border-color:var(--red,#dc2626);background:#fef2f2;animation:shake .3s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}33%{transform:translateX(-4px)}66%{transform:translateX(4px)}}
+
+/* Escenario drag-select (non-technical) */
+.ex-tags{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.ex-tag{padding:7px 14px;background:var(--s1);border:1.5px solid var(--border);border-radius:20px;font-size:12.5px;cursor:pointer;transition:all .18s;color:var(--ink);user-select:none}
+.ex-tag:hover{border-color:var(--teal)}
+.ex-tag.tag-sel{border-color:var(--teal);background:var(--teal);color:#fff;font-weight:600}
+.ex-tag.tag-correct{border-color:var(--green,#166534)!important;background:#f0fdf4!important;color:var(--green,#166534)!important}
+.ex-tag.tag-wrong{border-color:var(--red)!important;background:#fef2f2!important;color:var(--red)!important}
+
+/* Progress bar del ejercicio */
+.ex-prog{margin:14px 0 4px;height:4px;background:var(--s2);border-radius:2px}
+.ex-prog-fill{height:100%;background:var(--teal);border-radius:2px;transition:width .4s}
+.ex-prog-label{font-size:11px;color:var(--ink3);margin-top:4px}
+
+@media(max-width:700px){
+  .ex-match{grid-template-columns:1fr}
+  .ex-scenario{flex-direction:column}
+}
+</style>
 </head>
 <body>
-
 <button class="ham-btn" id="ham-btn" onclick="toggleSidebar()"><span></span><span></span><span></span></button>
 <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
 <div class="shell">
-
 <nav class="sidebar">
   <div class="s-logo" style="display:flex;flex-direction:column;gap:0">
   <div style="display:flex;justify-content:space-between;align-items:flex-start">
@@ -50,55 +479,81 @@
   <div class="nav-sec"><div class="nav-lbl">M1 — IA Fundamental</div><button class="nb" onclick="go('intro-ia',this)"><div class="ni">💡</div>¿Qué es la IA?</button><button class="nb" onclick="go('claude101',this)"><div class="ni">🌟</div>Usar claude.ai</button><button class="nb" onclick="go('llms',this)"><div class="ni">🧠</div>Cómo funcionan los LLMs</button><button class="nb" onclick="go('rag',this)"><div class="ni">🔍</div>RAG y contexto</button><button class="nb" onclick="go('herramientas',this)"><div class="ni">🛠️</div>Herramientas Claude y GPT</button><button class="nb" onclick="go('ecosistema',this)"><div class="ni">🌐</div>Ecosistema y precios</button><button class="nb" onclick="go('costos',this)"><div class="ni">💰</div>Tokens y costos</button><button class="nb" onclick="go('quiz1',this)"><div class="ni">✏️</div>Quiz M1</button><button class="nb" onclick="go('cierre-m1',this)"><div class="ni">🏁</div>Cierre M1</button></div>
   <div class="nav-sec"><div class="nav-lbl">M2 — Prompts y Agentes</div><button class="nb" onclick="go('prompting',this)"><div class="ni">✍️</div>Prompt Engineering</button><button class="nb" onclick="go('agentes',this)"><div class="ni">🤖</div>Arquitectura de Agentes</button><button class="nb" onclick="go('patrones',this)"><div class="ni">🧩</div>Patrones avanzados 1-4</button><button class="nb" onclick="go('patrones',this)"><div class="ni">⚡</div>Patrones avanzados 5-8</button><button class="nb" onclick="go('usos',this)"><div class="ni">📋</div>Cuándo usar agentes</button><button class="nb" onclick="go('plataformas',this)"><div class="ni">⚖️</div>Claude vs GPT</button><button class="nb" onclick="go('quiz2',this)"><div class="ni">✏️</div>Quiz M2</button><button class="nb" onclick="go('cierre-m2',this)"><div class="ni">🏁</div>Cierre M2</button></div>
   <div class="nav-sec"><div class="nav-lbl">M3 — Plataformas y herramientas</div><button class="nb" onclick="go('mcp',this)"><div class="ni">🔌</div>MCP — ¿Qué es?</button><button class="nb" onclick="go('mcp-usar',this)"><div class="ni">⚙️</div>MCP — Cómo conectar</button><button class="nb" onclick="go('mcp-avanzado',this)"><div class="ni">🔧</div>MCP — Construir servidor</button><button class="nb" onclick="go('subagentes',this)"><div class="ni">🤝</div>Subagentes</button><button class="nb" onclick="go('console-org',this)"><div class="ni">🏢</div>Console — Workspaces</button><button class="nb" onclick="go('console-compilar',this)"><div class="ni">⚒️</div>Console — Compilar</button><button class="nb" onclick="go('console',this)"><div class="ni">🖥️</div>Managed Agents — Setup</button><button class="nb" onclick="go('managed',this)"><div class="ni">🔌</div>Managed Agents — Consumo</button><button class="nb" onclick="go('skills',this)"><div class="ni">🎯</div>Agent Skills</button><button class="nb" onclick="go('claude-code',this)"><div class="ni">💻</div>Claude Code</button><button class="nb" onclick="go('cowork',this)"><div class="ni">🖥️</div>Claude Cowork</button><button class="nb" onclick="go('quiz3a',this)"><div class="ni">✏️</div>Quiz M3</button><button class="nb" onclick="go('cierre-m3a',this)"><div class="ni">🏁</div>Cierre M3</button></div>
-  <div class="nav-sec"><div class="nav-lbl">M4 — Implementación práctica</div><button class="nb" onclick="go('nocode',this)"><div class="ni">⚡</div>Sin código (n8n)</button><button class="nb" onclick="go('python',this)"><div class="ni">🐍</div>Tutorial Python</button><button class="nb" onclick="go('tam',this)"><div class="ni">📄</div>Tu agente TAM</button><button class="nb" onclick="go('ejercicios',this)"><div class="ni">💪</div>Ejercicios prácticos</button><button class="nb" onclick="go('ejemplos',this)"><div class="ni">🏢</div>Casos por sector</button><button class="nb" onclick="go('quiz3',this)"><div class="ni">✏️</div>Quiz M4</button><button class="nb" onclick="go('cierre-m3',this)"><div class="ni">🏁</div>Cierre M4</button></div>
+  <div class="nav-sec"><div class="nav-lbl">M4 — Implementación práctica</div><button class="nb" onclick="go('nocode',this)"><div class="ni">⚡</div>Sin código (n8n)</button><button class="nb" onclick="go('python',this)"><div class="ni">🐍</div>Tutorial Python</button><button class="nb" onclick="go('tam',this)"><div class="ni">📄</div>Tu agente TAM</button><button class="nb" onclick="go('ejercicios',this)"><div class="ni">💪</div>Ejercicios prácticos</button><button class="nb" onclick="go('ejemplos',this)"><div class="ni">🏢</div>Casos por sector</button><button class="nb" onclick="go('quiz4',this)"><div class="ni">✏️</div>Quiz M4</button><button class="nb" onclick="go('cierre-m4',this)"><div class="ni">🏁</div>Cierre M4</button></div>
   <div class="nav-sec"><div class="nav-lbl">M5 — AWS Bedrock</div><button class="nb" onclick="go('bedrock-intro',this)"><div class="ni">🟠</div>Bedrock — ¿Qué es?</button><button class="nb" onclick="go('bedrock-tech',this)"><div class="ni">⚙️</div>Bedrock — Arquitectura</button><button class="nb" onclick="go('bedrock-costos',this)"><div class="ni">💰</div>Bedrock — Costos</button><button class="nb" onclick="go('bedrock-practica',this)"><div class="ni">🧪</div>Bedrock — Lab práctico</button><button class="nb" onclick="go('bedrock-agents',this)"><div class="ni">🤖</div>Bedrock Agents y KB</button><button class="nb" onclick="go('quiz5',this)"><div class="ni">✏️</div>Quiz M5</button><button class="nb" onclick="go('cierre-m5',this)"><div class="ni">🏁</div>Cierre M5</button></div>
   <div class="nav-sec"><div class="nav-lbl">M6 — Google Vertex AI</div><button class="nb" onclick="go('vertex-intro',this)"><div class="ni">🔵</div>Vertex — ¿Qué es?</button><button class="nb" onclick="go('vertex-tech',this)"><div class="ni">⚙️</div>Vertex — Código</button><button class="nb" onclick="go('vertex-practica',this)"><div class="ni">⚖️</div>Vertex vs Bedrock vs API</button><button class="nb" onclick="go('vertex-avanzado',this)"><div class="ni">🚀</div>Vertex Avanzado</button><button class="nb" onclick="go('quiz6',this)"><div class="ni">✏️</div>Quiz M6</button><button class="nb" onclick="go('cierre-m6',this)"><div class="ni">🏁</div>Cierre M6</button></div>
-  <div class="nav-sec"><div class="nav-lbl">M7 — Referencia y seguridad</div><button class="nb" onclick="go('glosario',this)"><div class="ni">📖</div>Glosario</button><button class="nb" onclick="go('seg-datos',this)"><div class="ni">🔒</div>Seguridad de datos</button><button class="nb" onclick="go('seg-api-vs-agents',this)"><div class="ni">⚡</div>API vs Managed Agents</button><button class="nb" onclick="go('seg-planes',this)"><div class="ni">📋</div>Planes y privacidad</button><button class="nb" onclick="go('seg-practicas',this)"><div class="ni">✅</div>Buenas prácticas</button><button class="nb" onclick="go('seg-advertencias',this)"><div class="ni">⚠️</div>Advertencias críticas</button><button class="nb" onclick="go('recursos',this)"><div class="ni">📚</div>Recursos</button><button class="nb" onclick="go('cierre-m4',this)"><div class="ni">🏁</div>Cierre M7</button></div>
+  <div class="nav-sec"><div class="nav-lbl">M7 — Referencia y seguridad</div><button class="nb" onclick="go('glosario',this)"><div class="ni">📖</div>Glosario</button><button class="nb" onclick="go('seg-datos',this)"><div class="ni">🔒</div>Seguridad de datos</button><button class="nb" onclick="go('seg-api-vs-agents',this)"><div class="ni">⚡</div>API vs Managed Agents</button><button class="nb" onclick="go('seg-planes',this)"><div class="ni">📋</div>Planes y privacidad</button><button class="nb" onclick="go('seg-practicas',this)"><div class="ni">✅</div>Buenas prácticas</button><button class="nb" onclick="go('seg-advertencias',this)"><div class="ni">⚠️</div>Advertencias críticas</button><button class="nb" onclick="go('recursos',this)"><div class="ni">📚</div>Recursos</button><button class="nb" onclick="go('cierre-m7',this)"><div class="ni">🏁</div>Cierre M7</button></div>
   <div class="nav-sec"><div class="nav-lbl">Evaluación</div><button class="nb" onclick="go('examen',this)"><div class="ni">🎓</div>Examen final</button></div>
   <div class="author-block" style="padding:12px 18px 16px;margin-top:auto;border-top:1px solid var(--border)">
     <div style="font-size:9px;color:var(--ink3);line-height:1.7;font-family:'Instrument Sans',sans-serif">
-      <div style="font-weight:700;color:var(--ink2);margin-bottom:3px;font-size:10px">Agent Academy v10</div>
+      <div style="font-weight:700;color:var(--ink2);margin-bottom:3px;font-size:10px">Agent Academy v11</div>
       Diseñado y construido por<br>
       <strong style="color:var(--gold)">Andrés Muñoz — Masiv Integrations</strong><br>
       <span style="opacity:.6">© 2026 · Todos los derechos reservados</span><br>
       <span style="opacity:.5;font-size:8px">Reproducción prohibida sin autorización</span>
     </div>
   </div>
+</div>
 </nav>
-
 <main class="main">
 <div class="page on" id="pg-home"><div class="pi">
 <div class="ey">Agent Academy · v11.0</div>
 <h1>Domina los Agentes<br>de Inteligencia Artificial</h1>
-<p style="font-size:15px;line-height:1.7">Desde cómo funciona un token hasta desplegar un agente en producción. Bootcamp completo con énfasis en Claude, casos reales y ejercicios prácticos.</p>
-<div class="note slate"><div class="note-hd">¿Para quién es este bootcamp? — Nivel y requisitos</div><p>
-<strong>Perfil objetivo:</strong> profesionales que usan o quieren usar IA en su trabajo diario — TAMs, PMs, consultores, líderes comerciales, operaciones. No se requiere saber programar.<br><br>
-<strong>Lo que asumimos que ya sabes:</strong> qué es la inteligencia artificial a grandes rasgos, has usado ChatGPT o Claude al menos una vez, entiendes qué es una API (aunque no la hayas usado).<br><br>
-<strong>Lo que aprenderás aquí:</strong> cómo funciona todo por dentro (suficiente para tomar decisiones técnicas), cómo diseñar agentes, cuánto cuestan, cómo implementarlos con o sin código, y cómo no cometer los errores más costosos.<br><br>
-<strong>Nivel:</strong> intermedio-avanzado. No explicamos qué es "la nube" — sí explicamos por qué tu agente de WhatsApp cuesta $0.0022 por mensaje y no $2.20.
-</p></div>
-<div class="note gold"><div class="note-hd">Al terminar este bootcamp serás capaz de</div><p>Explicar cómo funciona un LLM internamente · Diseñar prompts profesionales · Implementar patrones avanzados (RAG, Structured Outputs, Human-in-the-loop) · Crear y desplegar agentes reales con Claude Console · Gestionar costos y seguridad en producción</p></div>
+<p style="font-size:15px;line-height:1.75;color:var(--ink2);margin-bottom:20px">Desde cómo funciona un token hasta desplegar un agente en producción. 7 módulos, 59 páginas, casos reales y ejercicios prácticos. Diseñado para el equipo completo — técnico y no técnico.</p>
+
+<div class="stat-grid">
+<div class="stat-card"><div class="stat-n" data-count="59">59</div><div class="stat-l">páginas</div></div>
+<div class="stat-card"><div class="stat-n" data-count="7">7</div><div class="stat-l">módulos</div></div>
+<div class="stat-card"><div class="stat-n" data-count="8">8</div><div class="stat-l">casos reales</div></div>
+<div class="stat-card"><div class="stat-n" data-count="6">6</div><div class="stat-l">quizzes</div></div>
+<div class="stat-card"><div class="stat-n" data-count="15">15</div><div class="stat-l">horas totales</div></div>
+</div>
+
+<div class="note teal" style="margin:0 0 18px">
+<div class="note-hd">⏱️ ¿Cuánto tiempo toma?</div>
+<p><strong>Express (4h):</strong> M1 completo → Agentes → MCP → Casos → Examen. <strong>PM / No técnico (6h):</strong> M1 + M2 + Casos + Seguridad. <strong>TAM / Desarrollador (12h+):</strong> todos los módulos.</p>
+</div>
+
+<div class="note slate">
+<div class="note-hd">🎯 Elige tu ruta — las páginas clave se marcarán con ★ en el menú</div>
+<div class="role-sel">
+<div class="role-btn" data-role="pm" onclick="setRole('pm')">
+<span class="rb-ico">📋</span><div class="rb-nm">PM / Producto</div><div class="rb-ds">Estrategia, ROI y casos sin código</div>
+</div>
+<div class="role-btn" data-role="tam" onclick="setRole('tam')">
+<span class="rb-ico">⚡</span><div class="rb-nm">TAM / Integrador</div><div class="rb-ds">Implementación, APIs y configuración</div>
+</div>
+<div class="role-btn" data-role="dev" onclick="setRole('dev')">
+<span class="rb-ico">💻</span><div class="rb-nm">Desarrollador</div><div class="rb-ds">Código, arquitectura y despliegue</div>
+</div>
+<div class="role-btn" data-role="exec" onclick="setRole('exec')">
+<span class="rb-ico">🎯</span><div class="rb-nm">Ejecutivo</div><div class="rb-ds">Visión general y decisiones</div>
+</div>
+</div>
+<p style="font-size:11px;color:var(--ink3);margin-top:6px">Puedes cambiar tu ruta en cualquier momento. Las páginas con ★ son prioritarias para tu perfil.</p>
+</div>
+
+<h2>Módulos del bootcamp</h2>
 <div class="mod-grid">
-  <div class="mod-card" onclick="go('llms',nb('llms'))"><div class="mc-n">M1 · 5 secciones</div><div class="mc-icon">🧠</div><div class="mc-title">IA Fundamental</div><div class="mc-desc">Tokens, temperatura, embeddings, RAG, cómo genera Claude, ecosistema y costos</div><span class="mc-pill">Conceptual</span></div>
-  <div class="mod-card" onclick="go('prompting',nb('prompting'))"><div class="mc-n">M2 · 6 secciones</div><div class="mc-icon">✍️</div><div class="mc-title">Prompts y Agentes</div><div class="mc-desc">Prompt Engineering, agentes, 8 patrones avanzados, cuándo usar agentes, Claude vs GPT</div><span class="mc-pill">Estratégico</span></div>
-  <div class="mod-card" onclick="go('console',nb('console'))"><div class="mc-n">M3a+M3b · 13 secciones</div><div class="mc-icon">⚙️</div><div class="mc-title">Implementación</div><div class="mc-desc">MCP completo, Console, Skills, n8n, Python, agente TAM, 5 ejercicios, 12 casos</div><span class="mc-pill">Técnico</span></div>
-  <div class="mod-card" onclick="go('glosario',nb('glosario'))"><div class="mc-n">M4 · 3 secciones</div><div class="mc-icon">📖</div><div class="mc-title">Referencia</div><div class="mc-desc">Glosario técnico, seguridad y planes verificados, recursos y lecturas recomendadas</div><span class="mc-pill">Referencia</span></div>
+<div class="mod-card" style="border-left-color:var(--teal)"><div class="mod-card-t">🧠 M1 — IA Fundamental</div><div class="mod-card-d">Tokens, RAG, costos, ecosistema Claude</div><div class="mod-card-m">9 páginas · Conceptual · Sin código</div></div>
+<div class="mod-card" style="border-left-color:var(--orange)"><div class="mod-card-t">✏️ M2 — Prompts y Agentes</div><div class="mod-card-d">Prompt Engineering, 8 patrones, cuándo usar agentes</div><div class="mod-card-m">8 páginas · Estratégico</div></div>
+<div class="mod-card" style="border-left-color:var(--blue)"><div class="mod-card-t">🔧 M3 — Plataformas</div><div class="mod-card-d">MCP, Console, Managed Agents, Skills, Claude Code</div><div class="mod-card-m">13 páginas · Técnico / Práctico</div></div>
+<div class="mod-card" style="border-left-color:var(--green)"><div class="mod-card-t">🚀 M4 — Implementación</div><div class="mod-card-d">n8n, Python, agente TAM, 8 casos reales</div><div class="mod-card-m">7 páginas · Hands-on</div></div>
+<div class="mod-card" style="border-left-color:#ff9900"><div class="mod-card-t">☁️ M5 — AWS Bedrock</div><div class="mod-card-d">Claude en AWS, catálogo multi-modelo, Bedrock Agents</div><div class="mod-card-m">7 páginas · Cloud</div></div>
+<div class="mod-card" style="border-left-color:#4285f4"><div class="mod-card-t">🔵 M6 — Google Vertex AI</div><div class="mod-card-d">Grounding, RAG Engine, Veo 3, comparativa</div><div class="mod-card-m">6 páginas · Cloud</div></div>
 </div>
-<div class="metrics">
-  <div class="metric"><div class="mn">37</div><div class="ml">secciones</div></div>
-  <div class="metric"><div class="mn">8</div><div class="ml">patrones avanzados</div></div>
-  <div class="metric"><div class="mn">12</div><div class="ml">casos sectoriales</div></div>
-  <div class="metric"><div class="mn">5</div><div class="ml">ejercicios prácticos</div></div>
-  <div class="metric"><div class="mn">3</div><div class="ml">quizzes + examen</div></div>
+
+<div class="nav-btns">
+<button class="btn btn-p" style="font-size:15px;padding:12px 28px" onclick="go('intro-ia',nb('intro-ia'))">Comenzar M1 →</button>
+<button class="btn btn-g" onclick="go('glosario',nb('glosario'))">Ir al glosario</button>
 </div>
-<div class="nav-btns"><button class="btn btn-p" onclick="go('intro-ia',nb('intro-ia'))">Comenzar M1 →</button></div>
 </div></div>
 
 <!-- LLMS -->
 <!-- INTRO IA -->
 
 <div class="page" id="pg-intro-ia"><div class="pi">
-<div class="ey">M1 · 1 de 9</div>
+<div class="ey">M1 · 1 de 9 <span class="role-tag role-all">Todos</span></div>
 <div class="obj-bar">🎯 Un refresh de 5 minutos para alinear el vocabulario antes de entrar en detalle. Si ya sabes qué es la IA generativa, puedes saltar directamente a la siguiente sección.</div>
 <h1>¿Qué es la inteligencia<br>artificial generativa?</h1>
 
@@ -554,7 +1009,7 @@ Son independientes: puedes tener ambos o solo uno. El agente TAM usa la API; tú
 <!-- COSTOS -->
 
 <div class="page" id="pg-costos"><div class="pi">
-<div class="ey">M1 · 7 de 9</div>
+<div class="ey">M1 · 7 de 9 <span class="role-tag role-tam">TAM</span><span class="role-tag role-pm">PM</span></div>
 <div class="obj-bar">🎯 Al terminar: podrás calcular el costo de cualquier agente, comparar opciones de optimización y tomar decisiones informadas sobre qué modelo y qué plan usar.</div>
 <h1>Tokens, sesiones<br>y costos — números reales</h1>
 <div class="note slate"><div class="note-hd">Fuentes verificadas — mayo 2026</div><p><a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank">platform.claude.com/docs/pricing</a> · <a href="https://claude.com/pricing" target="_blank">claude.com/pricing</a>. Verifica siempre antes de presupuestar.</p></div>
@@ -782,6 +1237,16 @@ Primero estímalo mentalmente, luego usa la calculadora interactiva para verific
 <div class="ey">M1 · Cierre integrador</div>
 <div class="obj-bar">🎯 Consolidación práctica: aquí conectas todo lo aprendido en M1 — cómo funciona un LLM, tokens, modelos, costos y herramientas — en escenarios reales que puedes usar mañana.</div>
 <h1>Cierre M1 —<br>todo junto en la práctica</h1>
+<h3>Puntos clave del módulo — haz clic para revelar</h3>
+<div class="flip-grid">
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">🔤</span><strong style="font-size:12px">Tokens</strong><span class="fh">clic para ver</span></div><div class="flip-back">Un token ≈ 0.75 palabras. Output cuesta 5× más que input.</div></div></div>
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">🌡️</span><strong style="font-size:12px">Temperatura</strong><span class="fh">clic para ver</span></div><div class="flip-back">0 = determinista. 1 = creativo. Producción: 0-0.3.</div></div></div>
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">🔍</span><strong style="font-size:12px">RAG</strong><span class="fh">clic para ver</span></div><div class="flip-back">Busca docs relevantes en cada llamada. Mejor que Fine-tuning para datos dinámicos.</div></div></div>
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">💰</span><strong style="font-size:12px">Costos</strong><span class="fh">clic para ver</span></div><div class="flip-back">Sonnet: $3/$15 por 1M tokens. Un SOW ≈ $0.06.</div></div></div>
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">🏗️</span><strong style="font-size:12px">Plataformas</strong><span class="fh">clic para ver</span></div><div class="flip-back">Web ≠ API. Suscripción Pro no da acceso a la API.</div></div></div>
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">🌐</span><strong style="font-size:12px">Ecosistema</strong><span class="fh">clic para ver</span></div><div class="flip-back">Claude, Console, Managed Agents, Skills — un stack completo.</div></div></div>
+</div>
+
 
 <h2>El escenario completo — de cero a primera llamada</h2>
 <p>Tienes un cliente de sector retail que necesita automatizar la generación de reportes de ventas mensuales. Vamos a pensar esto desde lo que aprendiste en M1.</p>
@@ -910,7 +1375,7 @@ prompt_b = <span class="str">"Eres un TAM experto. Analiza y genera SOW con: res
 <!-- AGENTES -->
 
 <div class="page" id="pg-agentes"><div class="pi">
-<div class="ey">M2 · 2 de 8</div>
+<div class="ey">M2 · 2 de 8 <span class="role-tag role-all">Todos</span></div>
 <div class="obj-bar">🎯 Al terminar: distinguirás chatbot vs workflow vs agente, entenderás el loop agéntico completo y conocerás los 5 componentes de cualquier agente.</div>
 <h1>Agentes de IA</h1>
 
@@ -979,9 +1444,17 @@ Lee estos 3 casos y decide cuál tipo corresponde antes de ver la respuesta:<br>
 <!-- PATRONES AVANZADOS -->
 
 <div class="page" id="pg-patrones"><div class="pi">
-<div class="ey">M2 · 3 de 8</div>
+<div class="ey">M2 · 3 de 8 <span class="role-tag role-dev">DEV</span><span class="role-tag role-tam">TAM</span></div>
 <div class="obj-bar">🎯 Al terminar: conocerás los 8 patrones avanzados de implementación de agentes, con qué problema resuelve cada uno y cuándo usarlo.</div>
 <h1>8 patrones avanzados<br>de implementación</h1>
+<div class="exec-box">
+<div class="exec-box-hd">💡 Si no eres técnico — lo esencial en 3 puntos</div>
+<ul>
+<li><strong>ReAct</strong> = Claude piensa paso a paso antes de actuar. Reduce errores y permite auditar qué decidió el agente.</li>
+<li><strong>Structured Outputs</strong> = el agente siempre responde en JSON — tu sistema puede leer la respuesta como datos, no como texto libre.</li>
+<li><strong>Human-in-the-loop</strong> = para acciones irreversibles (enviar emails masivos, modificar BD) el agente pide confirmación antes de ejecutar. Obligatorio en producción.</li>
+</ul>
+</div>
 
 <div class="wiz"><div class="wiz-tabs">
   <button class="wt active" onclick="swTab('p1',this,'pat')">Patrones 1-4</button>
@@ -1367,6 +1840,16 @@ Elige el modelo más adecuado para cada proyecto:<br>
 <div class="ey">M2 · Cierre integrador</div>
 <div class="obj-bar">🎯 Conectas prompting, arquitectura de agentes y patrones avanzados en un solo caso real: el diseño completo de un agente de atención al cliente para sector bancario.</div>
 <h1>Cierre M2 —<br>diseñar un agente de principio a fin</h1>
+<h3>Puntos clave del módulo — haz clic para revelar</h3>
+<div class="flip-grid">
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">✏️</span><strong style="font-size:12px">Prompts</strong><span class="fh">clic para ver</span></div><div class="flip-back">Contexto + Tarea + Formato + Restricciones = prompt efectivo.</div></div></div>
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">🤖</span><strong style="font-size:12px">Agentes</strong><span class="fh">clic para ver</span></div><div class="flip-back">LLM + Herramientas + Memoria + Bucle de decisión.</div></div></div>
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">⚡</span><strong style="font-size:12px">ReAct</strong><span class="fh">clic para ver</span></div><div class="flip-back">Razona paso a paso antes de actuar. Auditable.</div></div></div>
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">🛑</span><strong style="font-size:12px">HITL</strong><span class="fh">clic para ver</span></div><div class="flip-back">Acciones irreversibles siempre necesitan confirmación humana.</div></div></div>
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">🔀</span><strong style="font-size:12px">Orquestación</strong><span class="fh">clic para ver</span></div><div class="flip-back">Divide tareas complejas en agentes especializados.</div></div></div>
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">📐</span><strong style="font-size:12px">Temperatura</strong><span class="fh">clic para ver</span></div><div class="flip-back">0 para extracción de datos. 0.5-0.7 para texto creativo.</div></div></div>
+</div>
+
 
 <h2>El caso: agente de soporte bancario en WhatsApp</h2>
 <p>Un banco mediano quiere atender consultas de saldo, bloqueos de tarjeta y dudas de productos por WhatsApp. Hoy usan 12 agentes humanos que atienden 800 mensajes/día. El objetivo: que la IA atienda el 70% autónomamente.</p>
@@ -1809,6 +2292,14 @@ Tienes que construir un sistema que: analiza emails entrantes, clasifica su urge
 <div class="ey">M3 · 5 de 13</div>
 <div class="obj-bar">🎯 Al terminar: entenderás la estructura completa de Console (organización → workspaces → API keys), cómo configurar límites de gasto y rate limits por workspace, y cómo administrar roles del equipo.</div>
 <h1>Console — organización,<br>workspaces y límites</h1>
+<div class="exec-box">
+<div class="exec-box-hd">💡 Si no eres técnico — lo esencial en 3 puntos</div>
+<ul>
+<li><strong>Workspace</strong> = una "cuenta" dentro de tu organización. Separa proyectos, clientes o entornos (dev/prod).</li>
+<li><strong>Spend Limits</strong> = techo de gasto mensual por Workspace. Evita sorpresas en la factura.</li>
+<li><strong>API Key</strong> = la contraseña que n8n o Python usan para llamar a Claude. Una key por Workspace = si se compromete una, las otras están seguras.</li>
+</ul>
+</div>
 
 <h2>La jerarquía de Console — tres niveles</h2>
 <p>Todo en Console está organizado en tres niveles que funcionan como capas concéntricas. Entender esto evita confusiones con límites, API keys y facturación.</p>
@@ -2123,6 +2614,14 @@ client.beta.files.<span class="fn">delete</span>(file_id)  <span class="cm"># Im
   <div class="ey">M3 · 7 de 13</div>
 <div class="obj-bar">🎯 Al terminar: entenderás qué son los Managed Agents de Anthropic, cómo crearlos en Console y cuáles son los 4 identificadores clave de un agente en producción.</div>
   <h1>Claude Console y<br>Managed Agents</h1>
+<div class="exec-box">
+<div class="exec-box-hd">💡 Si no eres técnico — lo esencial en 3 puntos</div>
+<ul>
+<li><strong>Console</strong> es el panel de control de tus agentes: ves logs, costos y errores en tiempo real sin código.</li>
+<li><strong>Workspaces</strong> = carpetas que separan proyectos. Un Workspace por cliente = costos y API keys aislados.</li>
+<li><strong>Managed Agents</strong> = Anthropic corre la infraestructura por ti. Tú defines qué hace el agente; ellos gestionan los servidores.</li>
+</ul>
+</div>
   <p>La plataforma para crear, configurar y operar agentes en producción. Esta sección explica cada concepto con detalle suficiente para implementarlo sin ambigüedades.</p>
 
   <h2>Dos plataformas distintas — no confundirlas</h2>
@@ -2281,6 +2780,14 @@ Tu equipo tiene un agente de soporte en producción. Un usuario de España abre 
   <div class="ey">M3 · 8 de 13</div>
   <div class="obj-bar">🎯 Al terminar: sabrás consumir el agente desde Postman, n8n, Python y Notion, y administrar el acceso para equipos con múltiples TAMs.</div>
   <h1>Managed Agents —<br>consumo y administración</h1>
+<div class="exec-box">
+<div class="exec-box-hd">💡 Si no eres técnico — lo esencial en 3 puntos</div>
+<ul>
+<li><strong>Managed Agents</strong> = agentes que corren en servidores de Anthropic, sin que tú instales nada. Pagas $0.08/hora de ejecución.</li>
+<li><strong>Vault</strong> = caja fuerte para credenciales (Drive, Notion, CRM). El agente las usa sin que tú las veas en el código.</li>
+<li><strong>Cuándo usarlos</strong>: cuando el agente necesita acceder a herramientas de terceros y quieres evitar gestionar servidores propios.</li>
+</ul>
+</div>
 <h2>Cómo consumir el agente desde distintas plataformas</h2>
   <div class="wiz"><div class="wiz-tabs">
     <button class="wt active" onclick="swTab('postman',this,'cons')">Postman / HTTP</button>
@@ -2685,6 +3192,14 @@ claude --plan "refactoriza auth" <span class="cm"># Plan Mode: muestra plan ante
 claude mcp add mi-servidor       <span class="cm"># Conecta un servidor MCP</span>
 claude --print "explica este error" <span class="cm"># Output solo a stdout, sin interacción</span></div>
 
+<div class="note green"><div class="note-hd">🧪 Prueba esto — Claude Code en la práctica</div>
+<p><strong>Nivel:</strong> TAM / Desarrollador<br><br>
+1. Instala Claude Code: <code>npm install -g @anthropic-ai/claude-code</code><br>
+2. En un proyecto existente (puede ser un directorio vacío) ejecuta: <code>claude</code><br>
+3. Pide: <em>"Crea un script Python que lea un CSV y muestre las primeras 5 filas"</em><br>
+4. Observa cómo Claude Code crea el archivo, ejecuta el código y te muestra el resultado.<br><br>
+<strong>Reflexión:</strong> ¿En qué tarea repetitiva de tu trabajo podrías usar Claude Code?</p>
+</div>
 <div class="nav-btns">
 <button class="btn btn-g" onclick="go('skills',nb('skills'))">← Agent Skills</button>
 <button class="btn btn-p" onclick="go('cowork',nb('cowork'))">Claude Cowork →</button>
@@ -2717,6 +3232,13 @@ claude --print "explica este error" <span class="cm"># Output solo a stdout, sin
 Cuando el cliente quiere automatizar pero no tiene equipo técnico. Ejemplo: un equipo de operaciones que recibe 50 contratos diarios en PDF, los renombra manualmente, los clasifica por cliente y los sube a Drive. Cowork puede automatizar ese flujo completo sin una línea de código.
 </p></div>
 
+<div class="note green"><div class="note-hd">🧪 Prueba esto — Automatización con Cowork</div>
+<p><strong>Nivel:</strong> PM / TAM — sin código necesario<br><br>
+1. Descarga Claude Cowork desde claude.ai<br>
+2. Crea una automatización simple: "Cuando reciba un email con asunto que contiene SOW, guarda el adjunto en una carpeta específica de Drive"<br>
+3. Prueba enviándote un email de prueba<br><br>
+<strong>Idea para tu equipo:</strong> ¿Qué tarea manual repetitiva hace tu equipo que Cowork podría automatizar?</p>
+</div>
 <div class="nav-btns">
 <button class="btn btn-g" onclick="go('claude-code',nb('claude-code'))">← Claude Code</button>
 <button class="btn btn-p" onclick="go('quiz3a',nb('quiz3a'))">Quiz M3 →</button>
@@ -2766,6 +3288,17 @@ Cuando el cliente quiere automatizar pero no tiene equipo técnico. Ejemplo: un 
 Sin esta arquitectura: el agente del equipo es un script de Python con la API key hardcoded, genera documentos genéricos sin los templates correctos, y los guarda localmente. Con esta arquitectura: el agente corre en producción con credenciales seguras, usa Skills especializados para cada tipo de documento, tiene su propio presupuesto controlado, y deja trazabilidad completa en Console.
 </p></div>
 
+<div class="ex-block" style="border-left-color:var(--orange)">
+<div class="ex-label">💭 Reflexión aplicada — M3A</div>
+<div class="ex-title">¿Qué herramienta usarías para conectar Claude al Drive de tu equipo?</div>
+<div class="ex-options">
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>MCP en claude.ai es ideal para uso individual — tú conectas tu Drive personal. Para gestionar credenciales de equipo (cada TAM con su Drive), necesitas algo más.')"><span class="ex-opt-icon">🔌</span> MCP en claude.ai — cada TAM activa su servidor</button>
+<button class="ex-opt" data-correct="true" onclick="exAnswer(this,true,'Managed Agents con Vault es la respuesta para equipos. Cada TAM tiene su vault_id con sus credenciales OAuth de Drive. El agente las usa automáticamente sin que el TAM las escriba en cada sesión.','')"><span class="ex-opt-icon">🤖</span> Managed Agents con Vault por TAM</button>
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>Copiar y pegar archivos manualmente elimina la automatización. El objetivo es que el agente acceda a Drive directamente.')"><span class="ex-opt-icon">📋</span> Copiar y pegar el contenido del Drive manualmente</button>
+</div>
+<div class="ex-feedback"></div>
+</div>
+
 <div class="nav-btns">
 <button class="btn btn-g" onclick="go('quiz3a',nb('quiz3a'))">← Quiz M3a</button>
 <button class="btn btn-p" onclick="go('nocode',nb('nocode'))">M3b: Implementación →</button>
@@ -2773,7 +3306,7 @@ Sin esta arquitectura: el agente del equipo es un script de Python con la API ke
 </div></div>
 
 <div class="page" id="pg-nocode"><div class="pi">
-  <div class="ey">M4 · 1 de 7</div>
+  <div class="ey">M4 · 1 de 7 <span class="role-tag role-pm">PM</span><span class="role-tag role-tam">TAM</span></div>
 <div class="obj-bar">🎯 Al terminar: entenderás cómo construir flujos de IA sin código usando n8n y Claude, y podrás diseñar tu primer workflow funcional.</div>
   <h1>Automatización sin código<br>con n8n + Claude</h1>
   <div class="note green"><div class="note-hd">Stack gratuito para empezar ($0/mes)</div><p>n8n cloud plan gratuito + $5 crédito gratuito de Anthropic + Google Drive/Sheets = stack completo para tu primer agente funcional sin gastar nada.</p></div>
@@ -2919,7 +3452,7 @@ Generas SOWs, FEs y Planes de Prueba de alta calidad.
 PROCESO para SOW:
 1. Verifica que tienes: cliente, producto, integraciones, canales, plazo, restricciones.
 2. Si falta algo crítico, PREGUNTA ANTES de generar.
-3. Estima complejidad: S(<20h) M(20-60h) L(60-120h) XL(>120h).
+3. Estima complejidad: S(&lt;20h) M(20-60h) L(60-120h) XL(&gt;120h).
 4. Genera el documento completo siguiendo el template.
 5. Ofrece guardar en Drive si está conectado.
 
@@ -2972,9 +3505,17 @@ Para cada contexto del equipo de integraciones, elige la versión del agente má
 <!-- PYTHON TUTORIAL — STATIC (no JS dependency) -->
 
 <div class="page" id="pg-python"><div class="pi">
-<div class="ey">M4 · 3 de 7</div>
+<div class="ey">M4 · 3 de 7 <span class="role-tag role-dev">DEV</span></div>
 <div class="obj-bar">🎯 Al terminar: tendrás un agente Python funcionando con tool use real, manejo de errores y los patrones de producción del módulo anterior implementados.</div>
 <h1>Tutorial Python —<br>agente con tool use</h1>
+<div class="exec-box">
+<div class="exec-box-hd">💡 Si no eres técnico — salta esta página o lee solo esto</div>
+<ul>
+<li>Esta página es para desarrolladores que implementarán los agentes en código.</li>
+<li>Como PM o TAM, lo que necesitas saber: Python llama a Claude con una línea de código. El resto es conectar herramientas alrededor.</li>
+<li>Los ejercicios de la siguiente página (n8n) logran lo mismo <strong>sin una línea de código</strong>.</li>
+</ul>
+</div>
 
 <div class="tut-step open" id="tut_0">
 <div class="tut-hd" onclick="toggleTut(0)"><div class="tut-n">1</div><div class="tut-lbl">🔍 Verificar entorno</div><div class="tut-arr">›</div></div>
@@ -3082,7 +3623,7 @@ client = anthropic.<span class="fn">Anthropic</span>(api_key=os.<span class="fn"
 <span class="kw">def</span> <span class="fn">estimar_horas</span>(integraciones: int, restricciones: bool) -> dict:
     base = integraciones * <span class="num">15</span>
     <span class="kw">if</span> restricciones: base = <span class="fn">int</span>(base * <span class="num">1.3</span>)
-    nivel = <span class="str">"S"</span> <span class="kw">if</span> base<<span class="num">20</span> <span class="kw">else</span> <span class="str">"M"</span> <span class="kw">if</span> base<<span class="num">60</span> <span class="kw">else</span> <span class="str">"L"</span> <span class="kw">if</span> base<<span class="num">120</span> <span class="kw">else</span> <span class="str">"XL"</span>
+    nivel = <span class="str">"S"</span> <span class="kw">if</span> base&lt;<span class="num">20</span> <span class="kw">else</span> <span class="str">"M"</span> <span class="kw">if</span> base&lt;<span class="num">60</span> <span class="kw">else</span> <span class="str">"L"</span> <span class="kw">if</span> base&lt;<span class="num">120</span> <span class="kw">else</span> <span class="str">"XL"</span>
     <span class="kw">return</span> {<span class="str">"horas"</span>: base, <span class="str">"nivel"</span>: nivel}
 
 <span class="kw">def</span> <span class="fn">guardar_doc</span>(nombre: str, contenido: str) -> dict:
@@ -3247,7 +3788,7 @@ EVAL_DATASET = [
 <!-- QUIZ 3 -->
 
 <div class="page" id="pg-ejemplos"><div class="pi">
-<div class="ey">M4 · 5 de 7</div>
+<div class="ey">M4 · 5 de 7 <span class="role-tag role-all">Todos</span></div>
 <div class="obj-bar">🎯 Al terminar: conocerás 6 casos reales de agentes en distintos sectores con arquitectura técnica y costo estimado.</div>
 <h1>Casos por sector —<br>6 agentes en producción</h1>
 <div class="page-content">
@@ -3311,11 +3852,11 @@ EVAL_DATASET = [
 </div>
 <div class="nav-btns">
 <button class="btn btn-g" onclick="go('ejercicios',nb('ejercicios'))">← Ejercicios prácticos</button>
-<button class="btn btn-p" onclick="go('quiz3',nb('quiz3'))">Quiz M4 →</button>
+<button class="btn btn-p" onclick="go('quiz4',nb('quiz4'))">Quiz M4 →</button>
 </div>
-</div></div>
+</div>
 
-<div class="page" id="pg-quiz3"><div class="pi">
+<div class="page" id="pg-quiz4"><div class="pi">
 <div class="ey">M4 · Quiz</div>
 <div class="mod-summary"><h3>📌 5 puntos clave del Módulo 3</h3><ul>
 <li><strong>agent_id + environment_id + vault_id = session:</strong> los 3 IDs se crean una vez y se reutilizan. El session_id es único por ejecución.</li>
@@ -3329,17 +3870,27 @@ EVAL_DATASET = [
 <div id="qz3-res" style="display:none" class="note green"><div class="note-hd">✓ M3 completado</div><p id="qz3-score"></p></div>
 <div class="nav-btns">
 <button class="btn btn-g" onclick="go('ejercicios',nb('ejercicios'))">← Ejercicios</button>
-<button class="btn btn-p" onclick="go('cierre-m3',nb('cierre-m3'))">M4: Referencia →</button>
+<button class="btn btn-p" onclick="go('cierre-m4',nb('cierre-m4'))">M4: Referencia →</button>
 </div>
 </div></div>
 
 <!-- GLOSARIO — STATIC -->
 <!-- CIERRE M3 -->
 
-<div class="page" id="pg-cierre-m3"><div class="pi">
+<div class="page" id="pg-cierre-m4"><div class="pi">
 <div class="ey">M4 · Cierre integrador</div>
 <div class="obj-bar">🎯 Conectas Console, Skills, n8n, Python y el agente del equipo en un único flujo de implementación completo — desde la idea hasta el primer agente en producción.</div>
 <h1>Cierre M3 —<br>del diseño a producción</h1>
+<h3>Puntos clave del módulo — haz clic para revelar</h3>
+<div class="flip-grid">
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">📊</span><strong style="font-size:12px">ROI real</strong><span class="fh">clic para ver</span></div><div class="flip-back">Agente TAM: $0.15/doc vs 3.75h humanas. ROI desde mes 1.</div></div></div>
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">🔌</span><strong style="font-size:12px">Integración</strong><span class="fh">clic para ver</span></div><div class="flip-back">API + n8n + Google Drive = flujo completo sin servidores.</div></div></div>
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">🏭</span><strong style="font-size:12px">Casos</strong><span class="fh">clic para ver</span></div><div class="flip-back">8 sectores reales: finanzas, retail, salud, logística, telecom.</div></div></div>
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">⚡</span><strong style="font-size:12px">Haiku vs Sonnet</strong><span class="fh">clic para ver</span></div><div class="flip-back">Haiku para volumen ($0.002/msg). Sonnet para complejidad ($0.014).</div></div></div>
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">🛡️</span><strong style="font-size:12px">Producción</strong><span class="fh">clic para ver</span></div><div class="flip-back">HITL + logs + alertas de costo = agente seguro.</div></div></div>
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">📈</span><strong style="font-size:12px">Escalar</strong><span class="fh">clic para ver</span></div><div class="flip-back">V1 (Web) → V2 (API+n8n) → V3 (Managed Agents).</div></div></div>
+</div>
+
 
 <h2>El proyecto: agente TAM completo para un equipo de 5 personas</h2>
 <p>Vas a implementar el agente que genera SOW + FE + Plan de Pruebas para el equipo de Masiv. 5 TAMs usan el agente. Cada uno tiene sus credenciales de Google Drive. El agente genera los 3 documentos en menos de 5 minutos.</p>
@@ -3396,7 +3947,7 @@ EVAL_DATASET = [
 </div>
 
 <div class="nav-btns">
-<button class="btn btn-g" onclick="go('quiz3',nb('quiz3'))">← Quiz M3</button>
+<button class="btn btn-g" onclick="go('quiz4',nb('quiz4'))">← Quiz M3</button>
 <button class="btn btn-p" onclick="go('bedrock-intro',nb('bedrock-intro'))">M5: AWS Bedrock →</button>
 </div>
 </div></div>
@@ -3633,6 +4184,29 @@ Tu usuario/rol IAM debe tener el permiso <span class="ic">bedrock:InvokeModel</s
 <div class="step"><div class="sn">?</div><div><div class="st">¿Estás empezando o tu stack no está en AWS?</div><div class="sd">→ API directa. Una API key y 5 minutos. Sin overhead de AWS IAM.</div></div></div>
 </div>
 
+<div class="note green"><div class="note-hd">🧪 Prueba esto — Decisión: Bedrock vs API directa</div>
+<p style="font-size:13px;margin-bottom:4px">Analiza estos dos escenarios y elige la mejor opción para cada uno:</p>
+<div class="ex-block">
+<div class="ex-label">Escenario A</div>
+<div class="ex-title">Tu app hace 10.000 llamadas/mes con Sonnet 4.6 (2K input, 1K output). No hay requisitos especiales de infraestructura.</div>
+<div class="ex-options">
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>A precio equivalente, la API directa es más simple y da acceso el mismo día a las últimas features. Bedrock añade latencia de proxy y los nuevos modelos llegan semanas después.')"><span class="ex-opt-icon">☁️</span> AWS Bedrock on-demand</button>
+<button class="ex-opt" data-correct="true" onclick="exAnswer(this,true,'A este volumen y sin requisitos especiales: la API directa de Anthropic es la opción más directa. Mismo precio, menos fricción, features el día 1.','')"><span class="ex-opt-icon">⚡</span> API directa de Anthropic</button>
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>Managed Agents añade $0.08/hora de sesión. Para consultas simples de ida y vuelta, no es la herramienta correcta.')"><span class="ex-opt-icon">🤖</span> Managed Agents de Console</button>
+</div>
+<div class="ex-feedback"></div>
+</div>
+<div class="ex-block" style="margin-top:10px">
+<div class="ex-label">Escenario B</div>
+<div class="ex-title">Un banco en AWS tiene política de zero-internet-egress: todo el tráfico debe quedar dentro de la VPC privada.</div>
+<div class="ex-options">
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>La API directa de Anthropic siempre requiere salida al internet público — incompatible con zero-internet-egress.')"><span class="ex-opt-icon">⚡</span> API directa de Anthropic</button>
+<button class="ex-opt" data-correct="true" onclick="exAnswer(this,true,'Con AWS PrivateLink, el tráfico de Lambda o EC2 a Claude en Bedrock nunca toca el internet público. Es la única opción viable para zero-internet-egress en AWS.','')"><span class="ex-opt-icon">☁️</span> AWS Bedrock con PrivateLink</button>
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>Vertex AI resuelve el requisito de residencia en GCP/GCE, no en AWS VPC. Para arquitecturas 100% AWS, Bedrock es la respuesta.')"><span class="ex-opt-icon">🔵</span> Google Vertex AI</button>
+</div>
+<div class="ex-feedback"></div>
+</div>
+</div>
 <div class="nav-btns">
 <button class="btn btn-g" onclick="go('bedrock-tech',nb('bedrock-tech'))">← Arquitectura y código</button>
 <button class="btn btn-p" onclick="go('bedrock-practica',nb('bedrock-practica'))">Lab práctico →</button>
@@ -3728,6 +4302,14 @@ AWS Console → Amazon Bedrock → Usage → filtrar por modelo y fecha. Verás 
 3. Verifica que estés en la región correcta (el modelo puede no estar en todas las regiones)
 </p></div>
 
+<div class="note green"><div class="note-hd">🧪 Prueba esto — Primera llamada a Bedrock</div>
+<p><strong>Prerequisito:</strong> Cuenta AWS con Bedrock habilitado en us-east-1<br><br>
+1. Habilita Claude Sonnet en Bedrock → Model access<br>
+2. Abre el Playground de Bedrock en la consola de AWS<br>
+3. Envía el prompt: <em>"Explica en 3 bullets qué es AWS Bedrock para alguien no técnico"</em><br>
+4. Compara la respuesta con lo que obtendrías en claude.ai<br><br>
+<strong>Observa:</strong> El modelo es el mismo. La diferencia está en dónde corre la infraestructura y cómo se factura.</p>
+</div>
 <div class="nav-btns">
 <button class="btn btn-g" onclick="go('bedrock-costos',nb('bedrock-costos'))">← Costos y decisión</button>
 <button class="btn btn-p" onclick="go('bedrock-agents',nb('bedrock-agents'))">Bedrock Agents →</button>
@@ -3781,6 +4363,30 @@ AWS tiene su propio sistema de agentes y RAG gestionados dentro de Bedrock — i
 <div class="card" style="border-top:3px solid var(--teal)"><div class="c-icon">📋</div><div class="c-title">Grounding Check</div><div class="c-body">Verifica que las respuestas estén fundamentadas en las fuentes de conocimiento del agente — reduce alucinaciones en agentes de soporte.</div></div>
 </div>
 
+<div class="note green"><div class="note-hd">🧪 Mapa de decisión — Bedrock Agents vs Managed Agents</div>
+<p style="font-size:13px;margin-bottom:12px">Para cada cliente, arrastra mentalmente hacia la plataforma correcta. Haz clic en tu elección:</p>
+<div class="ex-block">
+<div class="ex-title">Escenario: Cliente 100% en AWS, política de datos en VPC privada</div>
+<div class="ex-options">
+<button class="ex-opt" data-correct="true" onclick="exAnswer(this,true,'Correcto. En AWS con zero-internet-egress, Bedrock con PrivateLink mantiene todo dentro de la VPC. Managed Agents requiere salir a console.anthropic.com.','')"><span class="ex-opt-icon">☁️</span> Bedrock Agents</button>
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>Managed Agents requiere conectar a los servidores de Anthropic — incompatible con zero-internet-egress.')"><span class="ex-opt-icon">🤖</span> Managed Agents (Console)</button>
+</div><div class="ex-feedback"></div>
+</div>
+<div class="ex-block" style="margin-top:10px">
+<div class="ex-title">Escenario: Equipo interno de TAMs — necesitan Vaults con credenciales de Google Drive por usuario</div>
+<div class="ex-options">
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>Bedrock no tiene Vaults nativos. Tendrías que construir tu propio sistema de gestión de credenciales en AWS Secrets Manager.')"><span class="ex-opt-icon">☁️</span> Bedrock Agents</button>
+<button class="ex-opt" data-correct="true" onclick="exAnswer(this,true,'Exacto. Los Vaults de Managed Agents están diseñados exactamente para este caso: credenciales OAuth por usuario, write-only, sin que el TAM las vea en el código.','')"><span class="ex-opt-icon">🤖</span> Managed Agents (Console)</button>
+</div><div class="ex-feedback"></div>
+</div>
+<div class="ex-block" style="margin-top:10px">
+<div class="ex-title">Escenario: Startup que quiere un agente en producción en 48 horas, sin equipo de DevOps</div>
+<div class="ex-options">
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>Bedrock requiere configurar IAM roles, VPC, SDK — más setup inicial, pensado para equipos con infraestructura AWS ya existente.')"><span class="ex-opt-icon">☁️</span> Bedrock Agents</button>
+<button class="ex-opt" data-correct="true" onclick="exAnswer(this,true,'Managed Agents se activa desde la Console en minutos — sin infraestructura propia. Perfecto para ir rápido.','')"><span class="ex-opt-icon">🤖</span> Managed Agents (Console)</button>
+</div><div class="ex-feedback"></div>
+</div>
+</div>
 <div class="nav-btns">
 <button class="btn btn-g" onclick="go('bedrock-practica',nb('bedrock-practica'))">← Lab Bedrock</button>
 <button class="btn btn-p" onclick="go('quiz5',nb('quiz5'))">Quiz M5 →</button>
@@ -3850,6 +4456,18 @@ Masiv no tiene los requisitos de compliance o restricciones de VPC que justifica
 <tr><td><strong>AWS Bedrock</strong></td><td>Stack en AWS, HIPAA/FedRAMP, zero internet egress, multi-modelo boto3</td><td>Managed Agents de Anthropic, features nuevas día 0, mínima latencia</td></tr>
 <tr><td><strong>Google Vertex AI</strong></td><td>Stack en GCP, GDPR europeo, datos en BigQuery, video/música (Veo/Lyria)</td><td>Managed Agents de Anthropic, features nuevas día 0, mínima latencia</td></tr>
 </table>
+
+<div class="ex-block" style="border-left-color:var(--orange)">
+<div class="ex-label">💭 Reflexión aplicada — M5</div>
+<div class="ex-title">Un cliente tuyo opera 100% en AWS. ¿Qué argumento usarías para recomendar Bedrock sobre la API directa?</div>
+<div class="ex-options">
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>El precio on-demand de Bedrock es equivalente a la API directa de Anthropic — no hay ventaja de precio aquí.')"><span class="ex-opt-icon">💰</span> Es más barato que la API directa</button>
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>Los modelos disponibles son similares, aunque la API directa recibe los nuevos modelos antes que Bedrock.')"><span class="ex-opt-icon">🤖</span> Tiene más modelos disponibles</button>
+<button class="ex-opt" data-correct="true" onclick="exAnswer(this,true,'Este es el argumento clave: con AWS PrivateLink el tráfico nunca sale de la VPC. Para empresas con política de zero-internet-egress (común en finanzas y salud), Bedrock es la única opción viable. Además, la facturación queda dentro del contrato AWS del cliente.','')"><span class="ex-opt-icon">🔒</span> Zero-internet-egress con PrivateLink + facturación integrada en AWS</button>
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>Bedrock Agents y Managed Agents son plataformas separadas — Bedrock Agents tiene sus propias capacidades pero no es superior en todos los casos.')"><span class="ex-opt-icon">🚀</span> Bedrock Agents es mejor que Managed Agents</button>
+</div>
+<div class="ex-feedback"></div>
+</div>
 
 <div class="nav-btns">
 <button class="btn btn-g" onclick="go('quiz5',nb('quiz5'))">← Quiz M5</button>
@@ -3975,6 +4593,14 @@ print(response.content[<span class="num">0</span>].text)
 Los precios base de Claude en Vertex son los mismos que en la API directa de Anthropic. El endpoint regional y multi-region tienen un 10% adicional. Prompt caching disponible en Vertex con 1 hora de TTL (vs 5 minutos en la API directa de Anthropic).
 </p></div>
 
+<div class="note green"><div class="note-hd">🧪 Prueba esto — Diferencias clave en código</div>
+<p><strong>Nivel:</strong> Desarrollador<br><br>
+Compara las dos formas de instanciar Claude:<br><br>
+<strong>API directa:</strong> <code>client = Anthropic(api_key="sk-...")</code><br>
+<strong>Vertex AI:</strong> <code>client = AnthropicVertex(region="us-east5", project_id="mi-proyecto")</code><br><br>
+¿Qué diferencias notas? (Sin api_key en Vertex, usa credenciales ADC de GCP)<br><br>
+<strong>Pregunta de reflexión:</strong> Si un cliente ya tiene todo en Google Cloud, ¿por qué AnthropicVertex es preferible a la API directa?</p>
+</div>
 <div class="nav-btns">
 <button class="btn btn-g" onclick="go('vertex-intro',nb('vertex-intro'))">← ¿Qué es Vertex?</button>
 <button class="btn btn-p" onclick="go('vertex-practica',nb('vertex-practica'))">Comparativa y decisión →</button>
@@ -4030,6 +4656,33 @@ Los precios base de Claude en Vertex son los mismos que en la API directa de Ant
 <tr><td>Prompt Cache TTL</td><td>5 minutos</td><td>5 minutos</td><td>1 hora ⭐</td><td>1 hora ⭐</td></tr>
 </table>
 
+<div class="note green"><div class="note-hd">🧪 Elige la plataforma correcta — 4 escenarios</div>
+<p style="font-size:13px;margin-bottom:10px">Haz clic en la mejor opción para cada cliente. Recibirás feedback inmediato.</p>
+<div class="ex-block">
+<div class="ex-title">🏦 Empresa española, datos de clientes europeos, GDPR estricto — datos no pueden salir de la UE</div>
+<div class="ex-options">
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>La API de Anthropic procesa principalmente en EE.UU. Sin garantía de residencia en la UE.')"><span class="ex-opt-icon">⚡</span> API directa de Anthropic</button>
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>Bedrock tiene regiones europeas, pero Vertex con europe-west4 está mejor posicionado para cumplimiento GDPR explícito.')"><span class="ex-opt-icon">☁️</span> AWS Bedrock (eu-west-1)</button>
+<button class="ex-opt" data-correct="true" onclick="exAnswer(this,true,'Vertex AI con endpoint europe-west4 (Países Bajos) garantiza que el procesamiento queda en suelo europeo. Es la elección más directa para GDPR estricto.','')"><span class="ex-opt-icon">🔵</span> Vertex AI (europe-west4)</button>
+</div><div class="ex-feedback"></div>
+</div>
+<div class="ex-block" style="margin-top:10px">
+<div class="ex-title">🚀 Startup de 3 personas — quieren prototipar en 1 día, sin cuenta AWS ni GCP</div>
+<div class="ex-options">
+<button class="ex-opt" data-correct="true" onclick="exAnswer(this,true,'La API directa se activa en minutos: crear cuenta en console.anthropic.com, obtener API key, instalar el SDK. Sin configurar IAM, VPCs ni proyectos cloud.','')"><span class="ex-opt-icon">⚡</span> API directa de Anthropic</button>
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>AWS requiere cuenta, configurar IAM roles y habilitar Bedrock. Más setup que la API directa para empezar.')"><span class="ex-opt-icon">☁️</span> AWS Bedrock</button>
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>GCP requiere proyecto, billing, habilitar APIs. Más fricción inicial que la API directa de Anthropic.')"><span class="ex-opt-icon">🔵</span> Google Vertex AI</button>
+</div><div class="ex-feedback"></div>
+</div>
+<div class="ex-block" style="margin-top:10px">
+<div class="ex-title">🎬 Empresa de medios — quiere generar videos promocionales de 30 segundos desde texto en su pipeline</div>
+<div class="ex-options">
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>La API de Anthropic no tiene generación de video. Solo texto, imágenes (visión) y documentos.')"><span class="ex-opt-icon">⚡</span> API directa de Anthropic</button>
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>Bedrock tiene acceso a modelos de imagen de Amazon Titan, pero no a generación de video con Veo 3.')"><span class="ex-opt-icon">☁️</span> AWS Bedrock</button>
+<button class="ex-opt" data-correct="true" onclick="exAnswer(this,true,'Veo 3 (generación de video) es exclusivo de Google Vertex AI. No existe en Bedrock ni en la API de Anthropic. Para video desde texto: Vertex es la única opción cloud gestionada.','')"><span class="ex-opt-icon">🔵</span> Google Vertex AI (Veo 3)</button>
+</div><div class="ex-feedback"></div>
+</div>
+</div>
 <div class="nav-btns">
 <button class="btn btn-g" onclick="go('vertex-tech',nb('vertex-tech'))">← Código y endpoints</button>
 <button class="btn btn-p" onclick="go('vertex-avanzado',nb('vertex-avanzado'))">Vertex Avanzado →</button>
@@ -4103,6 +4756,30 @@ response = client.messages.<span class="fn">create</span>(
 Grounding con Google Search es una funcionalidad nativa de Gemini en Vertex. Para Claude en Vertex, está disponible en preview. Verifica la disponibilidad actual en la documentación de Vertex AI antes de usarlo en producción con Claude.
 </p></div>
 
+<div class="note green"><div class="note-hd">🧪 ¿Exclusivo de Vertex o disponible en todos?</div>
+<p style="font-size:13px;margin-bottom:10px">Para cada feature, elige si es exclusivo de Vertex AI o si también existe en otras plataformas:</p>
+<div class="ex-block">
+<div class="ex-title">Grounding con Google Search — respuestas ancladas en búsquedas en tiempo real</div>
+<div class="ex-options">
+<button class="ex-opt" data-correct="true" onclick="exAnswer(this,true,'Correcto. Grounding con Google Search es exclusivo de Vertex AI. Ni la API de Anthropic ni Bedrock tienen acceso a Google Search integrado.','')"><span class="ex-opt-icon">🔵</span> Exclusivo de Vertex AI</button>
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>Grounding con Google Search solo existe en Vertex. En la API de Anthropic puedes usar web_search como tool, pero no es búsqueda en tiempo real de Google.')"><span class="ex-opt-icon">🌐</span> También en API directa y Bedrock</button>
+</div><div class="ex-feedback"></div>
+</div>
+<div class="ex-block" style="margin-top:10px">
+<div class="ex-title">Prompt Caching — reutilizar el system prompt al 10% del precio en llamadas repetidas</div>
+<div class="ex-options">
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>Prompt Caching está disponible en la API directa de Anthropic, en AWS Bedrock y en Vertex AI. No es exclusivo.')"><span class="ex-opt-icon">🔵</span> Exclusivo de Vertex AI</button>
+<button class="ex-opt" data-correct="true" onclick="exAnswer(this,true,'Exacto. Prompt Caching está disponible en las tres plataformas: API directa, Bedrock y Vertex. El TTL varía: 5 min en API/Bedrock, 1 hora en Vertex.','')"><span class="ex-opt-icon">🌐</span> Disponible en todas las plataformas</button>
+</div><div class="ex-feedback"></div>
+</div>
+<div class="ex-block" style="margin-top:10px">
+<div class="ex-title">Veo 3 — generación de video a partir de texto</div>
+<div class="ex-options">
+<button class="ex-opt" data-correct="true" onclick="exAnswer(this,true,'Correcto. Veo 3 es un modelo de Google DeepMind, exclusivo del ecosistema Google (Vertex AI). No existe en Bedrock ni en la API de Anthropic.','')"><span class="ex-opt-icon">🔵</span> Exclusivo de Vertex AI</button>
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>Veo 3 es de Google, solo en Vertex. Bedrock tiene acceso a Stability AI para imágenes, pero no a generación de video.')"><span class="ex-opt-icon">🌐</span> También en Bedrock</button>
+</div><div class="ex-feedback"></div>
+</div>
+</div>
 <div class="nav-btns">
 <button class="btn btn-g" onclick="go('vertex-practica',nb('vertex-practica'))">← Comparativa Vertex/Bedrock/API</button>
 <button class="btn btn-p" onclick="go('quiz6',nb('quiz6'))">Quiz M6 →</button>
@@ -4147,6 +4824,18 @@ Grounding con Google Search es una funcionalidad nativa de Gemini en Vertex. Par
 <strong>Agente para cliente europeo en GCP:</strong> Vertex con endpoint EU — GDPR, integración BigQuery, ADC nativo.
 </p></div>
 
+<div class="ex-block" style="border-left-color:var(--orange)">
+<div class="ex-label">💭 Reflexión aplicada — M6</div>
+<div class="ex-title">¿Cuál de estos casos de tu equipo se beneficiaría más de Grounding con Google Search?</div>
+<div class="ex-options">
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>Los SOWs se basan en templates internos y datos del cliente — información que no cambia por el día. Grounding no añade valor aquí; RAG con tus propios documentos es mejor.')"><span class="ex-opt-icon">📄</span> Generar SOWs para clientes</button>
+<button class="ex-opt" data-correct="true" onclick="exAnswer(this,true,'Exacto. Las tarifas de telecomunicaciones, costos de WhatsApp Business y precios de APIs cambian frecuentemente. Grounding ancla las respuestas en información verificada y actualizada de Google Search — evita que Claude invente precios o dé datos desactualizados.','')"><span class="ex-opt-icon">📡</span> Responder preguntas sobre tarifas de telecomunicaciones actuales</button>
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>Para clasificar tickets internos, el modelo ya tiene el contexto necesario en el system prompt. No necesitas datos externos en tiempo real.')"><span class="ex-opt-icon">🎫</span> Clasificar tickets de soporte internos</button>
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>Para calcular ROI de un proyecto, los datos son los del cliente (internos). RAG con documentos de la empresa es más apropiado que búsqueda en tiempo real.')"><span class="ex-opt-icon">📊</span> Calcular el ROI de un proyecto de integración</button>
+</div>
+<div class="ex-feedback"></div>
+</div>
+
 <div class="nav-btns">
 <button class="btn btn-g" onclick="go('quiz6',nb('quiz6'))">← Quiz M6</button>
 <button class="btn btn-p" onclick="go('glosario',nb('glosario'))">M7: Referencia →</button>
@@ -4157,6 +4846,8 @@ Grounding con Google Search es una funcionalidad nativa de Gemini en Vertex. Par
 <div class="ey">M7 · 1 de 8</div>
 <div class="obj-bar">🎯 Al terminar: tendrás un vocabulario preciso para hablar de IA, agentes y plataformas con cualquier audiencia — técnica o comercial.</div>
 <h1>Glosario técnico</h1>
+<input class="glos-search" type="text" placeholder="🔍 Buscar término..." oninput="searchGlosario(this.value)">
+
 <p>Términos ordenados por dependencia — empieza desde arriba. Haz clic para expandir.</p>
 <div class="acc"><div class="acc-hd" onclick="toggleAcc(this)"><span>📋</span><span>Conceptos de LLMs</span></div><div class="acc-body">
 
@@ -4256,7 +4947,7 @@ Identifica el término correcto para cada descripción:<br>
 <em>A→Token, B→System Prompt, C→Tool Parallelism, D→Ventana de contexto</em>
 </p></div>
 </div></div><div class="nav-btns">
-<button class="btn btn-g" onclick="go('quiz3',nb('quiz3'))">← Quiz M3</button>
+<button class="btn btn-g" onclick="go('quiz4',nb('quiz4'))">← Quiz M3</button>
 <button class="btn btn-p" onclick="go('seg-datos',nb('seg-datos'))">M4: Referencia →</button>
 </div>
 </div></div>
@@ -4488,7 +5179,7 @@ Tu empresa maneja datos de pacientes (HIPAA). El equipo quiere un agente que acc
 </div></div>
 
 <div class="page" id="pg-seg-planes"><div class="pi">
-<div class="ey">M7 · 4 de 8</div>
+<div class="ey">M7 · 4 de 8 <span class="role-tag role-pm">PM</span><span class="role-tag role-all">Todos</span></div>
 <div class="obj-bar">🎯 Diferencias reales entre cada plan: qué incluye en privacidad, seguridad, límites y precio. Con criterios concretos para saber cuál necesitas.</div>
 <h1>Planes — qué incluye<br>cada uno en detalle</h1>
 
@@ -4644,6 +5335,26 @@ Team Standard para el equipo que usa claude.ai en el navegador (con garantías e
 <div class="step"><div class="sn">?</div><div><div class="st">¿Tienes requisitos de HIPAA, GDPR estricto, residencia de datos o más de 150 usuarios?</div><div class="sd">→ Enterprise. Contactar al equipo de ventas de Anthropic.</div></div></div>
 </div>
 
+<div class="note green"><div class="note-hd">🧪 Auditoría — ¿Qué plan necesita tu equipo?</div>
+<p style="font-size:13px;margin-bottom:10px">Responde las preguntas para descubrir el riesgo actual y la recomendación correcta:</p>
+<div class="ex-block">
+<div class="ex-title">¿Qué plan usa tu equipo actualmente para el trabajo diario?</div>
+<div class="ex-options">
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>⚠️ Riesgo real: Free permite entrenamiento con tus datos por defecto. Los datos de clientes que compartes en el chat pueden ser usados para mejorar el modelo. Considera Team plan.')"><span class="ex-opt-icon">🆓</span> Free (gratuito)</button>
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>⚠️ Riesgo: Pro también permite entrenamiento con tus datos a menos que lo desactives en Settings. Para trabajo empresarial con datos de clientes, evalúa Team o API.')"><span class="ex-opt-icon">⭐</span> Pro personal ($20/mes)</button>
+<button class="ex-opt" data-correct="true" onclick="exAnswer(this,true,'✅ Team plan garantiza que tus datos nunca se usan para entrenar el modelo, contractualmente. Domain capture asocia automáticamente todos los emails corporativos a la cuenta empresarial.','')"><span class="ex-opt-icon">👥</span> Team o Enterprise corporativo</button>
+<button class="ex-opt" data-correct="true" onclick="exAnswer(this,true,'✅ La API nunca entrena con tus datos. Retención de 7 días. ZDR disponible. Es la opción con más control para implementaciones técnicas.','')"><span class="ex-opt-icon">🔌</span> Solo API (sin interfaz web)</button>
+</div><div class="ex-feedback"></div>
+</div>
+<div class="ex-block" style="margin-top:10px">
+<div class="ex-title">Un nuevo empleado quiere acceder al plan de empresa. ¿Cuál es la forma CORRECTA?</div>
+<div class="ex-options">
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>Compartir API keys entre personas es un riesgo de seguridad. Si una se compromete, es imposible saber quién la usó.')"><span class="ex-opt-icon">🔑</span> Le das tu API key para que la use</button>
+<button class="ex-opt" data-correct="true" onclick="exAnswer(this,true,'Correcto. En Team/Enterprise: el admin invita por email corporativo. En API: crea un Workspace nuevo con su propia API key y spend limit. Así el acceso es individual y revocable.','')"><span class="ex-opt-icon">✉️</span> El admin lo invita con su email corporativo al Workspace</button>
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>Crear cuentas Pro personales para trabajo es exactamente Shadow AI — datos empresariales bajo términos de consumidor.')"><span class="ex-opt-icon">💳</span> Crea una cuenta Pro con su tarjeta personal</button>
+</div><div class="ex-feedback"></div>
+</div>
+</div>
 <div class="nav-btns">
 <button class="btn btn-g" onclick="go('seg-api-vs-agents',nb('seg-api-vs-agents'))">← API vs Managed Agents</button>
 <button class="btn btn-p" onclick="go('seg-practicas',nb('seg-practicas'))">Buenas prácticas →</button>
@@ -4697,6 +5408,21 @@ Team Standard para el equipo que usa claude.ai en el navegador (con garantías e
 </div>
 </div></div>
 
+<div class="note green"><div class="note-hd">🧪 Checklist — Audit de seguridad antes de producción</div>
+<p style="font-size:13px;margin-bottom:10px">Haz clic en cada ítem para marcarlo como revisado. Sin persistencia — úsalo como guía en cada deploy:</p>
+<div class="ex-checklist">
+<div class="ex-check-item" onclick="exCheck(this)"><div class="ex-check-box"></div><div><strong>API key en variable de entorno</strong> — nunca hardcodeada ni en el repositorio</div></div>
+<div class="ex-check-item" onclick="exCheck(this)"><div class="ex-check-box"></div><div><strong>Spend limit configurado</strong> en el Workspace de Console</div></div>
+<div class="ex-check-item" onclick="exCheck(this)"><div class="ex-check-box"></div><div><strong>Logs activados</strong> — cada llamada al agente queda registrada</div></div>
+<div class="ex-check-item" onclick="exCheck(this)"><div class="ex-check-box"></div><div><strong>HITL implementado</strong> para acciones irreversibles (emails masivos, modificaciones en BD)</div></div>
+<div class="ex-check-item" onclick="exCheck(this)"><div class="ex-check-box"></div><div><strong>Datos sensibles fuera del system prompt</strong> — solo en Vault o referencias a BD</div></div>
+<div class="ex-check-item" onclick="exCheck(this)"><div class="ex-check-box"></div><div><strong>Alerta de gasto</strong> configurada si supera X% del budget mensual</div></div>
+<div class="ex-check-item" onclick="exCheck(this)"><div class="ex-check-box"></div><div><strong>Scope definido en system prompt</strong> — qué puede y qué NO puede hacer el agente</div></div>
+<div class="ex-check-item" onclick="exCheck(this)"><div class="ex-check-box"></div><div><strong>Probado en entorno de staging</strong> antes de apuntar a datos de producción</div></div>
+</div>
+<div class="ex-check-counter">0/8 completados</div>
+<p style="font-size:12px;color:var(--ink3);margin-top:10px">💡 8/8 = listo para producción. Este checklist no se guarda — imprímir o copiar si lo necesitas persistente.</p>
+</div>
 <div class="nav-btns">
 <button class="btn btn-g" onclick="go('seg-planes',nb('seg-planes'))">← Planes y privacidad</button>
 <button class="btn btn-p" onclick="go('seg-advertencias',nb('seg-advertencias'))">Advertencias críticas →</button>
@@ -4770,6 +5496,33 @@ Shadow AI ocurre cuando los empleados usan sus cuentas personales (Free, Pro, Ma
 <div class="note gold" style="margin-top:10px"><div class="note-hd">Prevención</div><p>Configurar alertas de consumo en console.anthropic.com. Establecer un límite mensual de crédito. Monitorear el costo por sesión o por usuario con Langfuse. Un sistema sin monitoreo es un sistema esperando un accidente costoso.</p></div>
 </div></div></div>
 
+<div class="note green"><div class="note-hd">🧪 Identifica el riesgo — 4 situaciones reales</div>
+<p style="font-size:13px;margin-bottom:10px">Cada situación tiene un riesgo específico. Selecciona el que aplica:</p>
+<div class="ex-block">
+<div class="ex-title">Un agente genera contratos legales y los envía al cliente sin que ningún humano los revise</div>
+<div class="ex-options">
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>No es Shadow AI — el problema aquí es que la acción es irreversible y de alto impacto legal sin supervisión.')"><span class="ex-opt-icon">👤</span> Shadow AI</button>
+<button class="ex-opt" data-correct="true" onclick="exAnswer(this,true,'Exacto. Los contratos son acciones de alto impacto legal e irreversibles. Obligatorio: el agente propone → humano revisa → humano aprueba → sistema envía. HITL no es opcional aquí.','')"><span class="ex-opt-icon">🛑</span> Falta de Human-in-the-loop (HITL)</button>
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>El prompt injection puede ser parte del problema, pero el riesgo principal es enviar documentos legales sin revisión humana.')"><span class="ex-opt-icon">💉</span> Prompt Injection</button>
+</div><div class="ex-feedback"></div>
+</div>
+<div class="ex-block" style="margin-top:10px">
+<div class="ex-title">Un desarrollador tiene la API key hardcodeada en el archivo app.py y sube el código a GitHub público</div>
+<div class="ex-options">
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>No es Shadow AI — el developer tiene autorización para usar la API. El problema es cómo está gestionando el secreto.')"><span class="ex-opt-icon">👤</span> Shadow AI</button>
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>No es HITL — el agente no está haciendo acciones autónomas. El problema es la exposición del credencial.')"><span class="ex-opt-icon">🛑</span> Falta de HITL</button>
+<button class="ex-opt" data-correct="true" onclick="exAnswer(this,true,'Correcto. API key expuesta en repositorio público = comprometida. GitHub escanea repositorios en tiempo real. La solución: variables de entorno (.env en .gitignore) o secrets manager. Rotar la key inmediatamente.','')"><span class="ex-opt-icon">🔑</span> API key expuesta / mala gestión de secretos</button>
+</div><div class="ex-feedback"></div>
+</div>
+<div class="ex-block" style="margin-top:10px">
+<div class="ex-title">Los empleados de marketing usan sus cuentas personales de Claude Pro para trabajar con propuestas y datos de clientes</div>
+<div class="ex-options">
+<button class="ex-opt" data-correct="true" onclick="exAnswer(this,true,'Correcto. Shadow AI = uso de cuentas personales para trabajo empresarial. Riesgo: datos de clientes bajo términos de consumidor (Free/Pro pueden entrenar con tus datos si no lo desactivas). Solución: Team plan con domain capture.','')"><span class="ex-opt-icon">👤</span> Shadow AI</button>
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>No es un problema de HITL — los empleados están tomando decisiones, no el agente. El problema es qué términos aplican a los datos.')"><span class="ex-opt-icon">🛑</span> Falta de HITL</button>
+<button class="ex-opt" onclick="exAnswer(this,false,'','<br>No es exposición de API key — están usando la interfaz web, no la API. El problema es la política de privacidad del plan.')"><span class="ex-opt-icon">🔑</span> API key expuesta</button>
+</div><div class="ex-feedback"></div>
+</div>
+</div>
 <div class="nav-btns">
 <button class="btn btn-g" onclick="go('seg-practicas',nb('seg-practicas'))">← Buenas prácticas</button>
 <button class="btn btn-p" onclick="go('recursos',nb('recursos'))">Recursos →</button>
@@ -4829,15 +5582,47 @@ jobs:
 <div class="res-item"><div class="res-icon">🔌</div><div><a class="res-title" href="https://docs.n8n.io" target="_blank">docs.n8n.io</a><div class="res-desc">Referencia completa de n8n con templates de Claude. Comunidad muy activa.</div></div></div>
 <h2>Cursos complementarios</h2>
 <div class="res-item"><div class="res-icon">🎓</div><div><a class="res-title" href="https://learn.deeplearning.ai" target="_blank">DeepLearning.AI Short Courses</a><div class="res-desc">Cursos gratuitos de 1-2h sobre agentes, RAG, tool use co-creados con Anthropic y OpenAI. <span class="tag tgr">Gratuito</span></div></div></div>
-<div class="nav-btns"><button class="btn btn-p" onclick="go('cierre-m4',nb('cierre-m4'))">Cierre M7 →</button></div>
+<div class="note green"><div class="note-hd">🧪 Acción final — Define tu primer agente</div>
+<p style="font-size:13px;margin-bottom:10px">Antes de cerrar el bootcamp, toma una decisión concreta. ¿Cuál es el mejor primer agente para tu equipo?</p>
+<div class="ex-block">
+<div class="ex-title">¿Qué tipo de caso de uso tiene más impacto inmediato en tu equipo?</div>
+<div class="ex-options">
+<button class="ex-opt" onclick="exAnswer(this,true,'Excelente punto de partida. La generación de documentos (SOWs, FEs, Planes de Prueba) tiene ROI medible desde el mes 1 y el equipo lo adopta fácil porque reemplaza una tarea repetitiva concreta.','')"><span class="ex-opt-icon">📄</span> Automatizar generación de documentos (SOWs, especificaciones)</button>
+<button class="ex-opt" onclick="exAnswer(this,true,'Gran elección. Clasificar y responder tickets elimina trabajo repetitivo de alto volumen. Con Haiku el costo es mínimo (~$0.002 por ticket) y el impacto en tiempos de respuesta es inmediato.','')"><span class="ex-opt-icon">🎫</span> Atención y clasificación de tickets de soporte</button>
+<button class="ex-opt" onclick="exAnswer(this,true,'Muy acertado para el equipo comercial. El agente puede consultar CRM, historial de proyectos y tarifas para generar propuestas personalizadas en minutos en lugar de horas.','')"><span class="ex-opt-icon">💼</span> Preparación de propuestas comerciales</button>
+<button class="ex-opt" onclick="exAnswer(this,true,'Válido. La extracción de datos de contratos, facturas o emails reduce errores humanos y libera tiempo para análisis de mayor valor. Empieza con un tipo de documento específico.','')"><span class="ex-opt-icon">🔍</span> Extracción y análisis de datos de documentos</button>
+</div>
+<div class="ex-feedback"></div>
+</div>
+<div class="ex-block" style="margin-top:10px">
+<div class="ex-title">¿Cuál es tu nivel técnico para el primer prototipo?</div>
+<div class="ex-options">
+<button class="ex-opt" onclick="exAnswer(this,true,'Perfecto — empieza por n8n. En 2-3 horas tienes un flujo funcional conectando Claude a Google Drive o WhatsApp sin escribir código. El módulo M4 tiene el tutorial paso a paso.','')"><span class="ex-opt-icon">🟢</span> Sin código — prefiero herramientas visuales (n8n, Zapier)</button>
+<button class="ex-opt" onclick="exAnswer(this,true,'Ideal — n8n con nodos de código cuando necesites lógica personalizada. Puedes hacer el 80% visual y el 20% crítico en JavaScript o Python dentro de n8n.','')"><span class="ex-opt-icon">🟡</span> Básico — puedo copiar y modificar código pero no partir de cero</button>
+<button class="ex-opt" onclick="exAnswer(this,true,'Tienes todo el arsenal. Empieza con el SDK de Python (M4), conecta a Managed Agents cuando necesites Vaults y credenciales por usuario, y usa Bedrock si el cliente está en AWS.','')"><span class="ex-opt-icon">🔵</span> Técnico — cómodo con APIs, Python o Node.js</button>
+</div>
+<div class="ex-feedback"></div>
+</div>
+</div>
+<div class="nav-btns"><button class="btn btn-p" onclick="go('cierre-m7',nb('cierre-m7'))">Cierre M7 →</button></div>
 </div></div>
 
 <!-- SEGURIDAD: DATOS -->
 
-<div class="page" id="pg-cierre-m4"><div class="pi">
+<div class="page" id="pg-cierre-m7"><div class="pi">
 <div class="ey">M7 · Cierre integrador</div>
 <div class="obj-bar">🎯 Conectas todo el módulo de referencia — glosario, seguridad y planes — en decisiones reales que aplicarás mañana.</div>
 <h1>Cierre M4 —<br>seguridad y referencia en la práctica</h1>
+<h3>Puntos clave del módulo — haz clic para revelar</h3>
+<div class="flip-grid">
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">🔒</span><strong style="font-size:12px">Retención</strong><span class="fh">clic para ver</span></div><div class="flip-back">Free/Pro: 30 días. API: 7 días. ZDR: 0 días.</div></div></div>
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">👥</span><strong style="font-size:12px">Planes</strong><span class="fh">clic para ver</span></div><div class="flip-back">Team/Enterprise/API: datos nunca entrenan. Free/Pro: sí por defecto.</div></div></div>
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">🔑</span><strong style="font-size:12px">API Keys</strong><span class="fh">clic para ver</span></div><div class="flip-back">Una key por workspace. Rota si se compromete. .env nunca al repo.</div></div></div>
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">📋</span><strong style="font-size:12px">Buenas prácticas</strong><span class="fh">clic para ver</span></div><div class="flip-back">Principio de mínimo privilegio. Logs. Alertas de costo.</div></div></div>
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">⚠️</span><strong style="font-size:12px">HITL</strong><span class="fh">clic para ver</span></div><div class="flip-back">Siempre para acciones irreversibles. Siempre.</div></div></div>
+<div class="flip-card" onclick="flipCard(this)"><div class="flip-inner"><div class="flip-front"><span class="fi">🎓</span><strong style="font-size:12px">¡Completado!</strong><span class="fh">clic para ver</span></div><div class="flip-back">Estás listo para implementar agentes en producción.</div></div></div>
+</div>
+
 
 <h2>El escenario: Masiv quiere desplegar el agente del equipo para todo el equipo</h2>
 <p>5 TAMs, datos de clientes reales, generación de SOWs, integración con Drive. Aquí aplicas todo lo del módulo de referencia para tomar las decisiones correctas.</p>
@@ -4905,13 +5690,850 @@ Con Managed Agents + Vaults: un vault por TAM con su token OAuth de Drive. Al cr
 </main>
 
 
-
 </div><!-- /shell -->
+<script>
+// ═══ STATE — session memory only (no localStorage) ═══
+const ST={v:[],tut:[],qs:{},readTime:{}};
+
+// Progress tracking: pages that count toward progress
+const M1_PAGES=['intro-ia','claude101','llms','rag','herramientas','ecosistema','costos','quiz1','cierre-m1'];
+const M2_PAGES=['prompting','agentes','patrones','usos','plataformas','quiz2','cierre-m2'];
+const M3A_PAGES=['mcp','mcp-usar','mcp-avanzado','subagentes','console-org','console-compilar','console','managed','skills','claude-code','cowork','quiz3a','cierre-m3a'];
+const M3B_PAGES=['nocode','python','tam','ejercicios','ejemplos','quiz4','cierre-m4'];
+const M5_PAGES=['bedrock-intro','bedrock-tech','bedrock-costos','bedrock-practica','bedrock-agents','quiz5','cierre-m5'];
+const M6_PAGES=['vertex-intro','vertex-tech','vertex-practica','vertex-avanzado','quiz6','cierre-m6'];
+const M3_PAGES=[...M3A_PAGES,...M3B_PAGES];
+const M4_PAGES=['glosario','seg-datos','seg-api-vs-agents','seg-planes','seg-practicas','seg-advertencias','recursos','cierre-m7'];
+const EXAM_PAGES=['examen'];
+const COUNTED_PAGES=[...M1_PAGES,...M2_PAGES,...M3A_PAGES,...M3B_PAGES,...M5_PAGES,...M6_PAGES,...M4_PAGES,...EXAM_PAGES];
+const MIN_READ_SECONDS = 8; // must spend at least 8s on a page for it to count
+
+// Dark mode
+function toggleDark(){
+  const isDark=document.documentElement.classList.toggle('dark');
+  const btn=document.getElementById('dark-btn');
+  if(btn)btn.textContent=isDark?'☀️':'🌙';
+}
+
+// Progress update
+function updateProgress(){
+  const visited=ST.v.filter(p=>COUNTED_PAGES.includes(p));
+  const total=COUNTED_PAGES.length;
+  const pct=Math.round(visited.length/total*100);
+  const fill=document.getElementById('prog-fill');
+  const pctEl=document.getElementById('prog-pct');
+  if(fill)fill.style.width=pct+'%';
+  if(pctEl)pctEl.textContent=pct+'%';
+  // Module bars
+  const mods=[M1_PAGES,M2_PAGES,M3A_PAGES,M3B_PAGES,M5_PAGES,M6_PAGES,M4_PAGES];
+  const pmids=['pm1','pm2','pm3','pm3b','pm5','pm6','pm4'];
+  mods.forEach((mp,i)=>{
+    const el=document.getElementById(pmids[i]);
+    if(!el)return;
+    const done=mp.filter(p=>visited.includes(p)).length;
+    const all=mp.length;
+    if(done===all)el.className='prog-m done';
+    else if(done>0)el.className='prog-m partial';
+    else el.className='prog-m';
+  });
+  // Mark sidebar buttons as done
+  document.querySelectorAll('.nb').forEach(btn=>{
+    const match=btn.getAttribute('onclick')||'';
+    const m=match.match(/go\('([^']+)'/);
+    if(m&&visited.includes(m[1])){btn.classList.add('done');}
+  });
+}
+
+// ═══ ROUTER ═══
+const ALL=['home','intro-ia','claude101','llms','rag','herramientas','ecosistema','costos','quiz1','cierre-m1','prompting','agentes','patrones','usos','plataformas','quiz2','cierre-m2','mcp','mcp-usar','mcp-avanzado','subagentes','console-org','console-compilar','console','managed','skills','claude-code','cowork','quiz3a','cierre-m3a','nocode','tam','python','ejercicios','ejemplos','quiz4','cierre-m4','bedrock-intro','bedrock-tech','bedrock-costos','bedrock-practica','bedrock-agents','quiz5','cierre-m5','vertex-intro','vertex-tech','vertex-practica','vertex-avanzado','quiz6','cierre-m6','glosario','seg-datos','seg-api-vs-agents','seg-planes','seg-practicas','seg-advertencias','recursos','cierre-m7','examen'];
+let _readTimer=null; let _currentPage=null; let _arriveTime=0;
+function go(id,el){
+  if(_currentPage&&_arriveTime>0){const spent=(Date.now()-_arriveTime)/1000;if(spent>=MIN_READ_SECONDS&&COUNTED_PAGES.includes(_currentPage)&&!ST.v.includes(_currentPage)){ST.v.push(_currentPage);}}
+  _currentPage=id;_arriveTime=Date.now();
+  if(_readTimer)clearTimeout(_readTimer);
+  const _capturedId=id;
+  _readTimer=setTimeout(()=>{if(COUNTED_PAGES.includes(_capturedId)&&!ST.v.includes(_capturedId)){ST.v.push(_capturedId);updateProgress();}},MIN_READ_SECONDS*1000);
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  const pg=document.getElementById('pg-'+id);
+  if(pg){pg.classList.add('on');window.scrollTo(0,0);}
+  if(el&&el.classList)el.classList.add('active');
+  updateProgress();requestAnimationFrame(addCopyButtons);
+  showReadTime(id);
+}
+
+function nb(id){
+  return document.querySelector('.nb[onclick*="go(\''+id+'\'"]')||null;
+}
+
+function toggleAcc(hd){hd.parentElement.classList.toggle('open');}
+function toggleSidebar(){
+  const sb=document.getElementById('sidebar');
+  const ov=document.getElementById('overlay');
+  if(!sb)return;
+  sb.classList.toggle('open');
+  if(ov)ov.style.display=sb.classList.contains('open')?'block':'none';
+}
+function swTab(id,btn,g){
+  const w=btn.closest('.wiz');
+  if(!w)return;
+  w.querySelectorAll('.wt').forEach(b=>b.classList.remove('active'));
+  w.querySelectorAll('.wp').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  const pane=document.getElementById('tab-'+g+'-'+id);
+  if(pane)pane.classList.add('active');
+}
+function toggleTut(i){
+  const el=document.getElementById('tut_'+i);
+  if(el)el.classList.toggle('open');
+}
+function toggleGi(id){
+  const el=document.getElementById(id);
+  if(el)el.classList.toggle('open');
+}
+function addCopyButtons(){
+  document.querySelectorAll('.code').forEach(el=>{
+    if(el.querySelector('.copy-btn'))return;
+    const btn=document.createElement('button');
+    btn.className='copy-btn';btn.textContent='Copiar';
+    btn.onclick=()=>{
+      const txt=el.innerText.replace('Copiar','').trim();
+      navigator.clipboard.writeText(txt).then(()=>{
+        btn.textContent='✓';setTimeout(()=>btn.textContent='Copiar',2000);
+      }).catch(()=>{});
+    };
+    el.appendChild(btn);
+  });
+}
+
+// ═══ CALCULADORAS ═══
+function calcROI(){
+  const g=id=>{const el=document.getElementById(id);return el?el:null;};
+  if(!g('roi-hrs'))return;
+  const hrs=+g('roi-hrs').value, docs=+g('roi-docs').value;
+  const rate=+g('roi-rate').value, red=+g('roi-red').value/100;
+  g('roi-hrs-v').textContent=hrs; g('roi-docs-v').textContent=docs;
+  g('roi-rate-v').textContent=rate; g('roi-red-v').textContent=Math.round(red*100);
+  const savedHrs=Math.round(hrs*docs*red);
+  const savedUSD=savedHrs*rate;
+  const aiCost=docs*0.15;
+  const net=savedUSD-aiCost;
+  const fmt=n=>n>=1000?'$'+(n/1000).toFixed(1)+'K':'$'+Math.round(n);
+  if(g('roi-saved-hrs'))g('roi-saved-hrs').textContent=savedHrs+'h';
+  if(g('roi-saved-usd'))g('roi-saved-usd').textContent=fmt(savedUSD);
+  if(g('roi-ai-cost'))g('roi-ai-cost').textContent=fmt(aiCost);
+  if(g('roi-net'))g('roi-net').textContent=fmt(net);
+  const pb=g('roi-payback');
+  if(pb){pb.style.display='block';const roi_x=Math.round(savedUSD/Math.max(aiCost,1));pb.innerHTML='<strong>Interpretación:</strong> El agente cuesta <strong>'+fmt(aiCost)+'/mes en IA</strong> y elimina trabajo que antes costaba <strong>'+fmt(savedUSD)+'/mes en tiempo humano</strong>. Retorno: <strong>'+roi_x+'×</strong>. Las <strong>'+savedHrs+' horas liberadas</strong> se usan en trabajo de mayor valor.';}
+}
+function calcTAM(){
+  const g=id=>{const el=document.getElementById(id);return el?el:null;};
+  if(!g('tam-docs'))return;
+  const docs=+g('tam-docs').value, hrs=+g('tam-hrs').value;
+  const rate=+g('tam-rate').value, team=+g('tam-team').value;
+  if(g('tam-docs-v'))g('tam-docs-v').textContent=docs;
+  if(g('tam-hrs-v'))g('tam-hrs-v').textContent=hrs;
+  if(g('tam-rate-v'))g('tam-rate-v').textContent=rate;
+  if(g('tam-team-v'))g('tam-team-v').textContent=team;
+  const laborCost=hrs*docs*rate;
+  const fmt=n=>n>=1000?'$'+(n/1000).toFixed(1)+'K':'$'+Math.round(n);
+  const v1Save=Math.round(laborCost*0.50)-20;
+  const v2Save=Math.round(laborCost*0.87)-35;
+  const v3Save=Math.round(laborCost*0.93)-25;
+  if(g('tam-v1-save'))g('tam-v1-save').textContent=fmt(v1Save);
+  if(g('tam-v2-save'))g('tam-v2-save').textContent=fmt(v2Save);
+  if(g('tam-v3-save'))g('tam-v3-save').textContent=fmt(v3Save);
+  if(g('tam-v1-detail'))g('tam-v1-detail').textContent=Math.round(hrs*docs*0.50)+'h liberadas · Costo: $20/mes';
+  if(g('tam-v2-detail'))g('tam-v2-detail').textContent=Math.round(hrs*docs*0.87)+'h liberadas · Costo: ~$35/mes';
+  if(g('tam-v3-detail'))g('tam-v3-detail').textContent=Math.round(hrs*docs*0.93)+'h liberadas · Costo: ~$25/mes';
+  const rec=g('tam-recommendation');
+  if(rec){rec.style.display='block';
+    if(docs<=20)rec.innerHTML='<strong>Recomendación:</strong> Con '+docs+' docs/mes, empieza con <strong>V1 (Claude Web)</strong>. Setup de 30 minutos, ahorro inmediato.';
+    else if(docs<=80)rec.innerHTML='<strong>Recomendación:</strong> Con '+docs+' docs/mes, <strong>V2 (n8n + API)</strong> es el punto óptimo. Automatización casi completa, costo bajo.';
+    else rec.innerHTML='<strong>Recomendación:</strong> Con '+docs+' docs/mes y '+team+' TAMs, <strong>V3 (Managed Agents)</strong> escala sin esfuerzo adicional.';
+  }
+}
+
+// ═══ EJEMPLOS ═══
+const EX=[
+  {id:0,sc:'tb',sector:'Financiero',co:'NovaBanco Digital',type:'Fintech · 50K clientes',agent:'Agente de Cobranza',ch:'WhatsApp + SMS',model:'Claude Haiku 4.5',problema:'Demora de 3 días en primer contacto. Tasa de recuperación: 42%.',flujo:['Consulta diaria de pagos vencidos a las 8am','Recupera historial y perfil de cada cliente','Clasifica en 3 perfiles: empático, informativo, formal','Genera mensaje personalizado para cada cliente','Envía por canal óptimo según historial','Gestiona respuestas: si pide extensión, evalúa política','Actualiza CRM y genera reporte diario'],kpis:[{n:'67%',l:'recuperación (era 42%)'},{n:'-70%',l:'tiempo humano'},{n:'4h',l:'primer contacto (era 3 días)'}],value:'El equipo pasó de gestionar casos rutinarios a negociaciones complejas de alto valor.',tech:{apinote:'Los mensajes proactivos (negocio inicia el contacto fuera de ventana de 24h) requieren templates HSM aprobados por Meta. Mensajes reactivos (cliente escribió primero) permiten texto libre. Tu backend expone webhook HTTPS — Meta hace POST cuando llega un mensaje.',flow:[[{type:'usuario',label:'Cliente',sub:'WhatsApp'},{type:'canal',label:'Meta Cloud API'},{type:'harness',label:'Backend',sub:'webhook'},{type:'llm',label:'Claude Haiku'}],[{type:'llm',label:'Claude Haiku',sub:'Decide respuesta'},{type:'datos',label:'CRM',sub:'historial'},{type:'canal',label:'Meta Graph API'},{type:'usuario',label:'Cliente',sub:'recibe respuesta'}]],costos:[{v:'$0.0022',l:'por mensaje (Haiku)'},{v:'$22',l:'por 10K msgs/mes'},{v:'$0',l:'sesión (no Managed)'}]}},
+  {id:1,sc:'tgr',sector:'Retail',co:'VerdeModa',type:'Cadena de moda · 8 tiendas',agent:'Recuperador de Carritos',ch:'WhatsApp + Email',model:'Claude Haiku 4.5',problema:'68% abandono de carrito. Email genérico: 3% de conversión.',flujo:['Detecta abandono 2h después de inactividad vía webhook Shopify','Consulta perfil: historial, canal preferido, respuestas previas','Analiza el carrito: tipo de productos, monto, stock','Genera mensaje único. Si monto alto + buen historial: envío gratis','Si no responde en 24h: segundo mensaje con oferta diferente','Si compra: cancela mensajes pendientes y registra conversión'],kpis:[{n:'18%',l:'conversión (era 3%)'},{n:'+22%',l:'valor pedido recuperado'},{n:'100%',l:'mensajes únicos por cliente'}],value:'La personalización basada en el perfil real triplica la conversión.',tech:{apinote:'Shopify emite el evento carts/abandoned cuando un carrito no procede al checkout. En n8n: nodo Webhook como trigger escuchando en ese endpoint. El payload incluye todos los productos y datos del cliente.',flow:[[{type:'datos',label:'Shopify',sub:'carts/abandoned'},{type:'harness',label:'n8n',sub:'webhook'},{type:'llm',label:'Claude Haiku',sub:'genera mensaje'}],[{type:'llm',label:'Claude Haiku'},{type:'canal',label:'WhatsApp / Email'},{type:'usuario',label:'Cliente',sub:'recibe oferta'}]],costos:[{v:'$0.0022',l:'por mensaje'},{v:'$0',l:'plataforma (n8n gratis)'},{v:'18%',l:'conversión vs 3% anterior'}]}},
+  {id:2,sc:'tb',sector:'Financiero',co:'SeguroFácil',type:'Aseguradora digital',agent:'Agente de Reclamaciones',ch:'WhatsApp + Portal web',model:'Claude Sonnet 4.6',problema:'7 días promedio de procesamiento. 60% del tiempo: recopilación de documentos.',flujo:['Cliente reporta siniestro en lenguaje natural','Agente extrae tipo de siniestro con NLP','Solicita documentos específicos según el tipo','Valida que documentos estén completos y legibles','Crea expediente y asigna radicado','Notifica al cliente en cada cambio de estado'],kpis:[{n:'7→2',l:'días promedio resolución'},{n:'85%',l:'documentación completa 1ra vez'},{n:'+40%',l:'satisfacción cliente'}],value:'El ajustador humano recibe expedientes ya completos para decidir.',tech:{apinote:'Para recibir fotos de siniestros por WhatsApp, el webhook recibe el media_id del archivo. El harness hace GET a la API de Meta para obtener la URL temporal (expira en 5 min — descargarlo inmediatamente). Claude analiza la imagen directamente vía contenido base64.',flow:[[{type:'usuario',label:'Cliente',sub:'reporta siniestro'},{type:'canal',label:'WhatsApp API'},{type:'harness',label:'Backend'},{type:'llm',label:'Claude Sonnet',sub:'extrae datos'}],[{type:'llm',label:'Claude Sonnet',sub:'valida documentos'},{type:'datos',label:'Sistema de siniestros'},{type:'usuario',label:'Cliente',sub:'recibe radicado'}]],costos:[{v:'~$0.05',l:'por reclamación'},{v:'5 días',l:'ahorrados en procesamiento'},{v:'85%',l:'documentación completa'}]}},
+  {id:3,sc:'tp',sector:'B2B Tech',co:'NeXLink Solutions',type:'Plataforma B2B · 12 TAMs',agent:'Asistente Documental TAM',ch:'Interfaz interna / n8n',model:'Claude Sonnet 4.6',problema:'3-8h por documento. Calidad variable entre TAMs.',flujo:['TAM completa formulario: cliente, producto, integraciones, canales, plazo','Agente consulta KB: proyectos similares, lecciones aprendidas','Aplica reglas de estimación S/M/L/XL','Genera SOW + FE + Plan de Pruebas en paralelo','Auto-chequeo: ¿faltan criterios de aceptación? ¿responsables definidos?','Guarda los 3 documentos en Drive en la carpeta del proyecto'],kpis:[{n:'-80%',l:'tiempo por documento'},{n:'100%',l:'consistencia entre TAMs'},{n:'3 docs',l:'en paralelo'},{n:'<5 min',l:'formulario a Drive'}],value:'El TAM más nuevo produce documentos de la misma calidad que el más experimentado.',tech:{apinote:'Los 3 documentos se generan con asyncio.gather() en paralelo — reduciendo el tiempo de 45s a ~15s. El agente usa Agent Skills: un SKILL.md con las reglas de estimación y los templates exactos. Los Skills se cargan automáticamente cuando Claude detecta una solicitud de documentación.',flow:[[{type:'usuario',label:'TAM',sub:'llena form'},{type:'harness',label:'n8n / Python'},{type:'llm',label:'Claude Sonnet',sub:'Agente TAM'}],[{type:'llm',label:'Claude Sonnet',sub:'genera 3 docs en paralelo'},{type:'datos',label:'Google Drive',sub:'guarda docs'},{type:'usuario',label:'TAM',sub:'recibe notificación'}]],costos:[{v:'~$0.15',l:'por ejecución completa'},{v:'$15',l:'por 100 docs/mes'},{v:'375h',l:'ahorradas/mes (100 docs × 3.75h)'}]}},
+  {id:4,sc:'tr',sector:'Salud',co:'ClínicaSalud360',type:'Red de clínicas · 4 sedes',agent:'Reductor de Ausentismo',ch:'WhatsApp + SMS',model:'Claude Haiku 4.5',problema:'31% de no-show. Cada cita perdida = costo directo + agenda bloqueada.',flujo:['72h antes: recordatorio con médico, hora y sede','48h antes: solicita confirmación. Cancela → libera slot e invita lista de espera','24h antes: segundo intento si no confirmó','2h antes: recordatorio final con instrucciones específicas','Si no llega: marca en sistema y libera para emergencias','Post-consulta: agenda seguimiento si el médico lo indicó'],kpis:[{n:'11%',l:'no-show (era 31%)'},{n:'-40%',l:'lista de espera'},{n:'+15%',l:'ocupación real agenda'}],value:'El agente no solo recuerda — gestiona activamente la agenda liberando slots en tiempo real.',tech:{apinote:'Los recordatorios proactivos (clínica inicia el contacto) requieren templates HSM aprobados por Meta. El webhook de respuestas permite al agente procesar "SI" o "NO" en tiempo real y actualizar el sistema de agendamiento automáticamente.',flow:[[{type:'datos',label:'Sistema citas'},{type:'harness',label:'Scheduler',sub:'cron job'},{type:'llm',label:'Claude Haiku',sub:'genera recordatorio'}],[{type:'canal',label:'WhatsApp/SMS'},{type:'usuario',label:'Paciente',sub:'confirma'},{type:'datos',label:'Agenda',sub:'libera/confirma slot'}]],costos:[{v:'~$0.003',l:'por recordatorio'},{v:'$30',l:'por 10K recordatorios/mes'},{v:'20%',l:'reducción no-show'}]}},
+  {id:5,sc:'to',sector:'Telecom',co:'ConectaNet',type:'Operador · 200K suscriptores',agent:'Atención Omnicanal IA',ch:'Chat + WhatsApp + App',model:'Haiku + Sonnet (router)',problema:'3.500 llamadas/día. 65% eran consultas repetitivas. Agentes humanos saturados.',flujo:['Cliente contacta por cualquier canal. Agente carga perfil completo','Haiku clasifica si el caso es simple o complejo','Simple (80%): Haiku responde directamente (saldo, estado, FAQ)','Complejo (20%): Sonnet con contexto completo y herramientas','Detecta señales de churn y activa protocolo de retención','Escala al humano SOLO cuando supera sus capacidades'],kpis:[{n:'68%',l:'tickets sin humano'},{n:'38 seg',l:'espera (era 7 min)'},{n:'+45%',l:'equipo en retención/ventas'}],value:'Contact center pasa de centro de costo a generador de valor.',tech:{apinote:'Router de complejidad: Haiku ($1/M) clasifica cada mensaje como simple/complejo. Simples van directo a Haiku para respuesta. Complejos escalan a Sonnet ($3/M). El ahorro vs usar Sonnet para todo: ~60% en costos de modelo.',flow:[[{type:'usuario',label:'Cliente'},{type:'harness',label:'Router'},{type:'llm',label:'Haiku',sub:'Clasificador'}],[{type:'llm',label:'Haiku',sub:'80% casos simples'},{type:'usuario',label:'Respuesta <2s'}],[{type:'llm',label:'Sonnet',sub:'20% casos complejos'},{type:'datos',label:'CRM / Red'},{type:'usuario',label:'Respuesta con contexto'}]],costos:[{v:'$0.0022',l:'caso simple (Haiku)'},{v:'$0.014',l:'caso complejo (Sonnet)'},{v:'$25-45',l:'por 10K mensajes/mes'}]}},
+,
+  {id:6,sc:'go',sector:'Gobierno / Sector Público',co:'Ministerio de Tecnología',type:'Atención ciudadana · 50K solicitudes/mes',agent:'Agente de Atención Ciudadana',ch:'WhatsApp Business',model:'Claude Sonnet 4.6',problema:'El ministerio recibía 50.000 solicitudes mensuales de ciudadanos con tiempos de respuesta de 5 días y alta variabilidad en la calidad. El equipo de atención de 40 personas era insuficiente y el costo por caso era $12 USD.',flujo:['Ciudadano envía solicitud por WhatsApp','Claude clasifica el tipo (trámite, queja, consulta, certificado)','Busca en base normativa y procedimientos vigentes','Genera respuesta formal con número de radicado y pasos siguientes','Registra en sistema de gestión documental y notifica al ciudadano'],kpis:[{n:'85%',l:'solicitudes resueltas sin agente humano'},{n:'5d→2h',l:'tiempo promedio de respuesta'},{n:'+41%',l:'satisfacción ciudadana (CSAT)'}],value:'$0.009/solicitud (vs $12 costo humano). ROI positivo desde el mes 3. Capacidad escalable sin aumentar planta.',tech:'WhatsApp Business API + Claude Sonnet 4.6 + n8n + sistema documental del ministerio'},
+  {id:7,sc:'lo',sector:'Logística / Supply Chain',co:'Operadora Regional de Transporte',type:'Supply chain · 8K envíos/día',agent:'Agente de Gestión de Excepciones',ch:'SMS + WhatsApp',model:'Claude Haiku 4.5',problema:'Con 8.000 envíos diarios, el 12% presentaba excepciones (retrasos, dirección incorrecta, destinatario ausente). El equipo de coordinación de 15 personas tardaba 2 horas promedio en resolver cada excepción y los clientes llamaban constantemente preguntando por sus pedidos.',flujo:['Sistema TMS detecta excepción en tiempo real','Claude analiza el tipo de excepción y genera opciones de solución','Notifica al destinatario con las alternativas disponibles vía SMS/WhatsApp','Receptor confirma opción preferida o escala a coordinador','Claude actualiza el ETA en el sistema y notifica a todas las partes'],kpis:[{n:'-80%',l:'llamadas inbound de seguimiento'},{n:'8 min',l:'tiempo de resolución (era 2 horas)'},{n:'98%',l:'notificaciones entregadas a tiempo'}],value:'Ahorro de 3 FTEs en coordinación. ROI positivo desde el mes 2. Costo por excepción de $0.012 vs $8 costo humano.',tech:'SMS + WhatsApp + Claude Haiku 4.5 + webhook TMS + base de datos de rutas'}
+];
+
+function calcTAM2(){
+  const g=id=>{const el=document.getElementById(id);return el?el:null;};
+  if(!g('tam-docs-pg'))return;
+  const docs=+g('tam-docs-pg').value, hrs=+g('tam-hrs-pg').value;
+  const rate=+g('tam-rate-pg').value, team=+g('tam-team-pg').value;
+  if(g('tam-docs-v'))g('tam-docs-v').textContent=docs;
+  if(g('tam-hrs-v'))g('tam-hrs-v').textContent=hrs;
+  if(g('tam-rate-v'))g('tam-rate-v').textContent=rate;
+  if(g('tam-team-v'))g('tam-team-v').textContent=team;
+  const laborCost=hrs*docs*rate;
+  const fmt=n=>n>=1000?'$'+(n/1000).toFixed(1)+'K':'$'+Math.round(n);
+  const v1Save=Math.round(laborCost*0.50)-20;
+  const v2Save=Math.round(laborCost*0.87)-35;
+  const v3Save=Math.round(laborCost*0.93)-25;
+  if(g('tam-v1-save-pg'))g('tam-v1-save-pg').textContent=fmt(v1Save);
+  if(g('tam-v2-save-pg'))g('tam-v2-save-pg').textContent=fmt(v2Save);
+  if(g('tam-v3-save-pg'))g('tam-v3-save-pg').textContent=fmt(v3Save);
+  if(g('tam-v1-detail'))g('tam-v1-detail').textContent=Math.round(hrs*docs*0.50)+'h liberadas · Costo: $20/mes';
+  if(g('tam-v2-detail'))g('tam-v2-detail').textContent=Math.round(hrs*docs*0.87)+'h liberadas · Costo: ~$35/mes';
+  if(g('tam-v3-detail'))g('tam-v3-detail').textContent=Math.round(hrs*docs*0.93)+'h liberadas · Costo: ~$25/mes';
+  const rec=g('tam-recommendation-pg');
+  if(rec){rec.style.display='block';
+    if(docs<=20)rec.innerHTML='<strong>Recomendación:</strong> Con '+docs+' docs/mes, empieza con <strong>V1 (Claude Web)</strong>. Setup de 30 minutos, ahorro inmediato.';
+    else if(docs<=80)rec.innerHTML='<strong>Recomendación:</strong> Con '+docs+' docs/mes, <strong>V2 (n8n + API)</strong> es el punto óptimo. Automatización casi completa, costo bajo.';
+    else rec.innerHTML='<strong>Recomendación:</strong> Con '+docs+' docs/mes y '+team+' TAMs, <strong>V3 (Managed Agents)</strong> escala sin esfuerzo adicional.';
+  }
+}
+
+// ═══ EJEMPLOS ═══
 
 
-<!-- Data: quiz questions, examples, constants -->
-<script src="src/js/data.js"></script>
-<!-- Engine: navigation, quiz, widgets, initialization -->
-<script src="src/js/engine.js"></script>
+function buildTechView(tech){
+  if(!tech)return '<p style="color:var(--ink3);font-size:13px">Vista técnica no disponible.</p>';
+  let html='';
+  if(tech.apinote){
+    html+='<div class="exd-sl">Cómo funciona la integración</div>';
+    html+='<div class="note blue" style="margin-bottom:14px"><div class="note-hd">Descripción técnica</div><p style="font-size:13px">'+tech.apinote+'</p></div>';
+  }
+  if(tech.flow&&tech.flow.length){
+    html+='<div class="exd-sl">Flujo de datos</div><div style="margin:10px 0">';
+    tech.flow.forEach(row=>{
+      html+='<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:8px 0;padding:10px;background:var(--s1);border-radius:var(--r);border:1px solid var(--border)">';
+      const colors={canal:'var(--teal-l)',llm:'var(--ink)',plataforma:'var(--gold-l)',datos:'var(--orange-l)',usuario:'var(--blue-l)',harness:'var(--purple-l)'};
+      const borders={canal:'var(--teal-b)',llm:'#444',plataforma:'var(--gold-b)',datos:'var(--orange-b)',usuario:'var(--blue-b)',harness:'var(--purple-b)'};
+      row.forEach((node,ni)=>{
+        if(ni>0)html+='<span style="color:var(--ink3);font-size:14px">→</span>';
+        const bg=colors[node.type]||'var(--s2)';
+        const br=borders[node.type]||'var(--border)';
+        const tc=node.type==='llm'?'#fff':'var(--ink)';
+        html+='<div style="background:'+bg+';border:1px solid '+br+';border-radius:var(--r);padding:6px 10px;font-size:11.5px;font-family:\'Instrument Sans\',sans-serif;font-weight:600;color:'+tc+'">';
+        html+=node.label;
+        if(node.sub)html+='<div style="font-size:9px;opacity:.7;font-weight:400;margin-top:2px">'+node.sub+'</div>';
+        html+='</div>';
+      });
+      html+='</div>';
+    });
+    html+='</div>';
+  }
+  if(tech.costos&&tech.costos.length){
+    html+='<div class="exd-sl">Costo estimado</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin:8px 0">';
+    tech.costos.forEach(item=>{
+      html+='<div style="background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:10px;text-align:center"><div style="font-family:\'Fraunces\',serif;font-size:18px;font-weight:700;color:var(--gold)">'+item.v+'</div><div style="font-size:10px;color:var(--ink3);line-height:1.3;margin-top:3px">'+item.l+'</div></div>';
+    });
+    html+='</div>';
+  }
+  return html;
+}
+
+function renderExBrowser(){
+  const el=document.getElementById('exb');if(!el)return;
+  const list=EX.map((ex,i)=>'<div class="eli '+(i===0?'active':'')+'" id="eli_'+i+'" onclick="showEx('+i+')"><div class="els">'+ex.sector+'</div><div class="eln">'+ex.co+'</div><div class="ela">'+ex.agent+'</div></div>').join('');
+  el.innerHTML='<div class="ex-list">'+list+'</div><div class="ex-detail"><div class="ex-tabs"><button class="et active" onclick="swExTab(\'biz\',this)">Negocio</button><button class="et" onclick="swExTab(\'tech\',this)">Técnico</button></div><div class="epane active" id="ep-biz"></div><div class="epane" id="ep-tech"></div></div>';
+  showEx(0);
+}
+function showEx(i){
+  EX.forEach((_,idx)=>{const e=document.getElementById('eli_'+idx);if(e)e.classList.toggle('active',idx===i);});
+  const ex=EX[i];
+  if(!ex||!ex.flujo||!ex.kpis)return;
+  document.getElementById('ep-biz').innerHTML='<div style="margin-bottom:10px"><span class="tag t'+ex.sc+'">'+ex.sector+'</span></div><div class="exd-t">'+ex.co+'</div><div class="exd-sub">'+ex.type+' · '+ex.agent+'</div><div class="exd-sl">El problema</div><p style="font-size:13px">'+ex.problema+'</p><div class="exd-sl">Flujo de funcionamiento</div><div>'+ex.flujo.map((s,idx)=>'<div class="flow-step"><span class="flow-n">'+String(idx+1).padStart(2,'0')+'</span><div>'+s+'</div></div>').join('')+'</div><div class="exd-sl" style="margin-top:14px">Resultados</div><div class="kpi-grid">'+ex.kpis.map(k=>'<div class="kpi"><div class="kpi-n">'+k.n+'</div><div class="kpi-l">'+k.l+'</div></div>').join('')+'</div><div class="exd-sl" style="margin-top:14px">Valor generado</div><div class="exd-val">'+ex.value+'</div>';
+  document.getElementById('ep-tech').innerHTML=buildTechView(ex.tech);
+}
+function swExTab(id,btn){
+  document.querySelectorAll('.et').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.epane').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('ep-'+id).classList.add('active');
+}
+
+// ═══ QUIZZES ═══
+const QS={
+  qz1:[
+    {q:'Un LLM con temperatura 0.0 recibe el mismo prompt dos veces. ¿Qué ocurre?',opts:['A. Outputs completamente diferentes','B. El mismo output — comportamiento determinista','C. Un error — la temperatura no puede ser 0','D. Output aleatorio entre opciones probables'],cor:1,lv:'Básico',exp:'Temperatura 0 = siempre el token más probable. Para el mismo input, el output es idéntico. Esencial en agentes de producción.',lec:'llms'},
+    {q:'Un SOW de 2.500 palabras en español produce aproximadamente cuántos tokens de output?',opts:['A. 2.500 tokens','B. 800 tokens','C. 3.750 tokens','D. 10.000 tokens'],cor:2,lv:'Básico',exp:'En español: ~1.5 tokens/palabra. 2.500 × 1.5 = 3.750 tokens. Con Sonnet ($15/M output) = $0.056 por SOW.',lec:'llms'},
+    {q:'¿Por qué los output tokens cuestan más que los input tokens?',opts:['A. Porque son más largos siempre','B. Porque generarlos requiere 5× más cómputo que leer el input','C. Porque Anthropic los cobra más por política comercial','D. No cuestan más — ambos tienen el mismo precio'],cor:1,lv:'Básico',exp:'Leer (input) es escanear. Escribir (output) es calcular miles de probabilidades para cada token generado. Por eso el output cuesta 5× más en Claude Sonnet: $15/M vs $3/M input.',lec:'costos'},
+    {q:'¿Cuál es la diferencia principal entre RAG y Fine-tuning?',opts:['A. RAG es más caro que Fine-tuning','B. Fine-tuning actualiza la knowledge base en tiempo real; RAG no','C. RAG busca documentos relevantes en tiempo de ejecución; Fine-tuning modifica los pesos del modelo en entrenamiento','D. No hay diferencia práctica — ambos logran el mismo resultado'],cor:2,lv:'Intermedio',exp:'RAG: en cada llamada busca los documentos relevantes e incluye en el contexto. Fine-tuning: reentrena el modelo con nuevos datos (proceso costoso y lento). Para knowledge bases dinámicas: siempre RAG.',lec:'rag'},
+    {q:'La suscripción Pro de claude.ai ($20/mes) te da acceso a la API para usar en n8n. ¿Verdadero o falso?',opts:['A. Verdadero — la suscripción cubre todo el ecosistema Claude','B. Falso — la suscripción web y los créditos de API son productos completamente separados','C. Verdadero — pero solo para modelos Haiku','D. Depende del plan de n8n que tengas'],cor:1,lv:'Básico',exp:'Son dos productos independientes con facturación separada. La suscripción Pro cubre claude.ai en el navegador. Los créditos de API (cargados en console.anthropic.com) son para n8n, Python y Managed Agents.',lec:'llms'},
+    {q:'¿Cuándo tiene sentido el Fine-tuning sobre el prompting y RAG?',opts:['A. Siempre que quieras que el modelo aprenda jerga de tu empresa','B. Cuando necesitas que el modelo acceda a documentos privados','C. Después de meses de prompting fallido para un estilo ultra-específico a altísimo volumen con cientos de ejemplos etiquetados','D. Siempre que el presupuesto lo permita'],cor:2,lv:'Aplicado',exp:'Fine-tuning solo supera al prompting en casos extremos: estilo muy rígido + volumen masivo + meses de prompting fallido + cientos de ejemplos etiquetados. Para el 95% de los casos: prompting + RAG es suficiente y 100× más barato.',lec:'ecosistema'},
+  ],
+  qz2:[
+    {q:'ReAct significa literalmente:',opts:['A. Responsive + Active Computing','B. Reasoning + Acting — razonar y actuar','C. Reactive + Automated Tasks','D. Real-time + Action Trigger'],cor:1,lv:'Básico',exp:'ReAct = Reasoning + Acting. Paper de Google (2022). El agente razona explícitamente antes de actuar — reduce errores y hace el proceso auditable en los logs.',lec:'patrones'},
+    {q:'Tu agente de clasificación devuelve JSON a veces y texto con JSON otras veces. Temperatura actual: 0.7. ¿Cuál es la solución correcta?',opts:['A. Cambiar a un modelo más avanzado','B. Temperatura 0.0 + instrucción explícita de solo JSON + parser con regex fallback','C. Aumentar max_tokens para dar más espacio','D. Agregar un nodo de validación después del agente'],cor:1,lv:'Intermedio',exp:'El trío correcto para Structured Outputs: (1) temperatura 0 para determinismo, (2) instrucción explícita "responde ÚNICAMENTE en JSON", (3) parser robusto con re.search para extraer JSON aunque haya texto extra.',lec:'patrones'},
+    {q:'¿Cuándo es OBLIGATORIO implementar Human-in-the-loop en un agente?',opts:['A. Siempre que el agente use herramientas externas','B. Solo cuando el agente accede a bases de datos','C. Cuando el agente puede ejecutar acciones irreversibles: enviar emails masivos, modificar BD en producción, ejecutar transacciones','D. Nunca — reduce la autonomía del agente'],cor:2,lv:'Intermedio',exp:'Human-in-the-loop es obligatorio para acciones irreversibles. Un agente que puede eliminar registros o enviar 10.000 emails sin confirmación es un agente peligroso. Proponer → mostrar → confirmar → ejecutar.',lec:'prompting'},
+    {q:'Tool Parallelism ocurre cuando:',opts:['A. Múltiples agentes trabajan simultáneamente','B. Claude devuelve múltiples bloques tool_use en un solo mensaje — el harness debe ejecutarlos en paralelo','C. n8n ejecuta múltiples flujos al mismo tiempo','D. El agente usa la misma herramienta varias veces'],cor:1,lv:'Intermedio',exp:'Claude puede devolver múltiples tool_use en una sola respuesta cuando las herramientas son independientes entre sí. El harness debe detectarlo y ejecutarlas con asyncio.gather(). Tiempo total = la herramienta más lenta.',lec:'agentes'},
+    {q:'¿En qué situación conviene usar Extended Thinking (Claude Opus)?',opts:['A. Para todas las llamadas — siempre mejora la calidad','B. Para clasificar emails de soporte — es más preciso','C. Para análisis complejos de riesgo con múltiples variables donde la primera respuesta suele ser incorrecta','D. Para generar SOWs estándar — el output es más detallado'],cor:2,lv:'Aplicado',exp:'Extended Thinking consume tokens adicionales de razonamiento (cobrados como output — caro). Solo vale para problemas genuinamente difíciles: análisis de riesgo, decisiones con incertidumbre, problemas de lógica multi-paso. Para tareas estándar: Sonnet sin thinking.',lec:'patrones'},
+    {q:'¿Cuál es la principal ventaja del patrón Tool Parallelism?',opts:['A. Reduce el número de herramientas del agente','B. Ejecuta múltiples herramientas simultáneamente con asyncio — reduce tiempo cuando son independientes entre sí','C. Garantiza orden fijo de ejecución','D. Solo funciona con Claude Opus'],cor:1,lv:'Intermedio',exp:'asyncio.gather() ejecuta herramientas en paralelo. CRM + inventario + calendario al mismo tiempo en vez de secuencialmente.',lec:'patrones'},
+  ],
+  qz3:[
+    {q:'¿Cuál es la diferencia entre agent_id y session_id en Managed Agents?',opts:['A. Son lo mismo — términos intercambiables','B. agent_id es la definición reutilizable (model+system+tools); session_id identifica una ejecución específica que referencia ese agente','C. agent_id es para producción; session_id para desarrollo','D. Ambos se crean nuevos en cada ejecución'],cor:1,lv:'Básico',exp:'agent_id: permanente, identifica la definición del agente. Se crea una vez, se usa en miles de sesiones. session_id: único por ejecución, se crea cada vez que el agente corre. En Console → Sesiones puedes ver el historial de cada session_id.',lec:'mcp'},
+    {q:'¿Para qué sirve el vault_id en Managed Agents?',opts:['A. Para identificar el container de ejecución del agente','B. Para guardar el historial de sesiones del agente','C. Para referenciar credenciales de terceros (Drive, Notion, CRM) de forma segura sin pasarlas en cada llamada','D. Para versionar el system prompt del agente'],cor:2,lv:'Básico',exp:'El vault almacena tokens OAuth y API keys. Es write-only — los tokens nunca se retornan en respuestas. Para un equipo: un vault_id por TAM con sus credenciales de Drive/Notion. Al crear la sesión, cada TAM pasa su vault_id.',lec:'console-org'},
+    {q:'En n8n, Claude devuelve: "Aquí está: {cat: soporte, urgencia: alta}". Tu nodo Code falla con SyntaxError. ¿Solución?',opts:['A. Aumentar max_tokens para dar más espacio a Claude','B. Cambiar a Claude Sonnet que es más consistente','C. Usar raw.match(/\\{[\\s\\S]*\\}/) para extraer el JSON antes de JSON.parse()+temperatura 0 en el prompt','D. Agregar un nodo de espera antes del Code'],cor:2,lv:'Básico',exp:'Claude a veces añade texto alrededor del JSON. La regex /\\{[\\s\\S]*\\}/ extrae el primer objeto JSON ignorando el texto. Combinar con temperatura 0 e instrucción "responde ÚNICAMENTE en JSON" en el prompt.',lec:'skills'},
+    {q:'¿Qué ventaja tiene pgvector sobre Pinecone para RAG?',opts:['A. pgvector es más rápido que Pinecone siempre','B. pgvector es una extensión de PostgreSQL — si ya tienes Postgres, no necesitas una BD vectorial adicional','C. pgvector no requiere calcular embeddings','D. pgvector es managed y Pinecone requiere self-hosting'],cor:1,lv:'Intermedio',exp:'pgvector extiende PostgreSQL con soporte vectorial. Si ya tienes una BD PostgreSQL en producción, agregar pgvector es trivial y evita gestionar un servicio adicional. Pinecone es managed pero introduce otro servicio que mantener.',lec:'nocode'},
+    {q:'¿Cuánto cuesta aproximadamente atender 10.000 mensajes de WhatsApp al mes con Claude Haiku?',opts:['A. $0.15 — Haiku es casi gratuito','B. $220 — Haiku cobra por sesión adicional','C. ~$22 — ~$0.0022 por mensaje (1.550 tokens × $1/M input + 150 tokens × $5/M output)','D. $1.500 — WhatsApp cobra por mensaje adicional'],cor:2,lv:'Aplicado',exp:'Cálculo: 10.000 msgs × (1.400 input tokens × $1/M + 150 output tokens × $5/M) = 10.000 × ($0.0014 + $0.00075) = $21.50. La plataforma de WhatsApp tiene su propio costo adicional (Meta cobra por conversaciones, no mensajes).',lec:'python'},
+    {q:'Un agente de producción lleva 2 horas en sesión activa de Managed Agents. ¿Cuánto ha costado solo la sesión (sin tokens)?',opts:['A. $0 — las sesiones son gratuitas','B. $0.16 — $0.08/hora × 2 horas','C. $0.80 — Managed Agents cobra $0.40/hora','D. $1.60 — el costo de sesión se duplica por hora adicional'],cor:1,lv:'Básico',exp:'$0.08/hora × 2 horas = $0.16 solo en costo de sesión (el container Linux). A esto se suman los tokens del modelo consumidos durante esas 2 horas.',lec:'costos'},
+  ],
+};
+
+const QS_M5=[
+  {q:'¿Cuál es la diferencia principal entre InvokeModel y Converse API en Bedrock?',opts:['A. InvokeModel es más rápido que Converse API','B. InvokeModel tiene formato específico por proveedor; Converse API usa el mismo formato para Claude, Llama, Nova y Mistral','C. Converse API solo funciona con Claude, no con otros modelos','D. InvokeModel es la versión nueva y Converse API la obsoleta'],cor:1,lv:'Básico',exp:'InvokeModel: cada proveedor tiene su propio formato de body — Claude usa anthropic_version, Llama usa prompt. Converse API: formato unificado para Claude, Nova, Llama y Mistral. Para multi-modelo, siempre usa Converse API.',lec:'bedrock-tech'},
+  {q:'¿Por qué Claude requiere habilitación explícita en Vertex AI y no en la API directa de Anthropic?',opts:['A. Porque Vertex cobra más por Claude que Anthropic directamente','B. Porque Vertex es un intermediario — los modelos de socios como Anthropic requieren aceptar términos específicos por proyecto','C. Solo ciertos modelos de Claude están disponibles en Vertex','D. Porque Google y Anthropic son competidores directos'],cor:1,lv:'Básico',exp:'Vertex es una plataforma multi-proveedor. Los modelos de socios (Claude, Llama, Mistral) requieren que el usuario acepte los términos de cada proveedor dentro del proyecto de GCP. Sin este paso, las llamadas fallan con error de permisos.',lec:'vertex-intro'},
+  {q:'Un equipo financiero en España debe procesar contratos con datos de clientes europeos sin que salgan de la UE. ¿Qué opción elegir?',opts:['A. API directa de Anthropic — la más simple','B. AWS Bedrock — tiene más modelos disponibles','C. Google Vertex AI con endpoint europe-west4 — procesa en Países Bajos','D. Cualquiera sirve — todas tienen opciones europeas equivalentes'],cor:2,lv:'Intermedio',exp:'Vertex AI con endpoint regional europe-west4 garantiza que el procesamiento queda en suelo europeo (Países Bajos). Es la solución más directa para GDPR estricto. La API directa de Anthropic procesa principalmente en EE.UU. Bedrock tiene endpoints europeos pero Vertex tiene mejor posicionamiento para cumplimiento europeo.',lec:'vertex-practica'},
+  {q:'¿Qué tiene Google Vertex AI que no existe en Amazon Bedrock ni en la API directa de Anthropic?',opts:['A. Acceso a Claude Opus y Sonnet — exclusivos de Vertex','B. Generación de video (Veo 3) y música (Lyria) — únicos en el mercado','C. Mejor precio en Claude que en la API directa','D. Soporte para Managed Agents de Anthropic'],cor:1,lv:'Básico',exp:'Veo 3 (generación de video) y Lyria (generación de música) son exclusivos de Vertex AI. No existen en Bedrock ni en la API de Anthropic. Para casos que requieren generación de video o audio programáticamente, Vertex es la única opción cloud gestionada.',lec:'vertex-avanzado'},
+  {q:'Masiv quiere desplegar el agente del equipo (con Vaults para Drive de cada TAM) en infraestructura de un cliente que solo usa AWS. ¿Qué problema existe?',opts:['A. Ninguno — Bedrock soporta todos los features de Anthropic incluyendo Managed Agents','B. Los Vaults y Managed Agents de Claude Console no están disponibles en Bedrock — el cliente tendría que gestionar credenciales de Drive en su propia infra','C. Claude Sonnet no está disponible en Bedrock, solo Claude Haiku','D. Bedrock tiene un costo 3x mayor que la API directa'],cor:1,lv:'Aplicado',exp:'Managed Agents (Console, Vaults, Sessions) son exclusivos de la plataforma directa de Anthropic. En Bedrock solo puedes usar Claude como modelo, no la infraestructura de agentes de Anthropic. El cliente tendría que implementar su propio sistema de gestión de credenciales.',lec:'bedrock-agents'},
+  {q:'¿En cuál de estas situaciones Amazon Bedrock es CLARAMENTE superior a la API directa de Anthropic?',opts:['A. Cuando necesitas las últimas features de Claude el mismo día que salen','B. Cuando necesitas Managed Agents con Vaults para credenciales de usuarios','C. Cuando tu app corre en AWS Lambda y la política de seguridad prohíbe tráfico al internet público','D. Cuando el presupuesto de IA es muy limitado — Bedrock cuesta menos'],cor:2,lv:'Aplicado',exp:'Con AWS PrivateLink, el tráfico de Lambda a Claude en Bedrock no toca el internet público — permanece dentro de la VPC. Para empresas con política de zero internet egress (común en finanzas y healthcare en AWS), Bedrock es la única opción viable. La API directa siempre requiere salida al internet.',lec:'bedrock-costos'},
+];
+
+
+const QS_M3A=[
+  {q:'¿Cuál es la diferencia principal entre un Tool Use propio y un servidor MCP?',opts:['A. MCP es más rápido que Tool Use en cualquier caso','B. Tool Use requiere implementar la lógica en tu código; MCP expone herramientas estandarizadas que cualquier cliente compatible puede usar sin modificar tu código','C. MCP solo funciona con Claude Desktop, no con la API','D. Tool Use y MCP son exactamente lo mismo con diferente nombre'],cor:1,lv:'Intermedio',exp:'Tool Use = defines la herramienta y su lógica en tu código. MCP = defines un servidor estándar que cualquier cliente MCP puede consumir.',lec:'mcp'},
+  {q:'¿Qué ocurre si intentas usar un servidor MCP en claude.ai sin activarlo en la configuración?',opts:['A. Funciona automáticamente si el servidor está en el directorio oficial','B. Claude lo detecta y lo activa solo','C. El servidor no está disponible — MCP en claude.ai requiere activación explícita por cada servidor','D. Solo falla si el servidor no está en npmjs.com'],cor:2,lv:'Básico',exp:'MCP en claude.ai requiere activación manual por cada servidor. Sin este paso el servidor no está disponible en la conversación.',lec:'mcp-usar'},
+  {q:'Un TAM tiene 3 proyectos de clientes simultáneos con diferentes presupuestos. ¿Cómo organizaría los Workspaces en Console?',opts:['A. Un solo Workspace con una API key compartida para todos','B. Un Workspace por proyecto con su propio spend limit y API key — así el consumo de cada cliente es independiente y auditable','C. Tres Workspaces bajo la misma API key con prefijos en el nombre del sistema prompt','D. Workspaces solo sirven para separar entornos dev/prod, no para clientes diferentes'],cor:1,lv:'Aplicado',exp:'Un Workspace por cliente permite spend limits independientes, API keys separadas, y trazabilidad por cliente en CloudTrail. El consumo de cada proyecto queda aislado.',lec:'console-org'},
+  {q:'¿Por qué el Vault de Managed Agents es "write-only"?',opts:['A. Por limitación técnica — no se ha implementado la lectura todavía','B. Para reducir costos de almacenamiento en la plataforma de Anthropic','C. Porque si las credenciales fueran legibles, cualquier persona con acceso a la Console podría extraerlas — write-only garantiza que ni el equipo de Anthropic las puede leer','D. Solo es write-only en el plan Free; en Enterprise se pueden leer'],cor:2,lv:'Intermedio',exp:'Write-only es un principio de seguridad. Las credenciales se almacenan cifradas y solo el agente puede usarlas en tiempo de ejecución. Nadie, ni Anthropic, puede leerlas.',lec:'console'},
+  {q:'¿Cuándo tiene más sentido usar un Agent Skill en lugar de incluir las instrucciones en el System Prompt?',opts:['A. Cuando las instrucciones son cortas — menos de 500 tokens','B. Cuando el agente necesita instrucciones especializadas para tipos de tarea específicos que no siempre ejecuta — así evitas cargar tokens innecesarios en cada llamada','C. Agent Skills y System Prompt tienen el mismo costo de tokens, no hay diferencia práctica','D. Solo cuando el System Prompt ya alcanzó el límite de 100.000 tokens'],cor:1,lv:'Aplicado',exp:'Un Skill se carga solo cuando se necesita. Si el agente genera SOWs el 30% del tiempo, cargar el Skill de SOW solo ese 30% ahorra tokens en el 70% de las llamadas donde no se usa.',lec:'skills'},
+  {q:'¿Cuál de estas combinaciones describe correctamente los 4 IDs de un Managed Agent en producción?',opts:['A. model_id, prompt_id, user_id, request_id','B. agent_id (qué agente), environment_id (qué entorno), vault_id (qué credenciales), session_id (qué sesión del usuario)','C. workspace_id, skill_id, api_key_id, log_id','D. agent_id y environment_id son suficientes — vault_id y session_id son opcionales'],cor:1,lv:'Básico',exp:'Los 4 IDs son: agent_id (el agente específico), environment_id (prod/dev/staging), vault_id (dónde están las credenciales), session_id (contexto de conversación del usuario).',lec:'managed'},
+];
+
+const QS_M6=[
+  {q:'¿Por qué Claude en Vertex AI NO está disponible por defecto?',opts:['A. Limitaciones técnicas de Google','B. Claude requiere aceptar términos de Anthropic dentro de cada proyecto de GCP en Model Garden','C. Solo disponible en Enterprise','D. Solo en EE.UU.'],cor:1,lv:'Básico',exp:'Gemini es nativo de Google. Claude es modelo de socio que requiere habilitación y términos por proyecto.',lec:'vertex-intro'},
+  {q:'¿Cómo se instancia el cliente de Claude en Vertex vs la API directa?',opts:['A. Misma clase Anthropic() con API key diferente','B. AnthropicVertex(region, project_id) sin api_key — credenciales vienen de GCP (ADC)','C. Vertex no soporta streaming','D. SDK de Google, no el de Anthropic'],cor:1,lv:'Intermedio',exp:'AnthropicVertex(region, project_id) sin api_key. Credenciales ADC de GCP. Código idéntico al resto.',lec:'vertex-tech'},
+  {q:'¿Qué endpoint de Vertex garantiza que datos no salgan de la UE (GDPR)?',opts:['A. us-central1','B. global','C. europe-west4 — procesamiento en suelo europeo','D. asia-southeast1'],cor:2,lv:'Aplicado',exp:'europe-west4 (Países Bajos) garantiza residencia en la UE. Global y us-central1 procesan principalmente en EE.UU.',lec:'vertex-tech'},
+  {q:'¿Qué hace Grounding con Google Search en Vertex AI?',opts:['A. Mejora velocidad con caché','B. Ancla respuestas en resultados de búsqueda en tiempo real — información actualizada post-entrenamiento','C. También disponible en Bedrock y API directa','D. Solo funciona con Gemini'],cor:1,lv:'Intermedio',exp:'Grounding = respuestas ancladas en Google Search en tiempo real. Exclusivo de Vertex.',lec:'vertex-avanzado'},
+  {q:'¿Qué tiene Vertex que NO existe en Bedrock ni en la API de Anthropic?',opts:['A. Prompt Caching','B. Batch API','C. Generación de video (Veo 3) y música (Lyria)','D. Managed Agents'],cor:2,lv:'Básico',exp:'Veo 3 y Lyria son exclusivos del ecosistema Google. Bedrock y la API de Anthropic no ofrecen video ni música.',lec:'vertex-intro'},
+  {q:'¿Qué es el Vertex RAG Engine?',opts:['A. Igual a RAG propio con diferente nombre','B. Gestiona vectorización automática en Cloud Storage, vector store y consulta — sin código de embedding','C. Solo funciona con Gemini','D. Más caro que implementación propia'],cor:1,lv:'Intermedio',exp:'Vertex RAG Engine: Cloud Storage → Gecko vectoriza → consulta automática. Sin código de embedding. Similar a Bedrock Knowledge Bases.',lec:'vertex-avanzado'},
+];
+
+const EXAM_QS=[
+  {q:'¿Cuánto cuesta generar un SOW de 2.500 palabras con Claude Sonnet 4.6 incluyendo el contexto de entrada?',opts:['A. $0.006','B. Aproximadamente $0.06 — ~1.500 tokens input ($0.0045) + ~3.750 tokens output ($0.056)','C. $0.45','D. $1.50'],cor:1,lv:'Básico',exp:'Input: 1.500 tokens × $3/M = $0.0045. Output: 3.750 tokens × $15/M = $0.056. Total: ~$0.06. El output domina el costo.',lec:'costos'},
+  {q:'La temperatura recomendada para un agente que extrae datos de contratos en JSON es:',opts:['A. 0.9 — máxima creatividad','B. 0.5 — balance estándar','C. 0.0 — determinismo total','D. La temperatura no afecta la extracción'],cor:2,lv:'Básico',exp:'Extracción de datos = tarea determinista. Temperatura 0 garantiza que el mismo contrato siempre produzca el mismo JSON. Alta temperatura hace que los campos a veces aparezcan con nombres diferentes.',lec:'llms'},
+  {q:'¿Qué hace stop_reason="tool_use" en la API de Claude?',opts:['A. Indica que la tarea fue completada exitosamente','B. Indica que Claude quiere invocar una herramienta — el harness debe ejecutarla y devolver el resultado antes de continuar','C. Indica un error en la definición de la herramienta','D. Indica que el contexto se llenó'],cor:1,lv:'Básico',exp:'tool_use = "necesito el resultado de esta herramienta". El harness ejecuta la función, devuelve el resultado como tool_result, y vuelve a llamar a la API. Repite hasta stop_reason="end_turn".',lec:'patrones'},
+  {q:'¿Cuándo es RAG claramente superior al Fine-tuning?',opts:['A. Para todos los casos — el Fine-tuning ya no es relevante','B. Para conocimiento que cambia frecuentemente (políticas, catálogos, FAQs): actualiza en minutos vs semanas','C. Para estilos de escritura muy específicos a altísimo volumen','D. Fine-tuning es siempre superior — RAG es un workaround'],cor:1,lv:'Básico',exp:'RAG para conocimiento dinámico: actualizas los documentos en la base vectorial y el agente los accede inmediatamente. Fine-tuning para ese mismo caso costaría semanas y miles de dólares cada vez que cambien los documentos.',lec:'agentes'},
+  {q:'¿Qué diferencia hay entre agent_id, environment_id, vault_id y session_id en Managed Agents?',opts:['A. Son nombres alternativos para el mismo concepto','B. agent_id (definición), environment_id (container de ejecución), vault_id (credenciales), session_id (instancia de ejecución específica)','C. Solo agent_id y session_id existen — los otros son opcionales','D. Todos se crean nuevos en cada ejecución del agente'],cor:1,lv:'Intermedio',exp:'Cuatro conceptos separados: el agente es la definición reutilizable. El environment es el container Linux configurado. El vault guarda credenciales de terceros de forma segura. La session es una ejecución específica que vincula los tres anteriores.',lec:'seg-planes'},
+  {q:'¿Cuál es el beneficio principal del Prompt Caching para agentes con muchas llamadas?',opts:['A. Reduce el tiempo de respuesta a 0 segundos','B. Permite reutilizar el mismo system prompt al 10% del precio de input en llamadas repetidas — ahorro de hasta 90%','C. Elimina el costo de output tokens','D. Solo funciona con Claude Haiku'],cor:1,lv:'Intermedio',exp:'Cache reads: ~10% del precio input. Para 10.000 llamadas con system prompt de 2.000 tokens: sin cache $60/mes → con cache ~$6/mes. Cache write tiene un overhead del 25% del precio input, pero se amortiza rápidamente.',lec:'bedrock-intro'},
+  {q:'Tu agente de soporte bancario empieza a dar consejos legales generales. Causa más probable:',opts:['A. El modelo cambió a una versión diferente','B. System prompt sin scope — no delimita qué temas puede y no puede abordar','C. La temperatura es demasiado alta','D. Falta de herramientas conectadas'],cor:1,lv:'Intermedio',exp:'Sin scope explícito, el LLM usa su conocimiento general libremente. Solución: restricciones negativas explícitas en el system prompt: "SOLO responde sobre productos de NovaBanco. Para cualquier otro tema indica que no puedes ayudar con eso."',lec:'mcp'},
+  {q:'¿Cuál es el riesgo principal del "Shadow AI" en una empresa?',opts:['A. Que los empleados usen Claude demasiado y agoten los créditos','B. Que empleados usen cuentas personales (Pro) para trabajo: datos empresariales bajo términos de consumidor que permiten entrenamiento del modelo','C. Que Claude acceda a la red interna sin permiso','D. Que el agente procese emails personales de los empleados'],cor:1,lv:'Intermedio',exp:'Shadow AI = empleados usando cuentas personales Pro para trabajo empresarial. Desde sept 2025, Free/Pro/Max permiten entrenamiento con tus datos por defecto. Solución: Team plan con domain capture — asocia automáticamente emails corporativos a la cuenta empresarial.',lec:'console-org'},
+  {q:'¿Qué hace el Summarization Loop en un agente con sesiones largas?',opts:['A. Resume las respuestas del agente para hacerlas más cortas','B. Cuando el historial supera cierto umbral de tokens, resume los turnos más antiguos con Haiku para liberar espacio en el contexto manteniendo la información relevante','C. Elimina el historial cuando la sesión termina','D. Comprime los documentos adjuntos para reducir tokens'],cor:1,lv:'Aplicado',exp:'En sesiones largas, el historial crece hasta llenar el contexto (200K tokens). El summarization loop: cuando el historial supera el 70% del contexto, usa Haiku (barato) para resumir los primeros 2/3 del historial. Preserva decisiones clave sin agotar el contexto.',lec:'patrones'},
+  {q:'¿Cuál es la principal ventaja del patrón Tool Parallelism?',opts:['A. Reduce el número de herramientas del agente','B. Ejecuta múltiples herramientas simultáneamente con asyncio — reduce tiempo cuando son independientes entre sí','C. Garantiza orden fijo de ejecución','D. Solo funciona con Claude Opus'],cor:1,lv:'Intermedio',exp:'asyncio.gather() ejecuta herramientas en paralelo. CRM + inventario + calendario al mismo tiempo en vez de secuencialmente.',lec:'patrones'},
+  {q:'¿Cuándo usar Claude Opus con Extended Thinking en lugar de Sonnet estándar?',opts:['A. Siempre — Opus siempre da mejores resultados','B. Para tareas simples de alto volumen donde necesitas consistencia','C. Para análisis complejos donde la primera respuesta suele ser incorrecta y el costo adicional está justificado por el impacto de la decisión','D. Cuando quieres ahorrar tokens — Opus es más eficiente'],cor:2,lv:'Aplicado',exp:'Extended Thinking cobra los tokens de razonamiento interno como output ($25/M). Justificado solo cuando el problema es genuinamente difícil y el costo de una respuesta incorrecta es alto (análisis de riesgo, contratos complejos). Para tareas estándar: Sonnet.',lec:'vertex-intro'},
+  {q:'¿Qué diferencia a Managed Agents de usar la API clásica de mensajes?',opts:['A. Managed Agents es gratis; la API clásica se paga por token','B. Managed Agents gestiona automáticamente el container de ejecución, el estado de sesión, las credenciales de terceros y la trazabilidad — la API clásica requiere que tú construyas toda esa infraestructura','C. Managed Agents solo funciona con Claude Haiku','D. La API clásica tiene más herramientas disponibles que Managed Agents'],cor:1,lv:'Intermedio',exp:'API clásica: tú construyes el harness, el estado, el manejo de credenciales y el logging. Managed Agents: Anthropic gestiona los containers, el estado persiste entre sesiones, los vaults protegen las credenciales, y cada tool_call es visible en Console. A cambio: $0.08/hora de sesión activa.',lec:'skills'},
+  {q:'¿Cuánto cuesta aproximadamente un mes de atención al cliente con 10K mensajes/mes en WhatsApp usando Claude Haiku?',opts:['A. $0.15 — casi gratuito','B. $220 — Haiku cobra por sesión','C. $22 — ~$0.0022 por mensaje','D. $1.500 — WhatsApp cobra por mensaje en Business API'],cor:2,lv:'Aplicado',exp:'$0.0022 por mensaje × 10.000 = $22/mes solo en tokens de Claude. A comparar con un agente humano: 10.000 mensajes a 50 msg/hora = 200 horas × $8/hora = $1.600/mes.',lec:'costos'},
+  {q:'Para implementar RAG en producción con alta disponibilidad, ¿qué base vectorial usarías si ya tienes PostgreSQL?',opts:['A. Pinecone — es managed y más confiable','B. pgvector — extensión de PostgreSQL que añade soporte vectorial sin servicio adicional','C. ChromaDB — es open source y gratuito','D. FAISS — es la más rápida en todos los casos'],cor:1,lv:'Aplicado',exp:'pgvector si ya tienes Postgres: agrega soporte vectorial sin introducir otro servicio. Menos infra, menos puntos de fallo, facturación unificada. Pinecone si no tienes Postgres y prefieres fully-managed. ChromaDB para prototipos locales.',lec:'patrones'},
+  {q:'¿Cuál es la estructura correcta para manejar Tool Parallelism en Python?',opts:['A. for tool in tool_calls: result = execute(tool) — secuencial estándar','B. asyncio.gather(*[execute_async(t) for t in tool_calls]) — todas simultáneas','C. threading.Thread para cada herramienta — múltiples hilos','D. Claude no soporta múltiples tools en una sola respuesta'],cor:1,lv:'Aplicado',exp:'asyncio.gather() es la forma correcta para I/O concurrente en Python. Las llamadas a APIs externas son I/O-bound — asyncio las maneja eficientemente. threading.Thread funciona pero es menos eficiente para I/O. El tiempo total = la herramienta más lenta.',lec:'bedrock-agents'},
+];
+
+// Quiz renderer
+// ═══ QUIZ ENGINE — one question at a time ═══
+const QANS={};
+const LEC_NAMES={
+  llms:'Cómo funcionan los LLMs',
+  rag:'RAG, Fine-tuning y contexto',
+  costos:'Tokens y costos',
+  ecosistema:'Ecosistema y precios',
+  prompting:'Prompt Engineering',
+  agentes:'Arquitectura de Agentes',
+  patrones:'Patrones avanzados 1-4',
+  plataformas:'Claude vs GPT',
+  'seg-planes':'Planes y privacidad',
+  'seg-datos':'Seguridad de datos',
+  'bedrock-intro':'AWS Bedrock — ¿Qué es?',
+  'bedrock-tech':'Bedrock — Arquitectura',
+  'bedrock-costos':'Bedrock — Costos y decisión',
+  'bedrock-agents':'Bedrock Agents y Knowledge Bases',
+  'vertex-intro':'Vertex AI — ¿Qué es?',
+  'vertex-practica':'Vertex vs Bedrock vs API',
+  'vertex-avanzado':'Vertex Avanzado',
+  mcp:'MCP — ¿Qué es?',
+  'mcp-usar':'MCP — Cómo conectar',
+  'console-org':'Console — Workspaces',
+  skills:'Agent Skills',
+  nocode:'Sin código (n8n)',
+  python:'Tutorial Python',
+  tam:'Tu agente TAM',
+  ejercicios:'Ejercicios prácticos'
+};
+// Per-quiz state: {current, results[], done}
+const QZ_STATE={};
+
+function getQS(qid){
+  if(qid==='exam')return EXAM_QS;
+  if(qid==='qz5')return QS_M5;
+  if(qid==='qz3a')return QS_M3A;
+  if(qid==='qz6')return QS_M6;
+  return QS[qid]||null;
+}
+
+function esc(s){return s.replace(/'/g,"\\'")||'';}
+
+
+
+function toggleComparison(type){
+  const el=document.getElementById('comparison-detail');
+  if(!el)return;
+  const data={
+    chatbot:{color:'var(--blue)',title:'💬 Cuándo usar un Chatbot',content:'Usa un chatbot cuando: (1) las preguntas tienen respuestas predefinidas en un catálogo, (2) no necesitas acceder a sistemas externos en tiempo real, (3) el flujo es siempre pregunta-respuesta simple. <strong>No uses un chatbot</strong> si las respuestas requieren lógica compleja o acceso a múltiples fuentes.'},
+    workflow:{color:'var(--orange)',title:'🔄 Cuándo usar un Workflow',content:'Usa un workflow cuando: (1) los pasos son siempre los mismos, (2) cada paso depende del anterior de forma predecible, (3) no necesitas que la IA decida qué hacer a continuación. <strong>No uses un workflow</strong> si las excepciones son frecuentes o si el proceso varía según el contexto.'},
+    agente:{color:'var(--teal)',title:'🤖 Cuándo usar un Agente',content:'Usa un agente cuando: (1) los pasos no son predecibles de antemano, (2) la IA necesita decidir qué herramientas usar según el contexto, (3) el problema requiere razonamiento iterativo. <strong>No uses un agente</strong> si el flujo es simple y predecible — añades complejidad innecesaria.'},
+  };
+  const d=data[type];
+  if(el.dataset.open===type){el.style.display='none';el.dataset.open='';return;}
+  el.dataset.open=type;
+  el.style.display='block';
+  el.style.borderColor=d.color;
+  el.innerHTML='<div style="font-weight:700;color:'+d.color+';margin-bottom:8px">'+d.title+'</div><div style="font-size:13px;line-height:1.7">'+d.content+'</div>';
+}
+
+function updateVolWidget(){
+  const el=document.getElementById('vol-docs');
+  if(!el)return;
+  const docs=parseInt(el.value);
+  document.getElementById('vol-docs-val').textContent=docs+' documentos/semana';
+  // Costs: SOW = ~2000 tokens input + 3000 output with Sonnet = ~$0.054/doc
+  const tokCost=docs*0.054*4; // monthly (4 weeks)
+  // Managed: ~15min/doc * 0.08/hr = $0.02/doc + tokens
+  const maCost=docs*(0.02+0.054)*4;
+  const apiExtra=docs<20?'Sin costo fijo':'Considera caché para reducir';
+  const maExtra=docs<20?'Sessions y Vault incluidos':'Infraestructura gestionada';
+  document.getElementById('vol-api-detail').innerHTML='Solo tokens consumidos<br>'+apiExtra+'<br>Tú gestionas credenciales';
+  document.getElementById('vol-ma-detail').innerHTML='Tokens + $0.08/hr sesión<br>'+maExtra+'<br>Vault write-only incluido';
+  document.getElementById('vol-api-cost').textContent='~$'+tokCost.toFixed(0)+'/mes';
+  document.getElementById('vol-ma-cost').textContent='~$'+maCost.toFixed(0)+'/mes';
+  const rec=document.getElementById('vol-recommendation');
+  if(docs<=15){rec.style.background='#e8f5e9';rec.style.color='#2e7d32';rec.textContent='✅ Recomendado a este volumen: API directa. El costo de Managed Agents no se justifica todavía.';}
+  else if(docs<=50){rec.style.background='#fff3e0';rec.style.color='#e65100';rec.textContent='⚖️ Zona mixta: API si tienes equipo técnico, Managed Agents si quieres menos mantenimiento.';}
+  else{rec.style.background='#e3f2fd';rec.style.color='#1565c0';rec.textContent='🤖 Recomendado a este volumen: Managed Agents. La reducción de mantenimiento y la gestión de credenciales justifican el costo.';}
+}
+
+function updateCostCalc(){
+  const modelEl=document.getElementById('cost-model');
+  const taskEl=document.getElementById('cost-task');
+  const dailyEl=document.getElementById('cost-daily');
+  const daysEl=document.getElementById('cost-days');
+  if(!modelEl)return;
+  const [inPrice,outPrice]=modelEl.value.split(',').map(Number);
+  const [inTok,outTok]=taskEl.value.split(',').map(Number);
+  const daily=parseInt(dailyEl.value);
+  const days=parseInt(daysEl.value);
+  document.getElementById('cost-daily-val').textContent=daily+' llamadas/día';
+  document.getElementById('cost-days-val').textContent=days+' días/mes';
+  const perCall=inTok/1e6*inPrice + outTok/1e6*outPrice;
+  const dailyTotal=perCall*daily;
+  const monthly=dailyTotal*days;
+  document.getElementById('cost-per-call').textContent='$'+perCall.toFixed(4);
+  document.getElementById('cost-daily-total').textContent='$'+dailyTotal.toFixed(2);
+  document.getElementById('cost-monthly').textContent='$'+monthly.toFixed(2);
+  const ctx=monthly<1?'Costo muy bajo — adecuado para prototipo o uso individual.':monthly<10?'Costo bajo — viable para equipo pequeño.':monthly<50?'Costo moderado — considera Prompt Caching para reducirlo.':'Costo significativo — evalúa Batch API (50% off) o modelos más económicos.';
+  document.getElementById('cost-context').textContent='💡 '+ctx;
+}
+
+function shuffleQ(q,seed){
+  const cor=q.cor; const opts=[...q.opts]; const correctText=opts[cor];
+  const hash=(seed*31+q.q.length+Math.floor(Date.now()/60000))%4;
+  const wrong=opts.filter((_,i)=>i!==cor);
+  const newCor=hash%4;
+  const newOpts=[];
+  let wi=0;
+  for(let i=0;i<4;i++){if(i===newCor){newOpts.push(correctText);}else{newOpts.push(wrong[wi++]||opts[i]);}}
+  return {...q,opts:newOpts,cor:newCor};
+}
+
+function renderQuizzes(){
+  // Render all quizzes using new one-at-a-time engine
+  const allIds=[...Object.keys(QS),'qz3a','qz5','qz6','exam'];
+  allIds.forEach(id=>{
+    const qs=getQS(id);
+    const wrap=document.getElementById(id+'-wrap');
+    
+    if(!wrap||!qs)return;
+    initQuiz(id,qs,wrap);
+  });
+}
+
+function initQuiz(qid,qs,wrap){
+  if(!QZ_STATE[qid])QZ_STATE[qid]={current:0,results:[],done:false};
+  renderQuestion(qid,qs,wrap,0);
+}
+
+// Cache shuffled questions to avoid passing data through onclick attrs
+const SQ_CACHE={};
+
+function renderQuestion(qid,qs,wrap,idx){
+  const sq=shuffleQ(qs[idx],idx+(qid==='exam'?100:qid==='qz5'?40:0));
+  const cacheKey=qid+'_'+idx;
+  SQ_CACHE[cacheKey]=sq; // Store so ansQv2 can read without HTML injection
+  const total=qs.length;
+  const pct=Math.round(idx/total*100);
+  const isLast=idx===total-1;
+  wrap.innerHTML=`
+  <div class="quiz-engine">
+    <div class="quiz-counter">
+      <span>Pregunta ${idx+1} de ${total}</span>
+      <span class="quiz-lvl-badge">${sq.lv}</span>
+    </div>
+    <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="${qid}-pfill" style="width:${pct}%"></div></div>
+    <div class="quiz-q">${sq.q}</div>
+    <div class="qopts" id="${qid}-opts">
+      ${sq.opts.map((o,oi)=>`<button class="qo" id="${qid}_o${oi}" onclick="ansQv2('${qid}',${idx},${oi},${total})">${o}</button>`).join('')}
+    </div>
+    <div class="qfb" id="${qid}-fb"></div>
+    <button class="quiz-next-btn" id="${qid}-next" onclick="nextQuestion('${qid}',${idx+1},${total})">
+      ${isLast?'Ver resultados →':'Siguiente pregunta →'}
+    </button>
+  </div>`;
+}
+
+function ansQv2(qid,idx,sel,total){
+  // Read question data from cache (avoids HTML injection via onclick)
+  const cacheKey=qid+'_'+idx;
+  const sq=SQ_CACHE[cacheKey]||{};
+  const cor=sq.cor!==undefined?sq.cor:0;
+  const exp=sq.exp||'';
+  const lec=sq.lec||'';
+  const key=qid+'_'+idx;
+  if(QANS[key]!==undefined)return;
+  QANS[key]={sel,cor,lec};
+
+  // Visual feedback on options
+  for(let i=0;i<4;i++){
+    const btn=document.getElementById(qid+'_o'+i);
+    if(btn)btn.disabled=true;
+  }
+  const selBtn=document.getElementById(qid+'_o'+sel);
+  if(selBtn)selBtn.classList.add(sel===cor?'ok':'fail');
+  // Do NOT reveal correct answer if wrong — just mark wrong
+
+  // Feedback panel — no explanation, just lesson reference
+  const fb=document.getElementById(qid+'-fb');
+  if(fb){
+    const isOk=sel===cor;
+    const lecName=lec&&LEC_NAMES[lec]?LEC_NAMES[lec]:'';
+    const reviewHtml=(!isOk&&lec)?`<div class="qfb-review">📖 Repasa: <a onclick="go('${lec}',nb('${lec}'))">${lecName}</a></div>`:'';
+    fb.className='qfb on '+(isOk?'ok':'fail');
+    fb.innerHTML=`<div class="qfb-result ${isOk?'ok-txt':'fail-txt'}">
+      ${isOk?'✅ Correcto — aquí está el porqué:':'❌ Incorrecto — repasa:'}
+    </div>${reviewHtml}`;
+  }
+
+  // Save result
+  if(!QZ_STATE[qid])QZ_STATE[qid]={current:0,results:[],done:false};
+  QZ_STATE[qid].results[idx]={sel,cor,lec};
+
+  // Show next button
+  const nextBtn=document.getElementById(qid+'-next');
+  if(nextBtn)nextBtn.classList.add('show');
+
+  // Update progress bar
+  const fill=document.getElementById(qid+'-pfill');
+  const pct=Math.round((idx+1)/total*100);
+  if(fill)fill.style.width=pct+'%';
+}
+
+function nextQuestion(qid,nextIdx,total){
+  const qs=getQS(qid);
+  if(!qs)return;
+  if(nextIdx>=total){
+    showResults(qid,qs);
+  } else {
+    const wrap=document.getElementById(qid+'-wrap') ||
+               document.getElementById((qid==='exam'?'exam':qid)+'-wrap');
+    if(wrap)renderQuestion(qid,qs,wrap,nextIdx);
+  }
+}
+
+function showResults(qid,qs){
+  const state=QZ_STATE[qid];
+  if(!state)return;
+  state.done=true;
+  const results=state.results||[];
+  let correct=0;
+  const wrongItems=[];
+  qs.forEach((q,i)=>{
+    const r=results[i]||QANS[qid+'_'+i];
+    if(r&&r.sel===r.cor){correct++;}
+    else if(r&&r.lec){
+      // Track unique lessons to review
+      const lecName=LEC_NAMES[r.lec]||r.lec;
+      if(!wrongItems.find(w=>w.lec===r.lec)){
+        wrongItems.push({lec:r.lec,name:lecName});
+      }
+    }
+  });
+  const pct=Math.round(correct/qs.length*100);
+  const pass=pct>=70;
+
+  const wrap=document.getElementById(qid+'-wrap') ||
+             document.getElementById((qid==='exam'?'exam':qid)+'-wrap');
+  if(!wrap)return;
+
+  const reviewHtml=wrongItems.length>0?`
+    <div style="margin-top:14px;font-size:12px;font-weight:600;color:var(--ink3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Lecciones para repasar:</div>
+    <div class="quiz-review-list">
+      ${wrongItems.map(w=>`<div class="quiz-review-item needs-review">
+        <span class="qri-icon">📖</span>
+        <span>Vuelve a <a class="qri-lec" onclick="go('${w.lec}',nb('${w.lec}'))">${w.name}</a></span>
+      </div>`).join('')}
+    </div>`:'<div style="color:var(--green);font-weight:600;margin-top:10px">✅ ¡Dominio completo! Todas las respuestas correctas.</div>';
+
+  const retryBtn=`<button onclick="retryQuiz('${qid}')" style="margin-top:16px;padding:9px 18px;background:var(--s2);border:1px solid var(--border);border-radius:var(--r);font-family:inherit;font-size:13px;cursor:pointer;color:var(--ink)">🔄 Repetir quiz</button>`;
+
+  wrap.innerHTML=`<div class="quiz-engine">
+    <div class="quiz-results show">
+      <div class="quiz-results-score">${correct}/${qs.length}</div>
+      <div class="quiz-results-pct">${pct}% · ${pass?'<span style=color:var(--green)>Aprobado ✅</span>':'<span style=color:var(--red)>Necesitas 70%</span>'}</div>
+      <div style="height:8px;background:var(--s2);border-radius:4px;overflow:hidden"><div style="height:100%;width:${pct}%;background:${pass?'var(--green)':'var(--red)'};border-radius:4px;transition:width .6s"></div></div>
+      ${reviewHtml}
+      ${retryBtn}
+    </div>
+  </div>`;
+
+  // Mark quiz as complete for progress tracking
+  if(!ST.v.includes(qid))ST.v.push(qid);
+  updateProgress();
+
+  // Update score displays (legacy compatibility)
+  const sc=document.getElementById(qid+'-score');
+  if(sc)sc.textContent=correct+'/'+qs.length+' ('+pct+'%). '+(pass?'¡Aprobado!':'Repasa las lecciones indicadas.');
+  const res=document.getElementById(qid+'-res');if(res)res.style.display='block';
+  const examNote=document.getElementById('exam-note');
+  if(examNote&&qid==='exam'){examNote.className='note '+(pass?'green':'gold');examNote.innerHTML='<div class="note-hd">'+(pass?'🎓 ¡Bootcamp completado!':'📚 Sigue practicando')+'</div><p>Resultado: '+correct+'/'+qs.length+' ('+pct+'%). '+(pass?'¡Listo para producción!':'Repasa las lecciones marcadas y vuelve a intentarlo.')+'</p>';}
+  const examRes=document.getElementById('exam-res');if(examRes&&qid==='exam')examRes.style.display='block';
+}
+
+function retryQuiz(qid){
+  QZ_STATE[qid]={current:0,results:[],done:false};
+  const qs=getQS(qid);
+  const wrap=document.getElementById(qid+'-wrap');
+  // Clear ALL QANS keys for this quiz (prevents blocking on retry)
+  Object.keys(QANS).forEach(k=>{if(k.startsWith(qid+'_'))delete QANS[k];});
+  // Also clear SQ_CACHE for this quiz
+  Object.keys(SQ_CACHE).forEach(k=>{if(k.startsWith(qid+'_'))delete SQ_CACHE[k];});
+  if(wrap&&qs)renderQuestion(qid,qs,wrap,0);
+}
+
+// Legacy ansQ — kept for backward compat but redirects to new system
+function ansQ(quizId,qid,sel,cor,exp){
+  // Extract index from qid (format: 'qzN_qI')
+  const parts=qid.split('_q');
+  const idx=parseInt(parts[1]||0);
+  const total=getQS(quizId)?getQS(quizId).length:6;
+  ansQv2(quizId,idx,sel,cor,exp,'',total);
+}
+
+function checkComplete(qid){
+  // Now handled by showResults — kept for backward compat
+}
+
+
+// ═══ INIT ═══
+
+// ── v12 NEW FUNCTIONS ────────────────────────────────────
+
+const READ_TIMES={'home':2,'intro-ia':10,'claude101':9,'llms':8,'rag':7,'herramientas':6,'ecosistema':7,'costos':10,'quiz1':5,'cierre-m1':4,'prompting':9,'agentes':8,'patrones':12,'usos':7,'plataformas':6,'quiz2':5,'cierre-m2':4,'mcp':8,'mcp-usar':7,'mcp-avanzado':8,'subagentes':7,'console-org':10,'console-compilar':7,'console':9,'managed':8,'skills':9,'claude-code':6,'cowork':5,'quiz3a':5,'cierre-m3a':4,'nocode':7,'tam':8,'python':8,'ejercicios':10,'ejemplos':7,'quiz4':5,'cierre-m4':4,'bedrock-intro':7,'bedrock-tech':8,'bedrock-costos':7,'bedrock-practica':8,'bedrock-agents':8,'quiz5':5,'cierre-m5':4,'vertex-intro':6,'vertex-tech':7,'vertex-practica':7,'vertex-avanzado':8,'quiz6':5,'cierre-m6':4,'glosario':8,'seg-datos':8,'seg-api-vs-agents':8,'seg-planes':7,'seg-practicas':7,'seg-advertencias':6,'recursos':5,'cierre-m7':4,'examen':15};
+
+const ROLE_PAGES={
+  pm:['home','intro-ia','claude101','ecosistema','costos','agentes','usos','plataformas','nocode','ejemplos','seg-planes','recursos','cierre-m1','cierre-m2','cierre-m4','cierre-m7'],
+  tam:['home','intro-ia','llms','rag','costos','agentes','patrones','mcp','mcp-usar','console-org','console','managed','skills','tam','python','ejercicios','ejemplos','seg-datos','seg-api-vs-agents','seg-practicas'],
+  dev:['intro-ia','llms','rag','mcp-avanzado','subagentes','console-compilar','claude-code','python','bedrock-tech','bedrock-agents','vertex-tech','vertex-practica','seg-api-vs-agents','seg-practicas'],
+  exec:['home','intro-ia','ecosistema','costos','agentes','usos','ejemplos','seg-planes','cierre-m1','cierre-m2','cierre-m4','cierre-m7']
+};
+let _role=null;
+
+function setRole(r){
+  _role=r;
+  document.querySelectorAll('.role-btn').forEach(b=>b.classList.toggle('active',b.dataset.role===r));
+  const rp=ROLE_PAGES[r]||[];
+  document.querySelectorAll('.nb').forEach(nb=>{
+    const oc=nb.getAttribute('onclick')||'';
+    const id=oc.indexOf("go('")>=0?oc.split("go('")[1].split("'")[0]:'';
+    nb.classList.toggle('role-match',rp.includes(id));
+  });
+  const names={pm:'PM / Producto',tam:'TAM / Integrador',dev:'Desarrollador',exec:'Ejecutivo'};
+  showToast('🎯 Ruta '+names[r]+' activa — páginas marcadas con ★');
+}
+
+function showToast(msg,dur){
+  dur=dur||3000;
+  let t=document.getElementById('aa-toast');
+  if(!t){t=document.createElement('div');t.id='aa-toast';document.body.appendChild(t);}
+  t.textContent=msg;t.style.opacity='1';
+  clearTimeout(t._t);t._t=setTimeout(function(){t.style.opacity='0';},dur);
+}
+
+function searchGlosario(val){
+  const q=val.toLowerCase().trim();
+  document.querySelectorAll('.glos-item').forEach(function(el){
+    el.classList.toggle('hidden',q.length>0&&!el.textContent.toLowerCase().includes(q));
+  });
+}
+
+function flipCard(el){el.closest('.flip-card').classList.toggle('flipped');}
+
+function showReadTime(id){
+  const t=READ_TIMES[id];if(!t)return;
+  const pg=document.getElementById('pg-'+id);if(!pg)return;
+  const ey=pg.querySelector('.ey');if(!ey)return;
+  if(!ey.querySelector('.read-time')){
+    const sp=document.createElement('span');sp.className='read-time';sp.textContent='~'+t+' min';ey.appendChild(sp);
+  }
+}
+
+function animateCounters(){
+  document.querySelectorAll('[data-count]').forEach(function(el){
+    const target=parseInt(el.dataset.count)||0;
+    let n=0;const step=Math.max(1,Math.ceil(target/30));
+    const tm=setInterval(function(){n=Math.min(n+step,target);el.textContent=n;if(n>=target)clearInterval(tm);},35);
+  });
+}
+
+
+// ── EJERCICIOS INTERACTIVOS ──────────────────────────────
+
+// Responder opción única (quiz de ejercicio)
+function exAnswer(btnEl, isCorrect, feedbackOk, feedbackFail){
+  const container = btnEl.closest('.ex-options') || btnEl.closest('.ex-scenarios');
+  if(!container) return;
+  // Disable all
+  container.querySelectorAll('button,div[onclick]').forEach(b=>{
+    b.disabled=true;
+    b.style.cursor='default';
+    b.onclick=null;
+  });
+  if(isCorrect){
+    btnEl.classList.add('selected-correct');
+  } else {
+    btnEl.classList.add('selected-wrong');
+    // Show correct one
+    container.querySelectorAll('[data-correct="true"]').forEach(b=>b.classList.add('show-correct'));
+  }
+  const fb = btnEl.closest('.ex-block')?.querySelector('.ex-feedback');
+  if(fb){
+    fb.className='ex-feedback show '+(isCorrect?'ok':'fail');
+    fb.innerHTML='<strong>'+(isCorrect?'✅ Correcto':'❌ Incorrecto')+'</strong>'+(isCorrect?feedbackOk:feedbackFail);
+  }
+}
+
+// Revelar respuesta tras pensarlo
+function exReveal(btnEl){
+  const ans = btnEl.nextElementSibling;
+  if(!ans) return;
+  ans.classList.add('show');
+  btnEl.style.display='none';
+}
+
+// Checklist interactivo (sin persistencia — solo sesión)
+function exCheck(itemEl){
+  itemEl.classList.toggle('checked');
+  const box = itemEl.querySelector('.ex-check-box');
+  if(box) box.textContent = itemEl.classList.contains('checked') ? '✓' : '';
+  // Update counter
+  const list = itemEl.closest('.ex-checklist');
+  if(!list) return;
+  const counter = list.parentElement?.querySelector('.ex-check-counter');
+  if(!counter) return;
+  const total = list.querySelectorAll('.ex-check-item').length;
+  const done = list.querySelectorAll('.ex-check-item.checked').length;
+  counter.textContent = done+'/'+total+' completados'+(done===total?' — ✅ listo para producción!':'');
+}
+
+// Escenarios de decisión: usuario elige, luego ve por qué
+let _exMatchSelected = null;
+function exMatchLeft(el, group){
+  const container = el.closest('[data-match-group="'+group+'"]');
+  if(!container) return;
+  container.querySelectorAll('.ex-match-left').forEach(e=>e.classList.remove('selected'));
+  el.classList.add('selected');
+  _exMatchSelected = {el, val: el.dataset.val, group};
+}
+function exMatchRight(el, group){
+  if(!_exMatchSelected || _exMatchSelected.group !== group) return;
+  const leftEl = _exMatchSelected.el;
+  const isMatch = _exMatchSelected.val === el.dataset.match;
+  if(isMatch){
+    leftEl.classList.remove('selected');
+    leftEl.classList.add('matched');
+    el.classList.add('matched');
+    leftEl.onclick=null; el.onclick=null;
+  } else {
+    leftEl.classList.add('wrong-match');
+    el.classList.add('wrong-match');
+    setTimeout(()=>{
+      leftEl.classList.remove('wrong-match');
+      el.classList.remove('wrong-match');
+    },500);
+  }
+  _exMatchSelected = null;
+  // Check if all matched
+  const container = el.closest('[data-match-group="'+group+'"]');
+  if(!container) return;
+  const total = container.querySelectorAll('.ex-match-left').length;
+  const done = container.querySelectorAll('.ex-match-left.matched').length;
+  if(done===total){
+    const fb = container.parentElement?.querySelector('.ex-feedback');
+    if(fb){fb.className='ex-feedback show ok';fb.innerHTML='<strong>✅ ¡Perfecto!</strong> Todas las asociaciones son correctas.';}
+  }
+}
+
+// Tag selection (elegir cuál aplica)
+function exTagToggle(el, max){
+  const wrap = el.closest('.ex-tags');
+  if(!wrap) return;
+  const sel = wrap.querySelectorAll('.tag-sel');
+  if(el.classList.contains('tag-sel')){
+    el.classList.remove('tag-sel');
+  } else {
+    if(sel.length >= (max||99)) return;
+    el.classList.add('tag-sel');
+  }
+}
+function exTagCheck(btnEl, correctIds){
+  const wrap = btnEl.closest('.ex-block')?.querySelector('.ex-tags');
+  if(!wrap) return;
+  const correct = new Set(correctIds);
+  let allOk = true;
+  wrap.querySelectorAll('.ex-tag').forEach(tag=>{
+    const isSel = tag.classList.contains('tag-sel');
+    const isCorrect = correct.has(tag.dataset.id);
+    tag.onclick = null;
+    if(isSel && isCorrect){ tag.classList.add('tag-correct'); }
+    else if(isSel && !isCorrect){ tag.classList.add('tag-wrong'); allOk=false; }
+    else if(!isSel && isCorrect){ tag.classList.add('tag-correct'); allOk=false; }
+  });
+  const fb = btnEl.closest('.ex-block')?.querySelector('.ex-feedback');
+  if(fb){
+    fb.className='ex-feedback show '+(allOk?'ok':'fail');
+    fb.innerHTML='<strong>'+(allOk?'✅ ¡Correcto!':'❌ Hay diferencias — en verde las respuestas correctas')+'</strong>'+(btnEl.dataset.explanation||'');
+  }
+  btnEl.disabled=true;
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  showReadTime('home');
+  setTimeout(animateCounters,500);
+  // Reset scroll on load
+  window.scrollTo(0,0);
+  document.documentElement.scrollTop=0;
+  updateProgress();
+  // Attribution protection
+  document.querySelectorAll('.author-block').forEach(el=>{
+    el.addEventListener('contextmenu',e=>e.preventDefault());
+    el.addEventListener('dragstart',e=>e.preventDefault());
+  });
+  try{renderExBrowser();}catch(e){console.error('renderExBrowser:',e);}
+  try{renderQuizzes();}catch(e){console.error('renderQuizzes:',e);}
+  try{updateCostCalc();}catch(e){}
+  try{updateVolWidget();}catch(e){}
+  setTimeout(()=>{try{calcROI();}catch(e){}},200);
+  setTimeout(()=>{try{calcTAM();}catch(e){}},300);
+  setTimeout(()=>{try{calcTAM2();}catch(e){}},350);
+  setTimeout(addCopyButtons,150);
+});
+</script>
 </body>
 </html>
